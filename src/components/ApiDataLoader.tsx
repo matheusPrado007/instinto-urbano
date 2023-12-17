@@ -43,7 +43,7 @@ const ApiDataLoader = () => {
 
             console.log('Token enviado:', refreshToken);
 
-            const resposta = await fetch('https://api-rastro-urbano.onrender.com/upload/users', {
+            const resposta = await fetch('https://api-rastro-urbano.onrender.com/upload/artes', {
                 method: 'GET',
                 headers: {
                     Authorization: refreshToken
@@ -79,8 +79,8 @@ const ApiDataLoader = () => {
                 {dados.map((item: any) => (
                     <li key={item._id}>
                         <div>
-                            <p>Artistas:  {item.username}</p>
-                            <img src={item.foto_perfil} width="60%" alt={`Arte de ${item.foto_perfil}`} />
+                            <img src={item.foto} width="60%" alt={`Arte de ${item.nome_artista}`} />
+                            <p>  {item.nome_artista}</p>
                         </div>
                     </li>
                 ))}
