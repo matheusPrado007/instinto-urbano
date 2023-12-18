@@ -15,14 +15,25 @@ interface GaleriaProps {
 }
 
 const Galeria: React.FC<GaleriaProps> = ({ dados }) => {
-  const numImagensVisiveis = 3; // Defina o número desejado de imagens visíveis por tela
-  const larguraTotal = 100 / numImagensVisiveis; // Calcula a largura total da galeria-item
+
+
+  let numImagensVisiveis = dados.length; 
+  
+  const funcTrue = () => {
+    if(window.innerWidth < 768) {
+      numImagensVisiveis = 2
+       
+      return 100 / numImagensVisiveis;
+    } else {
+      return 100 / numImagensVisiveis;
+    }
+  };
 
   return (
     <Carousel
-    className='galeria'
+      className="galeria"
       showArrows={true}
-      showThumbs={false}
+      showThumbs={false} // Desativar thumbs padrão
       infiniteLoop={true}
       showStatus={false}
       centerMode={true}
@@ -43,7 +54,7 @@ const Galeria: React.FC<GaleriaProps> = ({ dados }) => {
         )
       }
       renderIndicator={() => null}
-      centerSlidePercentage={larguraTotal} // Configura a largura total da galeria-item
+      centerSlidePercentage={funcTrue()}
     >
       {dados.map((item: GaleriaItem) => (
         <div key={item._id} className="galeria-item">
