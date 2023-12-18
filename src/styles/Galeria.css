@@ -1,6 +1,6 @@
 /* Galeria.css */
 .galeria {
-    background-color: rgb(241, 233, 233);
+    background-color: rgb(254, 248, 248);
     padding: 1rem;
 }
 
@@ -28,6 +28,7 @@
   }
   
   button {
+    color: rgb(167, 170, 172);
     position: absolute;
     top: 50%;
     transform: translateY(-50%);

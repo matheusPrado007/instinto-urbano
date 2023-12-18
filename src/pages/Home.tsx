@@ -11,7 +11,7 @@ const Home: React.FC = () => {
     <>
       <Header />
       <div className="container">
-        <p>Arte de rua.</p>
+        <p>Sua comunidade de Arte de Rua.</p>
         <div className="input-container">
           <input type="text" className="inputField" placeholder="Pesquisar..." />
           <div className="search-icon">
