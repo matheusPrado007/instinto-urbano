@@ -1,0 +1,47 @@
+/* Galeria.css */
+.galeria {
+    background-color: rgb(241, 233, 233);
+    padding: 1rem;
+}
+
+
+.galeria-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+    margin-right: 10px; /* Ajuste conforme necessário para a margem entre as imagens */
+  }
+  
+  .imagem-galeria {
+    width: 100%; /* Ajusta a largura da imagem para ocupar 100% do contêiner */
+    max-width: 300px; /* Largura máxima desejada para as imagens pequenas */
+    border-radius: 8px;
+  }
+  
+  .nome-artista,
+  .nome-trabalho {
+    margin-top: 10px;
+    font-size: 1.1rem;
+  }
+  
+  button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 6rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:first-child {
+    left: 10px;
+  }
+  
+  button:last-child {
+    right: 10px;
+  }
+  

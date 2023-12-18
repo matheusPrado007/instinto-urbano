@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Galeria from './Galeria';
 
 const ApiDataLoader = () => {
     const [dados, setDados] = useState([]);
@@ -74,18 +75,7 @@ const ApiDataLoader = () => {
 
     return (
         <div>
-        {dados.length > 0 && (
-            <ul>
-                {dados.map((item: any) => (
-                    <li key={item._id}>
-                        <div>
-                            <img src={item.foto} width="60%" alt={`Arte de ${item.nome_artista}`} />
-                            <p>  {item.nome_artista}</p>
-                        </div>
-                    </li>
-                ))}
-            </ul>
-        )}
+             <Galeria dados={dados} />
     </div>
     );
 };
