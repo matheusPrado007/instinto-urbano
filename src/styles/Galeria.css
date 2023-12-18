@@ -41,7 +41,7 @@
 
 
 button {
-  color: #0c0f0b; /* Cor do ícone do botão */
+  color: #000000; /* Cor do ícone do botão */
   position: absolute;
   top: 50%;
   font-size: 1.99rem; /* Aumentei o tamanho */
@@ -49,12 +49,12 @@ button {
   border: none;
   cursor: pointer;
   transition: color 0.3s ease; /* Adiciona uma transição suave para a mudança de cor */
-  transform: translateY(290%);
+  transform: translateY(220%);
   z-index: 2; 
 }
 
 button:hover {
-  color: #e44d26; /* Cor do ícone do botão ao passar o mouse */
+  color: #444; /* Cor do ícone do botão ao passar o mouse */
 }
 
 button:first-child {
