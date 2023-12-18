@@ -1,5 +1,3 @@
-/* SeuComponente.css */
-
 .container {
     display: flex;
     flex-direction: column;
@@ -30,8 +28,10 @@
     color: black;
     width: 1.4rem;
   }
-  p {
-    font-size: 1.5rem;
+
+
+  H1, p {
+    font-size: 1.9rem;
   }
   @media screen and (max-width: 600px) {
     .inputField {
