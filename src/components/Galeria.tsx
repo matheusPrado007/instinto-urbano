@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import '../styles/Galeria.css';
@@ -15,30 +15,40 @@ interface GaleriaProps {
 }
 
 const Galeria: React.FC<GaleriaProps> = ({ dados }) => {
+  const [larguraTotal, setLarguraTotal] = useState(100);
 
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth / 220;
+      const numImagensVisiveis: any = dados.length > 0 ? isMobile.toFixed(1) : dados.length;
+      const novaLarguraTotal = 100 / numImagensVisiveis;
+      setLarguraTotal(novaLarguraTotal);
+    };
 
-  let numImagensVisiveis = dados.length; 
-  
-  const funcTrue = () => {
-    if(window.innerWidth < 768) {
-      numImagensVisiveis = 2
-       
-      return 100 / numImagensVisiveis;
-    } else {
-      return 100 / numImagensVisiveis;
-    }
-  };
+    // Adiciona o listener de evento
+    window.addEventListener('resize', handleResize);
+
+    // Chama handleResize quando o componente monta
+    handleResize();
+
+    // Remove o listener de evento ao desmontar o componente
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [dados.length]); 
+
 
   return (
     <Carousel
       className="galeria"
       showArrows={true}
-      showThumbs={false} // Desativar thumbs padrão
+      showThumbs={false} 
       infiniteLoop={true}
       showStatus={false}
       centerMode={true}
       emulateTouch={true}
       selectedItem={0}
+      swipeable={true} 
       renderArrowPrev={(onClickHandler, hasPrev) =>
         hasPrev && (
           <button type="button" onClick={onClickHandler} title="Anterior">
@@ -54,7 +64,7 @@ const Galeria: React.FC<GaleriaProps> = ({ dados }) => {
         )
       }
       renderIndicator={() => null}
-      centerSlidePercentage={funcTrue()}
+      centerSlidePercentage={larguraTotal}
     >
       {dados.map((item: GaleriaItem) => (
         <div key={item._id} className="galeria-item">
