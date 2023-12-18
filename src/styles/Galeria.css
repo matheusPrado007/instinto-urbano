@@ -9,32 +9,34 @@
 .galeria {
   background-color: #fafafa; /* Fundo mais claro */
   padding: 1rem;
+  width: 70%;
+  display: flex;
+  margin: auto;
 }
 
 .galeria-item {
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   margin: 0 auto;
-  margin-left: 4vw;
-  margin-right: 4vw; /* Ajuste conforme necessário para a margem entre as imagens */
   border-radius: 8px;
-  overflow: hidden; /* Garante que as bordas arredondadas se apliquem corretamente */
+  overflow: hidden;
 }
 
 .imagem-galeria {
-  width: 100%; /* Ajusta a largura da imagem para ocupar 100% do contêiner */
-  max-width: 300px; /* Largura máxima desejada para as imagens pequenas */
+  width: 100%; 
+  max-width: 300px; 
   border-radius: 8px;
 }
 
 .nome-artista,
 .nome-trabalho {
   margin-top: 10px;
-  font-size: 2vw; /* Tamanho da fonte em relação à largura da tela */
-  color: #333; /* Cor do texto */
+  font-size: 2ex; 
+  color: #333; 
 }
 
 
@@ -47,7 +49,7 @@ button {
   border: none;
   cursor: pointer;
   transition: color 0.3s ease; /* Adiciona uma transição suave para a mudança de cor */
-  transform: translateY(-30%);
+  transform: translateY(290%);
   z-index: 2; 
 }
 
