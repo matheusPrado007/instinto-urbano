@@ -46,8 +46,8 @@ const Galeria: React.FC<GaleriaProps> = ({ dados }) => {
       infiniteLoop={true}
       showStatus={false}
       centerMode={true}
-      emulateTouch={true}
       selectedItem={0}
+      emulateTouch={false}
       swipeable={true} 
       renderArrowPrev={(onClickHandler, hasPrev) =>
         hasPrev && (

@@ -34,44 +34,50 @@ const ApiDataLoader = () => {
 
     const getData = async () => {
         try {
-            const { accessToken, refreshToken } = await fazerLogin();
-
-            if (refreshToken === null) {
-                // Lida com a situação em que accessToken é nulo (undefined ou erro)
-                console.error('Erro: AccessToken é nulo.');
-                return;
-            }
-
-            console.log('Token enviado:', refreshToken);
-
-            const resposta = await fetch('https://api-rastro-urbano.onrender.com/upload/artes', {
-                method: 'GET',
-                headers: {
-                    Authorization: refreshToken
-                }
-            });
-
-            console.log('Resposta da requisição GET:', resposta);
-
-            if (!resposta.ok) {
-                const erroTexto = await resposta.text();
-                console.error('Erro ao obter dados. Status:', resposta.status, 'Mensagem:', erroTexto);
-                throw new Error('Erro ao obter dados');
-            }
-
-            const dadosJson = await resposta.json();
-            setDados(dadosJson)
-            console.log('Dados obtidos:', dadosJson);
-
+          const { accessToken, refreshToken } = await fazerLogin();
+      
+          if (!refreshToken) {
+            console.error('Erro: RefreshToken é nulo.');
+            return;
+          }
+      
+          console.log('Token enviado:', refreshToken);
+      
+          const resposta = await fetch('https://api-rastro-urbano.onrender.com/upload/artes', {
+            method: 'GET',
+            headers: {
+              Authorization: refreshToken,
+            },
+          });
+      
+          console.log('Resposta da requisição GET:', resposta);
+      
+          if (!resposta.ok) {
+            const erroTexto = await resposta.text();
+            console.error('Erro ao obter dados. Status:', resposta.status, 'Mensagem:', erroTexto);
+            throw new Error('Erro ao obter dados');
+          }
+      
+          const dadosJson = await resposta.json();
+          localStorage.setItem('dados', JSON.stringify(dadosJson));
+      
+          // Recupera os dados do localStorage
+          const dadosLocalStorage = localStorage.getItem('dados');
+          if (dadosLocalStorage) {
+            const dadosConvertidos = JSON.parse(dadosLocalStorage);
+            setDados(dadosConvertidos);
+            console.log('Dados obtidos do localStorage:', dadosConvertidos);
+          }
         } catch (error: any) {
-            console.error('Erro durante a requisição GET de dados:', error);
-            setErro(error);
+          console.error('Erro durante a requisição GET de dados:', error);
+          setErro(error.message || 'Erro durante a requisição GET de dados');
         }
-    }
-
-    useEffect(() => {
+      };
+      
+      useEffect(() => {
         getData();
-    }, []);
+      }, []);
+      
 
     return (
         <div>
