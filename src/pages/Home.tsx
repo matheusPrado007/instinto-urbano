@@ -10,7 +10,7 @@ const Home: React.FC = () => {
   return (
     <>
       <Header />
-      <div className="container">
+      <div className="container-home">
         <p>Sua comunidade de Arte de Rua.</p>
         <div className="input-container">
           <input type="text" className="inputField" placeholder="Pesquisar..." />
