@@ -7,10 +7,9 @@
 }
 
 .galeria {
-  background-color: #fafafa; /* Fundo mais claro */
-  padding: 1rem;
+  background-color: #fafafa;
+  padding: 1rem; 
   width: 80%;
-  display: flex;
   margin: auto;
 }
 
@@ -22,15 +21,16 @@
   justify-content: center;
   text-align: center;
   margin: auto;
-  padding: 10px;
   border-radius: 8px;
   overflow: hidden;
 }
 
+
 .imagem-galeria {
-  width: 100%; 
+  width: 92%; 
   max-width: 300px; 
   border-radius: 8px;
+  margin: 5px;
 }
 
 .nome-artista,
@@ -41,28 +41,29 @@
 }
 
 
-button {
-  color: #000000; /* Cor do ícone do botão */
+.custom-prev-arrow,
+.custom-next-arrow {
   position: absolute;
   top: 50%;
-  font-size: 1.99rem; /* Aumentei o tamanho */
-  background: none;
-  border: none;
+  width: 30px;
+  height: 30px;
+  transform: translateY(-50%);
   cursor: pointer;
-  transition: color 0.3s ease; /* Adiciona uma transição suave para a mudança de cor */
-  transform: translateY(220%);
-  z-index: 2; 
+  font-size: 24px;
+  background-color: #fff; 
+  border: 1px solid #ddd; 
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  opacity: 0.4;
 }
 
-button:hover {
-  color: #444; /* Cor do ícone do botão ao passar o mouse */
+.custom-prev-arrow {
+  left: -29px;
 }
 
-button:first-child {
-  left: -25px; /* Ajustei a posição para ficar mais próximo da borda */
+.custom-next-arrow {
+  right: -29px;
 }
-
-button:last-child {
-  right: 0; /* Ajustei a posição para ficar mais próximo da borda */
-}
-
