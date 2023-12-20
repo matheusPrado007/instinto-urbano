@@ -1,4 +1,3 @@
-/* Estilos com setas mais visíveis para a galeria */
 
 * {
   margin: 0;
@@ -8,7 +7,7 @@
 
 .galeria {
   background-color: #fafafa;
-  padding: 1rem; 
+  /* padding: 1rem;  */
   width: 80%;
   margin: auto;
 }
@@ -23,21 +22,27 @@
   margin: auto;
   border-radius: 8px;
   overflow: hidden;
+
 }
 
 
 .imagem-galeria {
-  width: 92%; 
+  width: calc(100% - 20px);
+  height: 170px;
   max-width: 300px; 
   border-radius: 8px;
-  margin: 5px;
+  margin: 0 auto;
+  object-fit: cover;
 }
 
 .nome-artista,
 .nome-trabalho {
+  width: 100%;
   margin-top: 10px;
   font-size: 2ex; 
   color: #333; 
+  text-align: center;
+  margin: 0 auto;
 }
 
 
