@@ -82,7 +82,7 @@ const ApiDataLoader = () => {
     return (
         <div>
              <Galeria dados={dados} />
-    </div>
+        </div>
     );
 };
 

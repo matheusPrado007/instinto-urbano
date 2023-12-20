@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import {CustomNextArrow, CustomPrevArrow} from './Btn';
+
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 import '../styles/Galeria.css';
 
 interface GaleriaItem {
@@ -19,53 +22,37 @@ const Galeria: React.FC<GaleriaProps> = ({ dados }) => {
 
   useEffect(() => {
     const handleResize = () => {
-      const isMobile = window.innerWidth / 220;
-      const numImagensVisiveis: any = dados.length > 0 ? isMobile.toFixed(1) : dados.length;
-      const novaLarguraTotal = 100 / numImagensVisiveis;
-      setLarguraTotal(novaLarguraTotal);
+      const numeroDeImgs = window.innerWidth / 220;
+
+      const numeroTotal = +numeroDeImgs.toFixed(0) < dados.length ? numeroDeImgs : dados.length -1
+      console.log(+numeroTotal);
+      
+      setLarguraTotal(+numeroTotal);
     };
 
-    // Adiciona o listener de evento
     window.addEventListener('resize', handleResize);
-
-    // Chama handleResize quando o componente monta
     handleResize();
 
-    // Remove o listener de evento ao desmontar o componente
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, [dados.length]); 
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: larguraTotal,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true, 
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+  };
 
   return (
-    <Carousel
-      className="galeria"
-      showArrows={true}
-      showThumbs={false} 
-      infiniteLoop={true}
-      showStatus={false}
-      centerMode={true}
-      selectedItem={0}
-      emulateTouch={false}
-      swipeable={true} 
-      renderArrowPrev={(onClickHandler, hasPrev) =>
-        hasPrev && (
-          <button type="button" onClick={onClickHandler} title="Anterior">
-            &lt;
-          </button>
-        )
-      }
-      renderArrowNext={(onClickHandler, hasNext) =>
-        hasNext && (
-          <button type="button" onClick={onClickHandler} title="Próximo">
-            &gt;
-          </button>
-        )
-      }
-      renderIndicator={() => null}
-      centerSlidePercentage={larguraTotal}
-    >
+    <Slider {...settings} className='galeria'>
       {dados.map((item: GaleriaItem) => (
         <div key={item._id} className="galeria-item">
           <img
@@ -77,7 +64,7 @@ const Galeria: React.FC<GaleriaProps> = ({ dados }) => {
           <p className="nome-trabalho">{item.nome}</p>
         </div>
       ))}
-    </Carousel>
+    </Slider>
   );
 };
 
