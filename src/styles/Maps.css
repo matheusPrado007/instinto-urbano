@@ -1,0 +1,28 @@
+
+
+.leaflet-container {
+    height: 250px;
+    width: 90%;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f4f4f4;
+    overflow: hidden;
+    border: 2px solid #33333342; 
+  }
+  
+
+.title-maps {
+    font-size: 24px; 
+    color: #333; 
+    margin-bottom: 10px;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+  }
+  

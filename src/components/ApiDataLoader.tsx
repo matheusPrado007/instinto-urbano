@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Galeria from './Galeria';
+import MapaArteDeRua from './Maps';
+import Footer from './Footer';
 
 const ApiDataLoader = () => {
     const [dados, setDados] = useState([]);
@@ -34,55 +36,56 @@ const ApiDataLoader = () => {
 
     const getData = async () => {
         try {
-          const { accessToken, refreshToken } = await fazerLogin();
-      
-          if (!refreshToken) {
-            console.error('Erro: RefreshToken é nulo.');
-            return;
-          }
-      
-          console.log('Token enviado:', refreshToken);
-      
-          const resposta = await fetch('https://api-rastro-urbano.onrender.com/upload/artes', {
-            method: 'GET',
-            headers: {
-              Authorization: refreshToken,
-            },
-          });
-      
-          console.log('Resposta da requisição GET:', resposta);
-      
-          if (!resposta.ok) {
-            const erroTexto = await resposta.text();
-            console.error('Erro ao obter dados. Status:', resposta.status, 'Mensagem:', erroTexto);
-            throw new Error('Erro ao obter dados');
-          }
-      
-          const dadosJson = await resposta.json();
-          localStorage.setItem('dados', JSON.stringify(dadosJson));
-      
-          // Recupera os dados do localStorage
-          const dadosLocalStorage = localStorage.getItem('dados');
-          if (dadosLocalStorage) {
+            const { accessToken, refreshToken } = await fazerLogin();
+
+            if (!refreshToken) {
+                console.error('Erro: RefreshToken é nulo.');
+                return;
+            }
+
+            console.log('Token enviado:', refreshToken);
+
+            const resposta = await fetch('https://api-rastro-urbano.onrender.com/upload/artes', {
+                method: 'GET',
+                headers: {
+                    Authorization: refreshToken,
+                },
+            });
+
+            console.log('Resposta da requisição GET:', resposta);
+
+            if (!resposta.ok) {
+                const erroTexto = await resposta.text();
+                console.error('Erro ao obter dados. Status:', resposta.status, 'Mensagem:', erroTexto);
+                throw new Error('Erro ao obter dados');
+            }
+
+            const dadosLocalStorage: any = localStorage.getItem('dados');
+            
+            const dadosJson = await resposta.json();
+            if (!dadosLocalStorage) {
+                localStorage.setItem('dados', JSON.stringify(dadosJson));               
+            }
+
             const dadosConvertidos = JSON.parse(dadosLocalStorage);
-            setDados(dadosConvertidos);
+            setDados(dadosJson);
             console.log('Dados obtidos do localStorage:', dadosConvertidos);
-          }
         } catch (error: any) {
-          console.error('Erro durante a requisição GET de dados:', error);
-          setErro(error.message || 'Erro durante a requisição GET de dados');
+            console.error('Erro durante a requisição GET de dados:', error);
+            setErro(error.message || 'Erro durante a requisição GET de dados');
         }
-      };
-      
-      useEffect(() => {
+    };
+
+    useEffect(() => {
         getData();
-      }, []);
-      
+    }, []);
+
 
     return (
-        <div>
-             <Galeria dados={dados} />
-        </div>
+        <>
+        <Galeria dados={dados} />
+        <MapaArteDeRua dados={dados} />
+        </>
     );
 };
 

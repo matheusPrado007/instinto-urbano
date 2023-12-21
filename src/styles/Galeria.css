@@ -7,9 +7,9 @@
 
 .galeria {
   background-color: #fafafa;
-  /* padding: 1rem;  */
   width: 80%;
   margin: auto;
+  margin-bottom: 3rem;
 }
 
 .galeria-item {

@@ -6,11 +6,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import '../styles/Galeria.css';
 
+
 interface GaleriaItem {
   _id: string;
   foto: string;
   nome_artista: string;
   nome: string;
+  endereco: string
 }
 
 interface GaleriaProps {
@@ -52,6 +54,7 @@ const Galeria: React.FC<GaleriaProps> = ({ dados }) => {
   };
 
   return (
+    <>
     <Slider {...settings} className='galeria'>
       {dados.map((item: GaleriaItem) => (
         <div key={item._id} className="galeria-item">
@@ -62,9 +65,11 @@ const Galeria: React.FC<GaleriaProps> = ({ dados }) => {
           />
           <p className="nome-artista">{item.nome_artista}</p>
           <p className="nome-trabalho">{item.nome}</p>
+          <p className="nome-trabalho">{item.endereco}</p>
         </div>
       ))}
     </Slider>
+    </>
   );
 };
 
