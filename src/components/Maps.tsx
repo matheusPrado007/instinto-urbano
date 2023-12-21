@@ -70,7 +70,7 @@ const MapaArteDeRua = ({ dados }: any) => {
 
   return (
     <div>
-      <p className='title-maps'>Veja a arte mais próxima de você.</p>
+      <p className='title-maps'>Veja as artes mais próximas de você.</p>
     <MapContainer center={[-19.93221142062016, -43.95088731171624]} zoom={4.5}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
