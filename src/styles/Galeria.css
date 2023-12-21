@@ -1,0 +1,74 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.galeria {
+  background-color: #fafafa;
+  width: 80%;
+  margin: auto;
+  margin-bottom: 3rem;
+}
+
+.galeria-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  border-radius: 8px;
+  overflow: hidden;
+
+}
+
+
+.imagem-galeria {
+  width: calc(100% - 20px);
+  height: 170px;
+  max-width: 300px; 
+  border-radius: 8px;
+  margin: 0 auto;
+  object-fit: cover;
+}
+
+.nome-artista,
+.nome-trabalho {
+  width: 100%;
+  margin-top: 10px;
+  font-size: 2ex; 
+  color: #333; 
+  text-align: center;
+  margin: 0 auto;
+}
+
+
+.custom-prev-arrow,
+.custom-next-arrow {
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 24px;
+  background-color: #fff; 
+  border: 1px solid #ddd; 
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  opacity: 0.4;
+}
+
+.custom-prev-arrow {
+  left: -29px;
+}
+
+.custom-next-arrow {
+  right: -29px;
+}

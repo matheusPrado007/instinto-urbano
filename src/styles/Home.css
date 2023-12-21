@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-color: #fafafa;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column; 
+  }
+
+.container-home {
+    font-size: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    flex: 1;
+  }
+  
+  .input-container {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .inputField {
+    width: 80%;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    border-radius: 35px;
+  }
+  
+  .search-icon img {
+    position: absolute;
+    top: 50%;
+    right: 12%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: black;
+    width: 1.4rem;
+  }
+
+
+  @media screen and (max-width: 600px) {
+    .inputField {
+      margin-top: 5px;
+    }
+  }
+
+  .map-container {
+    display: flex;
+    width: 50%;
+    align-items: center;
+  }

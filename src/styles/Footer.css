@@ -1,0 +1,19 @@
+footer {
+  color: #333;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Adiciona centralização horizontal */
+  align-items: center; /* Adiciona centralização vertical */
+  z-index: 1;
+}
+
+@media screen and (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center; /* Centraliza o texto quando a largura da tela é menor que 600px */
+  }
+}
