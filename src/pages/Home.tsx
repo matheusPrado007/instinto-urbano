@@ -23,6 +23,18 @@ const Home: React.FC = () => {
         <section className='galeria-home'>
           <ApiDataLoader />
         </section>
+        <section className="sobre-section">
+          <div className='text-sobre'>
+          <p className='titulo-sobre'>Descubra 'Rastro Urbano'</p>
+          <p className="intro-text">
+             Onde a paixão pela arte urbana ganha vida. Em nosso santuário virtual, proporcionamos uma experiência envolvente, revelando emoções e visuais únicos de cada obra nas ruas brasileiras.
+          </p>
+          <p className="intro-text">
+            Explore o legado de artistas extraordinários, que deixam sua marca por todo o país. 'Rastro Urbano' vai além de uma plataforma; é um portal apaixonado que conecta admiradores à riqueza da expressão artística urbana.
+          </p>
+          </div>
+          <button className='sobre-btn'>Sobre nós</button>
+        </section>
       </div>
       <Footer />
     </>

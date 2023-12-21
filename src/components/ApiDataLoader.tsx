@@ -60,16 +60,11 @@ const ApiDataLoader = () => {
                 throw new Error('Erro ao obter dados');
             }
 
-            const dadosLocalStorage: any = localStorage.getItem('dados');
-            
             const dadosJson = await resposta.json();
-            if (!dadosLocalStorage) {
-                localStorage.setItem('dados', JSON.stringify(dadosJson));               
-            }
+            localStorage.setItem('dados', JSON.stringify(dadosJson));
 
-            const dadosConvertidos = JSON.parse(dadosLocalStorage);
             setDados(dadosJson);
-            console.log('Dados obtidos do localStorage:', dadosConvertidos);
+            console.log('Dados obtidos e armazenados no localStorage:', dadosJson);
         } catch (error: any) {
             console.error('Erro durante a requisição GET de dados:', error);
             setErro(error.message || 'Erro durante a requisição GET de dados');
@@ -77,14 +72,24 @@ const ApiDataLoader = () => {
     };
 
     useEffect(() => {
+        // Chama getData imediatamente
         getData();
+
+        // Configura intervalo para chamar getData a cada minuto
+        const intervalId = setInterval(() => {
+            getData();
+        }, 120000);
+
+        // Limpa o intervalo ao desmontar o componente
+        return () => clearInterval(intervalId);
     }, []);
 
 
     return (
         <>
-        <Galeria dados={dados} />
-        <MapaArteDeRua dados={dados} />
+            <Galeria dados={dados} />
+            <MapaArteDeRua dados={dados} />
+            {/* Adicione outros componentes conforme necessário */}
         </>
     );
 };
