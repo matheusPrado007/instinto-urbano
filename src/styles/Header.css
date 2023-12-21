@@ -16,6 +16,12 @@ header {
 
 header nav.open ul {
   display: block;
+  position: absolute;
+  top: 70px; /* Ajuste conforme necessário para garantir a posição correta */
+  left: 0;
+  width: 100%;
+  background-color: #f8f8f8;
+  z-index: 1000;
 }
 
 header h1 {
@@ -78,6 +84,7 @@ header nav ul li a:hover {
   header {
     padding: 10px 5px;
   }
+  
   
   header nav ul {
     display: none;

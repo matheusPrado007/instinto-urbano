@@ -5,6 +5,12 @@
     background-color: #fafafa;
 }
 
+.main-container {
+    display: flex;
+    flex-direction: column; 
+    min-height: 100vh;
+  }
+
 .container-home {
     font-size: 1.3rem;
     display: flex;
@@ -12,6 +18,7 @@
     align-items: center;
     text-align: center;
     padding: 20px;
+    flex: 1;
   }
   
   .input-container {
@@ -44,4 +51,9 @@
       margin-top: 5px;
     }
   }
-  
+
+  .map-container {
+    display: flex;
+    width: 50%;
+    align-items: center;
+  }
