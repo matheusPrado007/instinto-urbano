@@ -1,19 +1,20 @@
 // src/pages/Home.tsx
 import React from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Importe o useHistory
+
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import ApiDataLoader from '../components/ApiDataLoader';
+import ApiDataLoader from '../services/ApiDataLoader';
 import '../styles/Home.css';
 
 const Home: React.FC = () => {
+  const navigate = useNavigate(); // Inicialize o usenavigate
 
-  // const SobreBtn = () => {
-    // const history = useHistory();
-  
-    // const redirecionarParaPaginaSobre = () => {
-    //   history.push('/pagina-sobre'); // Substitua '/pagina-sobre' pelo caminho real da sua página
-    // };
+  // Função para redirecionar para a página 'Sobre' ao clicar no botão
+  const redirecionarParaSobre = () => {
+    navigate('/sobre'); // Substitua '/sobre' pelo caminho real da sua página 'Sobre'
+  };
+
   
   return (
     <>
@@ -41,7 +42,7 @@ const Home: React.FC = () => {
             Explore o legado de artistas extraordinários, que deixam sua marca por todo o país. 'Rastro Urbano' vai além de uma plataforma; é um portal apaixonado que conecta admiradores à riqueza da expressão artística urbana.
           </p>
           </div>
-          <button className='sobre-btn'>Sobre nós</button>
+          <button className='sobre-btn' onClick={redirecionarParaSobre}>Sobre nós</button>
         </section>
       </div>
       <Footer />

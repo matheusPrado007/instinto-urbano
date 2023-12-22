@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Galeria from './Galeria';
+import Galeria from '../components/Galeria';
 import MapaArteDeRua from './Maps';
-import Footer from './Footer';
 
 const ApiDataLoader = () => {
     const [dados, setDados] = useState([]);
