@@ -25,4 +25,31 @@
     margin: auto;
     text-align: center;
   }
+
+.leaflet-popup-content-wrapper {
+  width: 100%;
+  max-width: 170px;
+  display: flex;
+  background-color: #ffffff98;
+  border-radius: 12px;
+}
+
+.localizacao-p{
+  background-color: #ffffff98;
+
+  width: 100%;
+}
+
+  .foto-map {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 0 20px  #297fb974; ;
+    background-color: #b7afaf98;
+    overflow: hidden;
+    border: 2px solid #66776d38; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+  }
   

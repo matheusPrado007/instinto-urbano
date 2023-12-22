@@ -36,7 +36,7 @@ const MapaArteDeRua = ({ dados }: any) => {
             if (response.data.length > 0) {
               const { lat, lon } = response.data[0];
               console.log(`Coordenadas encontradas para ${enderecoCompleto}: [${lat}, ${lon}]`);
-              return { id: arte.id, position: [parseFloat(lat), parseFloat(lon)], nome: arte.nome};
+              return { id: arte.id, position: [parseFloat(lat), parseFloat(lon)], nome: arte.nome, foto: arte.foto};
             } else {
               console.error(`Nenhuma coordenada encontrada para o endereço: ${enderecoCompleto}`);
               return null;
@@ -79,8 +79,9 @@ const MapaArteDeRua = ({ dados }: any) => {
       {
       centros.map((centro: any) => (
         <Marker key={centro.id} position={centro.position} icon={iconePadrao} >
-          <Popup>
-            Localização: {centro.nome}
+          <Popup className='container-popup'>
+            <img src={centro.foto} alt={centro.nome} className='foto-map' />
+           <p className='localizacao-p'> Localização: {centro.nome} </p>
           </Popup>
         </Marker>
       ))}
