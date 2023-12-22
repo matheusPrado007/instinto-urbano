@@ -1,12 +1,20 @@
 // src/pages/Home.tsx
 import React from 'react';
+// import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ApiDataLoader from '../components/ApiDataLoader';
 import '../styles/Home.css';
-import MapaArteDeRua from '../components/Maps';
 
 const Home: React.FC = () => {
+
+  // const SobreBtn = () => {
+    // const history = useHistory();
+  
+    // const redirecionarParaPaginaSobre = () => {
+    //   history.push('/pagina-sobre'); // Substitua '/pagina-sobre' pelo caminho real da sua página
+    // };
+  
   return (
     <>
       <Header />
