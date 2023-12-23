@@ -4,15 +4,16 @@ import { useNavigate } from 'react-router-dom'; // Importe o useHistory
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import ApiDataLoader from '../services/ApiDataLoader';
 import '../styles/Home.css';
+import Galeria from '../components/Galeria';
+import Maps from '../services/Maps';
 
 const Home: React.FC = () => {
-  const navigate = useNavigate(); // Inicialize o usenavigate
 
-  // Função para redirecionar para a página 'Sobre' ao clicar no botão
+  const navigate = useNavigate(); 
+
   const redirecionarParaSobre = () => {
-    navigate('/sobre'); // Substitua '/sobre' pelo caminho real da sua página 'Sobre'
+    navigate('/sobre');
   };
 
   
@@ -30,8 +31,9 @@ const Home: React.FC = () => {
           </div>
         </div>
         <section className='galeria-home'>
-          <ApiDataLoader />
+      <Galeria />
         </section>
+      <Maps />
         <section className="sobre-section">
           <div className='text-sobre'>
           <p className='titulo-sobre'>Descubra 'Rastro Urbano'</p>

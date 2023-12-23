@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import Galeria from '../components/Galeria';
-import MapaArteDeRua from './Maps';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import Galeria from '../../components/Galeria';
+import MapaArteDeRua from '../Maps';
 
-const ApiDataLoader = () => {
+const ApiContext = createContext<{ dados: any[]; erro: any; getData: () => void } | null>(null);
+
+
+export const ApiProvider = ({ children }: any) => {
     const [dados, setDados] = useState([]);
     const [erro, setErro] = useState(null);
 
@@ -83,14 +86,23 @@ const ApiDataLoader = () => {
         return () => clearInterval(intervalId);
     }, []);
 
+    const contextValue = {
+        dados,
+        erro,
+        getData,
+      };
 
     return (
-        <>
-            <Galeria dados={dados} />
-            <MapaArteDeRua dados={dados} />
-            {/* Adicione outros componentes conforme necessário */}
-        </>
-    );
+    <ApiContext.Provider value={contextValue}>
+      {children}
+    </ApiContext.Provider>
+  );
 };
 
-export default ApiDataLoader;
+export const useApi = () => {
+    const context = useContext(ApiContext);
+    if (!context) {
+      throw new Error('useApi deve ser usado dentro de um ApiProvider');
+    }
+    return context;
+  };

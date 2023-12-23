@@ -1,9 +1,9 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import ApiDataLoader from '../services/ApiDataLoader';
 import '../styles/About.css';
 import logo from '../assets/logo.png';
+import Galeria from '../components/Galeria';
 
 
 
@@ -36,6 +36,8 @@ const About: React.FC = () => {
       <div className='container-logo'>
       <img src={logo} alt="logo" className='logo-about' />
       </div>
+      <p className='about-h2'>Artes pelo Brasil</p>
+      <Galeria />
       <Footer />
     </>
   );

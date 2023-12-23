@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {CustomNextArrow, CustomPrevArrow} from './Btn';
+import { useApi } from '../services/context/ApiContext';
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
@@ -15,11 +16,10 @@ interface GaleriaItem {
   endereco: string
 }
 
-interface GaleriaProps {
-  dados: GaleriaItem[];
-}
 
-const Galeria: React.FC<GaleriaProps> = ({ dados }) => {
+
+const Galeria: React.FC = () => {
+  const { dados } = useApi();
   const [larguraTotal, setLarguraTotal] = useState(100);
 
   useEffect(() => {
