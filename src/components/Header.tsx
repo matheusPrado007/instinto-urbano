@@ -9,6 +9,8 @@ const Header: React.FC = () => {
     setMenuOpen(!isMenuOpen);
   };
 
+
+
   return (
     <header>
       <div className="menu-button" onClick={toggleMenu}>

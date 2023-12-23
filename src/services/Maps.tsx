@@ -7,8 +7,12 @@ import axios from 'axios';
 import IconUrl from 'leaflet/dist/images/marker-icon.png';
 import IconShadow from 'leaflet/dist/images/marker-shadow.png';
 import IconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
+import { useApi } from '../services/context/ApiContext';
 
-const MapaArteDeRua = ({ dados }: any) => {
+
+const Maps = () => {
+  const { dados } = useApi();
+
   const [centros, setCentros] = useState([]);
 
   useEffect(() => {
@@ -90,4 +94,4 @@ const MapaArteDeRua = ({ dados }: any) => {
   );
 };
 
-export default MapaArteDeRua;
+export default Maps;
