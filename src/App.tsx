@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Sobre from './pages/About';
+import ProfilePage from './pages/Profile';
 
 const AppRouter: React.FC = () => {
   return (
@@ -10,7 +11,7 @@ const AppRouter: React.FC = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sobre" element={<Sobre />} />
-        {/* Adicione mais rotas conforme necessário */}
+        <Route path="/profile/:userId" element={<ProfilePage />} />
       </Routes>
     </Router>
   );
