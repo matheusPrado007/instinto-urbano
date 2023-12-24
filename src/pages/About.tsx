@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import '../styles/About.css';
 import logo from '../assets/logo.png';
 import Galeria from '../components/Galeria';
+import UserList from '../components/Users';
 
 
 
@@ -36,6 +37,7 @@ const About: React.FC = () => {
       <div className='container-logo'>
       <img src={logo} alt="logo" className='logo-about' />
       </div>
+      <UserList />
       <p className='about-h2'>Artes pelo Brasil</p>
       <Galeria />
       <Footer />
