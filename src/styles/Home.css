@@ -44,6 +44,47 @@
     width: 1.4rem;
   }
 
+  .titulo-sobre {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .sobre-section {
+    max-width: 80%;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .intro-text {
+    color: #333;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    margin-bottom: .5rem;
+  }
+
+  .text-sobre {
+    margin-bottom: 1rem;
+  }
+
+  .sobre-btn {
+    background-color: #7fbee9; 
+    color: #ffffff;
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    cursor: pointer;
+  }
+  
+  /* Efeitos de hover */
+  .sobre-btn:hover {
+    background-color: #2980b9; /* Cor de fundo ao passar o mouse */
+  }
+  
+
 
   @media screen and (max-width: 600px) {
     .inputField {

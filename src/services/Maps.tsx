@@ -7,8 +7,12 @@ import axios from 'axios';
 import IconUrl from 'leaflet/dist/images/marker-icon.png';
 import IconShadow from 'leaflet/dist/images/marker-shadow.png';
 import IconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
+import { useApi } from '../services/context/ApiContext';
 
-const MapaArteDeRua = ({ dados }: any) => {
+
+const Maps = () => {
+  const { dados } = useApi();
+
   const [centros, setCentros] = useState([]);
 
   useEffect(() => {
@@ -36,7 +40,7 @@ const MapaArteDeRua = ({ dados }: any) => {
             if (response.data.length > 0) {
               const { lat, lon } = response.data[0];
               console.log(`Coordenadas encontradas para ${enderecoCompleto}: [${lat}, ${lon}]`);
-              return { id: arte.id, position: [parseFloat(lat), parseFloat(lon)], nome: arte.nome};
+              return { id: arte.id, position: [parseFloat(lat), parseFloat(lon)], nome: arte.nome, foto: arte.foto};
             } else {
               console.error(`Nenhuma coordenada encontrada para o endereço: ${enderecoCompleto}`);
               return null;
@@ -79,8 +83,9 @@ const MapaArteDeRua = ({ dados }: any) => {
       {
       centros.map((centro: any) => (
         <Marker key={centro.id} position={centro.position} icon={iconePadrao} >
-          <Popup>
-            Localização: {centro.nome}
+          <Popup className='container-popup'>
+            <img src={centro.foto} alt={centro.nome} className='foto-map' />
+           <p className='localizacao-p'> Localização: {centro.nome} </p>
           </Popup>
         </Marker>
       ))}
@@ -89,4 +94,4 @@ const MapaArteDeRua = ({ dados }: any) => {
   );
 };
 
-export default MapaArteDeRua;
+export default Maps;

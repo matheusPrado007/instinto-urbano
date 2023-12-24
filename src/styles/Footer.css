@@ -9,6 +9,7 @@ footer {
   justify-content: center; /* Adiciona centralização horizontal */
   align-items: center; /* Adiciona centralização vertical */
   z-index: 1;
+  font-size: 1.5rem ;
 }
 
 @media screen and (max-width: 600px) {

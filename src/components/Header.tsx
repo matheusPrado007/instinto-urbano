@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/Header.css';
-import logo from '../utils/_a752ab83-43c3-4202-84fd-3e9d1d8971c2-removebg-preview.png'; // Substitua pelo caminho real da sua imagem
-
+import logo from '../assets/logo.png';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -9,6 +8,8 @@ const Header: React.FC = () => {
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
+
+
 
   return (
     <header>
