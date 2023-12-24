@@ -11,7 +11,7 @@ import { useApi } from '../services/context/ApiContext';
 
 
 const Maps = () => {
-  const { dados } = useApi();
+  const { dadosArtes } = useApi();
 
   const [centros, setCentros] = useState([]);
 
@@ -20,14 +20,14 @@ const Maps = () => {
       try {
 
         
-        if (!dados || dados.length === 0) {
-          console.error('Dados de arte de rua não definidos ou vazios.');
+        if (!dadosArtes || dadosArtes.length === 0) {
+          console.error('Dados Artes de arte de rua não definidos ou vazios.');
           return;
         }
 
-        const coordenadasPromises = dados.map(async (arte: any) => {
+        const coordenadasPromises = dadosArtes.map(async (arte: any) => {
           if (!arte.endereco || !arte.cidade || !arte.uf) {
-            console.error(`Os dados para a arte de rua ${arte.id} não contêm informações de endereço.`);
+            console.error(`Os dados Artes para a arte de rua ${arte.id} não contêm informações de endereço.`);
             return null;
           }
 
@@ -56,12 +56,12 @@ const Maps = () => {
         console.log(centros);
         
       } catch (error) {
-        console.error('Erro ao obter dados de arte de rua:', error);
+        console.error('Erro ao obter dadosArtes de arte de rua:', error);
       }
     };
 
     obterCoordenadas();
-  }, [dados]);
+  }, [dadosArtes]);
 
   const iconePadrao = new Icon({
     IconRetinaUrl,

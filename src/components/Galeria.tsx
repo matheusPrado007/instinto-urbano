@@ -16,17 +16,15 @@ interface GaleriaItem {
   endereco: string
 }
 
-
-
 const Galeria: React.FC = () => {
-  const { dados } = useApi();
+  const { dadosArtes } = useApi();
   const [larguraTotal, setLarguraTotal] = useState(100);
 
   useEffect(() => {
     const handleResize = () => {
       const numeroDeImgs = window.innerWidth / 220;
 
-      const numeroTotal = +numeroDeImgs.toFixed(0) < dados.length ? numeroDeImgs : dados.length -1
+      const numeroTotal = +numeroDeImgs.toFixed(0) < dadosArtes.length ? numeroDeImgs : dadosArtes.length -1
       console.log(+numeroTotal);
       
       setLarguraTotal(+numeroTotal);
@@ -38,7 +36,7 @@ const Galeria: React.FC = () => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [dados.length]); 
+  }, [dadosArtes.length]); 
 
   const settings = {
     dots: true,
@@ -56,7 +54,7 @@ const Galeria: React.FC = () => {
   return (
     <>
     <Slider {...settings} className='galeria'>
-      {dados.map((item: GaleriaItem) => (
+      {dadosArtes.map((item: GaleriaItem) => (
         <div key={item._id} className="galeria-item">
           <img
             src={item.foto}
