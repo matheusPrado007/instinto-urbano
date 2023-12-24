@@ -74,15 +74,12 @@ export const ApiProvider = ({ children }: any) => {
     };
 
     useEffect(() => {
-        // Chama getData imediatamente
         getData();
 
-        // Configura intervalo para chamar getData a cada minuto
         const intervalId = setInterval(() => {
             getData();
         }, 120000);
 
-        // Limpa o intervalo ao desmontar o componente
         return () => clearInterval(intervalId);
     }, []);
 
