@@ -15,13 +15,13 @@ const UserList: React.FC = () => {
 
   return (
     <div className="user-list-container">
-      <p className="user-list-header">Equipe Principal</p>
+      <p className="user-list-header">Equipe de Criação</p>
       <div className="user-grid">
         {dadosUsers.map((user) => (
           <div key={user._id} className="user-item" onClick={() => navigateToProfile(user._id)}>
             <img src={user.foto_perfil} alt={user.nome} className="user-avatar" />
             <span className='nome-user'>{user.username}</span>
-            <span>{user.descricao_perfil}</span>
+            <span>Desenvolvedo Web Full Stack</span>
           </div>
         ))}
       </div>

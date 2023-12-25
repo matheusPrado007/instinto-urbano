@@ -35,12 +35,14 @@ const About: React.FC = () => {
         </p>
       </section>
       <div className='container-logo'>
-      <img src={logo} alt="logo" className='logo-about' />
+        <img src={logo} alt="logo" className='logo-about' />
+        <UserList />
+        <p className='about-h2'>Artes pelo Brasil</p>
+        <section>
+          <Galeria />
+        </section>
       </div>
-      <UserList />
-      <p className='about-h2'>Artes pelo Brasil</p>
-      <Galeria />
-      <Footer />
+        <Footer />
     </>
   );
 };

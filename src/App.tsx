@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Sobre from './pages/About';
 import ProfilePage from './pages/Profile';
+import ArtList from './pages/Artes';
 
 const AppRouter: React.FC = () => {
   return (
@@ -12,6 +13,8 @@ const AppRouter: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/profile/:userId" element={<ProfilePage />} />
+        <Route path="/artes" element={<ArtList />} />
+
       </Routes>
     </Router>
   );

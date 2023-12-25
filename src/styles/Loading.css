@@ -1,0 +1,53 @@
+/* Loading.css */
+
+.loading-container {
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff; /* Cor de fundo da página */
+  }
+  
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .loading-logo {
+    width: 80px;
+    height: 80px;
+    background: url('../assets/logo.png') no-repeat center center;
+    background-size: contain;
+    background-color: #00000098; /* Adiciona a cor de fundo padrão */
+    margin-right: 1.2ex; /* Adiciona margem à direita */
+    border-radius: 50%; /* Use 50% para um círculo, ajuste conforme necessário */
+    animation: spin 2s linear infinite, fadeInOut 4s ease-in-out infinite;
+  }
+  
+  .loading-text {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes fadeInOut {
+    0%, 100% {
+      opacity: 1;
+    }
+    25%, 75% {
+      opacity: 0;
+    }
+  }
+  
