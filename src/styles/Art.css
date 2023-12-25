@@ -1,10 +1,17 @@
 /* Artes.css */
+.art-container {
+    max-width: 1200px;
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+}
 
 .artes {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 1.7rem;
 }
 
 .galeria-artes {
@@ -13,6 +20,15 @@
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+.galeria-artes-hover {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.7rem;
+}
+
 
 .galeria-item-artes {
     width: 100%;
@@ -26,7 +42,9 @@
     border-radius: 8px;
     margin-bottom: 10px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    height: 42vh;
 }
+
 
 .nome-artista-artes {
     font-size: 18px;
@@ -54,8 +72,8 @@
     transform: translateY(-50%);
     cursor: pointer;
     font-size: 24px;
-    background-color: #fff; 
-    border: 1px solid #ddd; 
+    background-color: #fff;
+    border: 1px solid #ddd;
     border-radius: 50%;
     display: flex;
     align-items: center;
