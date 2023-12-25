@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Sobre from './pages/About';
 import ProfilePage from './pages/Profile';
-import ArtList from './pages/Artes';
+import ArtList from './pages/Art';
 
 const AppRouter: React.FC = () => {
   return (
