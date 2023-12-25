@@ -4,6 +4,7 @@ import { useApi } from '../services/context/ApiContext';
 import '../styles/Profile.css'; 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Loading from '../components/Loading';
 
 interface User {
   _id: number;
@@ -49,7 +50,7 @@ const ProfilePage: React.FC = () => {
           </div>
         </div>
       ) : (
-        <p className="loading-message">Carregando...</p>
+        <Loading />
       )}
     </div>
     <Footer />

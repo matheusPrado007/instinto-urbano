@@ -17,7 +17,11 @@ const Header: React.FC = () => {
         ☰
       </div>
       <section className="head-1">
-        <h1 className="titulo-esquerda"><img className="logo" src={logo} alt="Logo Rastro Urbano" /> Rastro Urbano</h1>
+      <a href="/" className='link-sem-sublinhado'>
+        <h1 className="titulo-esquerda"><img className="logo" src={logo} alt="Logo Rastro Urbano" /> 
+       Rastro Urbano
+        </h1>
+        </a>
         <nav className={isMenuOpen ? 'open' : ''}>
           <ul className="lista-direita">
             <li><a href="/">Página Inicial</a></li>

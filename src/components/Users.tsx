@@ -18,7 +18,7 @@ const UserList: React.FC = () => {
       <p className="user-list-header">Equipe de Criação</p>
       <div className="user-grid">
         {dadosUsers.map((user) => (
-          <div key={user._id} className="user-item" onClick={() => navigateToProfile(user._id)}>
+          <div key={user._id} className="user-item clicavel" onClick={() => navigateToProfile(user._id)}>
             <img src={user.foto_perfil} alt={user.nome} className="user-avatar" />
             <span className='nome-user'>{user.username}</span>
             <span>Desenvolvedo Web Full Stack</span>
