@@ -5,13 +5,19 @@ import '../styles/About.css';
 import logo from '../assets/logo.png';
 import Galeria from '../components/Galeria';
 import UserList from '../components/Users';
+import { useApi } from '../services/context/ApiContext';
+import Loading from '../components/Loading';
+
 
 
 
 const About: React.FC = () => {
+  const { dadosUsers } = useApi();
   return (
     <>
       <Header />
+      {dadosUsers.length > 0 ? (
+        <div>
       <section className='about-section'>
         <p className='about-h2'> Rastro Urbano</p>
         <p className='about-p'>
@@ -42,6 +48,9 @@ const About: React.FC = () => {
           <Galeria />
         </section>
       </div>
+      </div>) : (
+        <Loading />
+        )}
         <Footer />
     </>
   );

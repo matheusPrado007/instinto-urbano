@@ -25,11 +25,12 @@
     list-style: none;
     padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+
   
   .user-avatar {
     width: 100px;
@@ -42,5 +43,19 @@
   .nome-user {
     padding-bottom: 3px;
   }
+
+  .clicavel {
+    border: 1px solid #333; 
+    box-shadow: 0 0 5px #333; 
+  }
   
+  
+
+  .clicavel {
+    transition: transform 0.3s; 
+  }
+  
+  .clicavel:hover, .clicavel:active {
+    transform: scale(1.1); 
+  }
   
