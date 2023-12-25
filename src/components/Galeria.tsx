@@ -21,16 +21,16 @@ const Galeria: React.FC = () => {
   const [larguraTotal, setLarguraTotal] = useState(100);
 
   useEffect(() => {
-    const handleResize = () => {
-      const numeroDeImgs = window.innerWidth / 220;
+    const handleResize = async () => {
+      const numeroDeImgs = await window.innerWidth / 220;
 
-      const numeroTotal = +numeroDeImgs.toFixed(0) < dadosArtes.length ? numeroDeImgs : dadosArtes.length -1
+      const numeroTotal = await +numeroDeImgs.toFixed(0) < dadosArtes.length ? numeroDeImgs : dadosArtes.length -1
       console.log(+numeroTotal);
       
       setLarguraTotal(+numeroTotal);
     };
 
-    window.addEventListener('resize', handleResize);
+     window.addEventListener('resize', handleResize);
     handleResize();
 
     return () => {
