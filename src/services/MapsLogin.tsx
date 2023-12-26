@@ -83,7 +83,7 @@ const MapsLogin = () => {
 
   return (
     <div >
-    <MapContainer center={[-19.93221142062016, -43.95088731171624]} zoom={3} className='maps-login'>
+    <MapContainer center={[ -10.1689, -48.3317]} zoom={3} className='maps-login'>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
