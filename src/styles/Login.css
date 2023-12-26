@@ -10,7 +10,7 @@
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: rgba(98, 98, 98, 0.76);
+    background-color: rgba(252, 252, 252, 0.716);
     z-index: 2;
     transition: all 0.3s ease;
   }
@@ -18,7 +18,7 @@
   .login-form:hover {
     width: 80%;
     padding: 5vw;
-    background-color: #626262;
+    background-color: #ffffff;
     color: #000;
   }
   
@@ -35,7 +35,7 @@
     flex-direction:column;
     margin-bottom: 10px;
     font-size: 3.7vw;
-    color: #ffffff;
+    color: #333;
     background-color: rgba(40, 44, 52, 0);
   }
 
@@ -44,7 +44,7 @@
     width: 90%;
     padding: 1rem;
     margin-bottom: 15px;
-    border: 1px solid #cfd9dc;
+    border: 1px solid #787878;
     border-radius: 6px;
     font-size: 16px;
     color: #282c34;
@@ -53,7 +53,7 @@
   
   .login-button {
     background-color: #61dafb6b;
-    color: white;
+    color: #333;
     padding: 12px 20px;
     border: none;
     border-radius: 6px;
@@ -67,9 +67,13 @@
   }
   
   .login-error-message {
-    color: #ff3333;
-    font-size: 14px;
+    color: #ffffff;
+    font-size: 2vw;
     margin-top: 10px;
+    width: 50%;
+    background-color: #ed1010;
+    border-radius: 4px;
+    padding: 3px;
   }
   
   /* Adicione este trecho de código ao seu arquivo CSS */
@@ -87,7 +91,7 @@
     display: flex;
     margin-bottom: 10px;
     font-size: 3.7vw;
-    color: #ffffff;
+    color: #333;
     background-color: rgba(40, 44, 52, 0);
   } 
 
