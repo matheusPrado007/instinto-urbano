@@ -1,10 +1,10 @@
 /* Artes.css */
 .art-container {
+    width: 89%;
     max-width: 1200px;
     display: flex;
-    margin: 0;
+    margin: 0 auto;
     flex-direction: column;
-    padding: 0px;
 }
 
 .artes {
@@ -63,9 +63,9 @@
     color: #555;
 }
 
-/* Custom arrows */
-.slick-prev,
-.slick-next {
+
+.custom-prev-arrow-art-page,
+.custom-next-arrow-art-page {
     position: absolute;
     top: 50%;
     width: 30px;
@@ -73,8 +73,8 @@
     transform: translateY(-50%);
     cursor: pointer;
     font-size: 24px;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: #fff; 
+    border: 1px solid #ddd; 
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -83,10 +83,10 @@
     opacity: 0.4;
 }
 
-.slick-prev {
-    left: -35px;
+.custom-prev-arrow-art-page{
+    left: -20px;
 }
 
-.slick-next {
-    right: -30px;
+.custom-next-arrow-art-page {
+    right: -20px;
 }
