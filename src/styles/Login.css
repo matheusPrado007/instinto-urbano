@@ -1,25 +1,29 @@
 .map-container {
-    position: relative;
+    display: flex;
     width: 100%;
   }
   
   .login-form {
     width: 80%;
     margin: auto;
-    padding: 5vw;
+    padding: 1vw;
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: rgba(252, 252, 252, 0.716);
     z-index: 2;
     transition: all 0.3s ease;
+    max-width: 1200px;
+    max-height: 80vh;
   }
   
   .login-form:hover {
     width: 80%;
-    padding: 5vw;
+    padding: 2vw;
     background-color: #ffffff;
     color: #000;
+    max-width: 1200px;
+    max-height: 80vh;
   }
   
   .login-width {
@@ -28,20 +32,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    /* max-width: 1200px; */
+    max-height: 80vh; 
   }
   
   .login-label {
     display: flex;
     flex-direction:column;
     margin-bottom: 10px;
-    font-size: 3.7vw;
+    font-size: 1.8rem;
     color: #333;
     background-color: rgba(40, 44, 52, 0);
   }
 
 
   .login-input {
-    width: 90%;
+    width: 85%;
     padding: 1rem;
     margin-bottom: 15px;
     border: 1px solid #787878;
@@ -79,26 +85,27 @@
   
   /* Adicione este trecho de código ao seu arquivo CSS */
 .login-label-checkbox {
-    width: 32vw ;
+    width: 10rem;
     display: flex;
     flex-direction:row;
     margin-bottom: 10px;
-    font-size: 3.7vw;
+    font-size: 2rem;
     color: #ffffff;
     background-color: rgba(40, 44, 52, 0);
   }
 
   .login-label-checkbox-input {
+    width: 10rem;
     display: flex;
     margin-bottom: 10px;
-    font-size: 3.7vw;
+    font-size:1.2rem;
     color: #333;
     background-color: rgba(40, 44, 52, 0);
   } 
 
 
 .checkbox-container {
-    width: 7vw;
+    width: 2.5rem;
     display: flex;
     align-items: center;
     margin-bottom: 15px;
@@ -106,7 +113,7 @@
   }
   
   .checkbox-input {
-    width: 3vw;
+    width: 1rem;
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -114,14 +121,16 @@
   
   .checkbox-custom {
     position: relative;
-    width: 4vw;
-    height: 4vw;
+    width: 25px;
+    height: 25px;
     border: 1px solid #000000;
     border-radius: 4px;
     margin-left: 3px;
+    font-size: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #ffffff;
   }
   
   .checkbox-checkmark {
