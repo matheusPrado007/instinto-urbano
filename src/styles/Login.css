@@ -70,10 +70,11 @@
     color: #ffffff;
     font-size: 2vw;
     margin-top: 10px;
-    width: 50%;
+    width: 100%;
     background-color: #ed1010;
     border-radius: 4px;
-    padding: 3px;
+    padding: 5px;
+
   }
   
   /* Adicione este trecho de código ao seu arquivo CSS */
