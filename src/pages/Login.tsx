@@ -78,14 +78,13 @@ const Login: React.FC = () => {
                         />
                     </label>
                     <label className="login-label-checkbox">
-                        <span className="login-label-checkbox" >Salvar e-mail: </span>
+                        <span className="login-label-checkbox-input" >Salvar e-mail: </span>
                         <div className="checkbox-container">
                             <input
                                 type="checkbox"
                                 checked={saveEmail}
                                 onChange={() => setSaveEmail(!saveEmail)}
-                                className="checkbox-input login-label-checkbox"
-                                
+                                className="checkbox-input login-label-checkbox-input"                             
                             />
                             <div className="checkbox-custom">✔</div>
                         </div>
