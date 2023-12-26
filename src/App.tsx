@@ -6,6 +6,7 @@ import Sobre from './pages/About';
 import ProfilePage from './pages/Profile';
 import ArtList from './pages/Art';
 import ArtPage from './pages/ArtPage';
+import Login from './pages/Login';
 
 const AppRouter: React.FC = () => {
   return (
@@ -16,7 +17,7 @@ const AppRouter: React.FC = () => {
         <Route path="/profile/:userId" element={<ProfilePage />} />
         <Route path="/artes" element={<ArtList />} />
         <Route path="/arte/:artId" element={<ArtPage />} />
-
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );

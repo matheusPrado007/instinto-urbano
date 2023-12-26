@@ -28,6 +28,7 @@ const Header: React.FC = () => {
             <li><a href="/sobre">Sobre</a></li>
             <li><a href="/artistas">Artistas</a></li>
             <li><a href="/artes">Artes</a></li>
+            <li><a href="/login">Login</a></li>
           </ul>
         </nav>
       </section>
