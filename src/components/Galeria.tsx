@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {CustomNextArrow, CustomPrevArrow} from './Btn';
 import { useApi } from '../services/context/ApiContext';
+import { useNavigate } from 'react-router-dom';
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
@@ -9,7 +10,7 @@ import '../styles/Galeria.css';
 
 
 interface GaleriaItem {
-  _id: string;
+  _id: any;
   foto: string;
   nome_artista: string;
   nome: string;
@@ -19,6 +20,12 @@ interface GaleriaItem {
 const Galeria: React.FC = () => {
   const { dadosArtes } = useApi();
   const [larguraTotal, setLarguraTotal] = useState(100);
+
+  const navigate = useNavigate(); 
+
+  const navigateToArt = (arteId: number) => {
+    navigate(`/arte/${arteId}`); 
+  };
 
   useEffect(() => {
     const handleResize = async () => {
@@ -36,7 +43,8 @@ const Galeria: React.FC = () => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [dadosArtes.length]); 
+  }, [dadosArtes.length]);
+   
 
   const settings = {
     dots: true,
@@ -55,7 +63,7 @@ const Galeria: React.FC = () => {
     <>
     <Slider {...settings} className='galeria'>
       {dadosArtes.map((item: GaleriaItem) => (
-        <div key={item._id} className="galeria-item">
+        <div key={item._id} className="galeria-item" onClick={() => navigateToArt(item._id)}>
           <img
             src={item.foto}
             className="imagem-galeria"
