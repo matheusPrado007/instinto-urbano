@@ -21,7 +21,13 @@ const UserList: React.FC = () => {
           <div key={user._id} className="user-item clicavel" onClick={() => navigateToProfile(user._id)}>
             <img src={user.foto_perfil} alt={user.nome} className="user-avatar" />
             <span className='nome-user'>{user.username}</span>
-            <span>Desenvolvedo Web Full Stack</span>
+            <span>
+            • Desenvolvedor Web Full Stack 
+            </span>
+            <span>
+            • Co-fundador do Rastro Urbano
+            </span>
+           
           </div>
         ))}
       </div>
