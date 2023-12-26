@@ -8,12 +8,20 @@ import IconUrl from 'leaflet/dist/images/marker-icon.png';
 import IconShadow from 'leaflet/dist/images/marker-shadow.png';
 import IconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import { useApi } from '../services/context/ApiContext';
+import { useNavigate } from 'react-router-dom';
 
 
 const Maps = () => {
   const { dadosArtes } = useApi();
 
   const [centros, setCentros] = useState([]);
+
+  const navigate = useNavigate(); 
+
+  const navigateToArt = (arteId: number) => {
+    navigate(`/arte/${arteId}`); 
+  };
+
 
   useEffect(() => {
     const obterCoordenadas = async () => {
@@ -40,7 +48,7 @@ const Maps = () => {
             if (response.data.length > 0) {
               const { lat, lon } = response.data[0];
               console.log(`Coordenadas encontradas para ${enderecoCompleto}: [${lat}, ${lon}]`);
-              return { id: arte.id, position: [parseFloat(lat), parseFloat(lon)], nome: arte.nome, foto: arte.foto};
+              return { id: arte._id, position: [parseFloat(lat), parseFloat(lon)], nome: arte.nome, foto: arte.foto};
             } else {
               console.error(`Nenhuma coordenada encontrada para o endereço: ${enderecoCompleto}`);
               return null;
@@ -83,9 +91,11 @@ const Maps = () => {
       {
       centros.map((centro: any) => (
         <Marker key={centro.id} position={centro.position} icon={iconePadrao} >
-          <Popup className='container-popup'>
+          <Popup className='container-popup' >
+            <div onClick={() => navigateToArt(centro.id)}>
             <img src={centro.foto} alt={centro.nome} className='foto-map' />
            <p className='localizacao-p'> Localização: {centro.nome} </p>
+           </div>
           </Popup>
         </Marker>
       ))}
