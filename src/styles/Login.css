@@ -115,7 +115,7 @@
     position: relative;
     width: 4vw;
     height: 4vw;
-    border: 2px solid #ffffff;
+    border: 1px solid #000000;
     border-radius: 4px;
     margin-left: 3px;
     display: flex;
