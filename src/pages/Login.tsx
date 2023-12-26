@@ -5,12 +5,14 @@ import Footer from '../components/Footer';
 import { useApi } from '../services/context/ApiContext';
 import { useNavigate } from 'react-router-dom';
 import MapsLogin from '../services/MapsLogin';
+import Loading from '../components/Loading';
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [saveEmail, setSaveEmail] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const { fazerLogin, dadosUsers } = useApi();
     const navigate = useNavigate();
@@ -20,7 +22,6 @@ const Login: React.FC = () => {
     };
 
     useEffect(() => {
-        // Carregar o e-mail salvo do localStorage ao iniciar
         const savedEmail = localStorage.getItem('savedEmail');
         if (savedEmail) {
             setEmail(savedEmail);
@@ -32,14 +33,12 @@ const Login: React.FC = () => {
         try {
             const { accessToken, refreshToken } = await fazerLogin({ email, senha });
             if (accessToken && refreshToken) {
-                // Salvar o e-mail no localStorage se a opção estiver marcada
                 if (saveEmail) {
                     localStorage.setItem('savedEmail', email);
                 } else {
                     localStorage.removeItem('savedEmail');
                 }
 
-                // Navegar para o perfil do usuário
                 const userId = dadosUsers.find((user) => user.email === email)._id;
                 navigateToProfileAdm(userId);
             }
@@ -52,6 +51,7 @@ const Login: React.FC = () => {
     return (
         <>
             <Header />
+            {loading && <Loading />} 
             <div className='map-container'>
                 <MapsLogin />
             </div>
