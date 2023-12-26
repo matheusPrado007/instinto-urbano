@@ -41,7 +41,7 @@
 
 
   .login-input {
-    width: 95%;
+    width: 90%;
     padding: 1rem;
     margin-bottom: 15px;
     border: 1px solid #cfd9dc;
@@ -97,11 +97,14 @@
   
   .checkbox-custom {
     position: relative;
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
     border: 2px solid #ffffff;
     border-radius: 4px;
     margin-left: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .checkbox-checkmark {
