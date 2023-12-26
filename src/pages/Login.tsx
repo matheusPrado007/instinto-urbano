@@ -10,12 +10,13 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const { fazerLogin } = useApi();
+  const { fazerLogin, dadosUsers } = useApi();
 
   const navigate = useNavigate(); 
 
   const navigateToProfileAdm = () => {
-    navigate(`/admuser`); 
+    const userId = dadosUsers.find((user) => user.email === email)._id
+    navigate(`/admuser/${userId}`); 
   };
 
   const handleLogin = async ({ email, senha }: any) => {
