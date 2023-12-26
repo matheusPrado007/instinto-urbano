@@ -5,6 +5,7 @@ interface ApiContextProps {
   dadosUsers: any[];
   erro: any;
   getData: () => void;
+  fazerLogin: any;
 }
 
 const ApiContext = createContext<ApiContextProps | null>(null);
@@ -18,7 +19,7 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
   const [dadosUsers, setDadosUsers] = useState<any[]>([]);
   const [erro, setErro] = useState<any | null>(null);
 
-  const fazerLogin = async () => {
+  const fazerLogin = async ({ email, senha }: any) => {
     try {
       const respostaLogin = await fetch('https://api-rastro-urbano.onrender.com/upload/login', {
         method: 'POST',
@@ -26,41 +27,29 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: 'matheuspradodeveloper@gmail.com',
-          senha: '123456',
+          email: email,
+          senha: senha,
         }),
       });
-
+  
       if (!respostaLogin.ok) {
-        throw new Error('Erro ao fazer login');
+        throw new Error(`Erro ao fazer login. Status: ${respostaLogin.status}`);
       }
-
+  
       const { accessToken, refreshToken } = await respostaLogin.json();
       localStorage.setItem('jwtToken', accessToken);
       return { accessToken, refreshToken };
     } catch (error: any) {
       console.error('Erro durante a requisição POST de login:', error);
-      setErro(error);
-      return { accessToken: null, refreshToken: null };
+      throw error; // Lança o erro novamente para ser capturado no componente Login
     }
   };
+  
 
   const getData = async () => {
     try {
-      const { accessToken, refreshToken } = await fazerLogin();
-
-      if (!refreshToken) {
-        console.error('Erro: RefreshToken é nulo.');
-        return;
-      }
-
-      console.log('Token enviado:', refreshToken);
-
       const fetchOptions = {
         method: 'GET',
-        headers: {
-          Authorization: refreshToken,
-        },
       };
 
       const [respostaArtes, respostaUsers] = await Promise.all([
@@ -109,6 +98,7 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     dadosUsers,
     erro,
     getData,
+    fazerLogin,
   };
 
   return (
