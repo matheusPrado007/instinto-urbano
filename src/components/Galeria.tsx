@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {CustomNextArrow, CustomPrevArrow} from './Btn';
 import { useApi } from '../services/context/ApiContext';
+import { useNavigate } from 'react-router-dom';
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
@@ -9,36 +10,41 @@ import '../styles/Galeria.css';
 
 
 interface GaleriaItem {
-  _id: string;
+  _id: any;
   foto: string;
   nome_artista: string;
   nome: string;
   endereco: string
 }
 
-
-
 const Galeria: React.FC = () => {
-  const { dados } = useApi();
+  const { dadosArtes } = useApi();
   const [larguraTotal, setLarguraTotal] = useState(100);
 
-  useEffect(() => {
-    const handleResize = () => {
-      const numeroDeImgs = window.innerWidth / 220;
+  const navigate = useNavigate(); 
 
-      const numeroTotal = +numeroDeImgs.toFixed(0) < dados.length ? numeroDeImgs : dados.length -1
+  const navigateToArt = (arteId: number) => {
+    navigate(`/arte/${arteId}`); 
+  };
+
+  useEffect(() => {
+    const handleResize = async () => {
+      const numeroDeImgs = await window.innerWidth / 220;
+
+      const numeroTotal = await +numeroDeImgs.toFixed(0) < dadosArtes.length ? numeroDeImgs : dadosArtes.length -1
       console.log(+numeroTotal);
       
       setLarguraTotal(+numeroTotal);
     };
 
-    window.addEventListener('resize', handleResize);
+     window.addEventListener('resize', handleResize);
     handleResize();
 
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [dados.length]); 
+  }, [dadosArtes.length]);
+   
 
   const settings = {
     dots: true,
@@ -56,8 +62,8 @@ const Galeria: React.FC = () => {
   return (
     <>
     <Slider {...settings} className='galeria'>
-      {dados.map((item: GaleriaItem) => (
-        <div key={item._id} className="galeria-item">
+      {dadosArtes.map((item: GaleriaItem) => (
+        <div key={item._id} className="galeria-item" onClick={() => navigateToArt(item._id)}>
           <img
             src={item.foto}
             className="imagem-galeria"

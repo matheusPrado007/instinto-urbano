@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import "../styles/Maps.css"
+// import 'leaflet/dist/leaflet.css';
+import "../styles/MapsLogin.css"
 import{ Icon }from 'leaflet';
 import axios from 'axios';
 import IconUrl from 'leaflet/dist/images/marker-icon.png';
@@ -9,9 +9,10 @@ import IconShadow from 'leaflet/dist/images/marker-shadow.png';
 import IconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import { useApi } from '../services/context/ApiContext';
 import { useNavigate } from 'react-router-dom';
+import Login from '../pages/Login';
 
 
-const Maps = () => {
+const MapsLogin = () => {
   const { dadosArtes } = useApi();
 
   const [centros, setCentros] = useState([]);
@@ -81,9 +82,8 @@ const Maps = () => {
   });
 
   return (
-    <div>
-      <p className='title-maps'>Veja as artes mais próximas de você.</p>
-    <MapContainer center={[-19.93221142062016, -43.95088731171624]} zoom={4.5}>
+    <div >
+    <MapContainer center={[ -10.1689, -48.3317]} zoom={3} className='maps-login'>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -91,9 +91,9 @@ const Maps = () => {
       {
       centros.map((centro: any) => (
         <Marker key={centro.id} position={centro.position} icon={iconePadrao} >
-          <Popup className='container-popup' >
+          <Popup className='container-popup-login' >
             <div onClick={() => navigateToArt(centro.id)}>
-            <img src={centro.foto} alt={centro.nome} className='foto-map' />
+            <img src={centro.foto} alt={centro.nome} className='foto-map-login' />
            <p className='localizacao-p'> Localização: {centro.nome} </p>
            </div>
           </Popup>
@@ -104,4 +104,4 @@ const Maps = () => {
   );
 };
 
-export default Maps;
+export default MapsLogin;

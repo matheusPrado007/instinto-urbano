@@ -80,6 +80,10 @@ header nav ul li a:hover {
   font-size: 1.5rem;
 }
 
+.link-sem-sublinhado {
+  text-decoration: none;
+  color: #333;
+}
 
 @media screen and (max-width: 600px) {
   header {
@@ -127,6 +131,10 @@ header nav ul li a:hover {
     display: flex;
     align-items: center;
     margin-right: 3.9ex;
+    
+  }
+  .link-sem-sublinhado {
+    text-decoration: none;
   }
 }
 

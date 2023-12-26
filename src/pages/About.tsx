@@ -4,13 +4,20 @@ import Footer from '../components/Footer';
 import '../styles/About.css';
 import logo from '../assets/logo.png';
 import Galeria from '../components/Galeria';
+import UserList from '../components/Users';
+import { useApi } from '../services/context/ApiContext';
+import Loading from '../components/Loading';
+
 
 
 
 const About: React.FC = () => {
+  const { dadosUsers } = useApi();
   return (
     <>
       <Header />
+      {dadosUsers.length > 0 ? (
+        <div>
       <section className='about-section'>
         <p className='about-h2'> Rastro Urbano</p>
         <p className='about-p'>
@@ -34,11 +41,17 @@ const About: React.FC = () => {
         </p>
       </section>
       <div className='container-logo'>
-      <img src={logo} alt="logo" className='logo-about' />
+        <img src={logo} alt="logo" className='logo-about' />
+        <UserList />
+        <p className='about-h2'>Artes pelo Brasil</p>
+        <section>
+          <Galeria />
+        </section>
       </div>
-      <p className='about-h2'>Artes pelo Brasil</p>
-      <Galeria />
-      <Footer />
+      </div>) : (
+        <Loading />
+        )}
+        <Footer />
     </>
   );
 };
