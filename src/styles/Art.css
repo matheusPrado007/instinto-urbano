@@ -2,8 +2,9 @@
 .art-container {
     max-width: 1200px;
     display: flex;
-    margin: 0 auto;
+    margin: 0;
     flex-direction: column;
+    padding: 0px;
 }
 
 .artes {
@@ -15,7 +16,7 @@
 }
 
 .galeria-artes {
-    width: 90%;
+    width: 100%;
     max-width: 1200px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

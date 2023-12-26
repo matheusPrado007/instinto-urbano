@@ -38,7 +38,7 @@ const ArtPage: React.FC = () => {
   return (
     <div>
     <Header />
-    <div className="art-container">
+    <div className="art-container-page">
       {art ? (
         <div>
           <div className='description-p-art'>
