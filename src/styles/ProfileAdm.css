@@ -1,0 +1,89 @@
+/* ProfilePage.css */
+
+.profile-container-adm {
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f8f8f8;
+  max-width: 1200px;
+}
+
+.cover-photo-adm {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 4px;
+  display: flex;
+}
+
+.profile-photo-adm {
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
+  margin-top: -75px;
+  border: 5px solid #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.user-info-adm {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.7rem;
+  margin-bottom: 10px;
+}
+
+.loading-message-adm {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  color: #555;
+}
+
+.description-p-adm {
+  font-size: 1.2rem;
+  width: 97%;
+  display: flex;
+  text-align: justify;
+  line-height: 1.5;
+  color: #333;
+}
+
+.description-data-adm {
+  display: flex;
+}
+
+.responsibility-p-adm {
+  margin-left: 0.5rem;
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
+
+.profile-input {
+  width: 145px;
+  position: absolute;
+  background-color: #fffffff0;
+  padding: 5px; 
+  border: none; 
+  border-radius: 2px; 
+  cursor: pointer;
+  margin-left: px;
+  margin-top: 53px ;
+  font-size: 11px;
+  opacity: 1;
+}
+
+
+.cover-input {
+    width: 8.5rem;
+    position:absolute;
+    background-color: #e6e3e3;
+    padding: 5px; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer;
+    font-size: 11px;
+    opacity: 1;
+}
+

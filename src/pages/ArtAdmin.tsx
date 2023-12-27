@@ -4,9 +4,10 @@ import { useApi } from '../services/context/ApiContext';
 import Footer from '../components/Footer';
 import HeaderAdmin from '../components/HeaderAdmin';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
 
-const AdmUser: React.FC = () => {
-  const { fazerLogin } = useApi();
+const ArtAdmin: React.FC = () => {
+  const { fazerLogin, dadosArtes } = useApi();
   
 
   const isAdmin = async ({ email, senha }: any) => {
@@ -34,10 +35,10 @@ const AdmUser: React.FC = () => {
 
   return (
     <>
-      
+      {dadosArtes.length <= 0 && <Loading />} 
       <HeaderAdmin />
       <div className="content">
-        <h2>Página do Administrador</h2>
+        <h2>Página do Administrador - Arte</h2>
 
       </div>
       <Footer />
@@ -45,4 +46,4 @@ const AdmUser: React.FC = () => {
   );
 };
 
-export default AdmUser;
+export default ArtAdmin;
