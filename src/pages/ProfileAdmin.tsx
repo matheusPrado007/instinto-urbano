@@ -6,6 +6,8 @@ import Header from '../components/Header';
 import Loading from '../components/Loading';
 import { useParams } from 'react-router-dom';
 import '../styles/ProfileAdm.css';
+import fotoCapa from '../assets/not-found.png';
+import fotoPerfil from '../assets/profile-not-foud.jpg';
 
 interface User {
     _id: number;
@@ -102,7 +104,7 @@ const ProfileAdmin: React.FC = () => {
                                 onChange={(e) => setNewCapa(e.target.value)}
                                 className='cover-input'
                             />
-                            <img src={!user.foto_capa ? '../assets/not-found.png' : user.foto_capa} alt={`Capa de ${user.username}`} className="cover-photo-adm" />
+                            <img src={!user.foto_capa ? fotoCapa : user.foto_capa} alt={`Capa de ${user.username}`} className="cover-photo-adm" />
                         </label>
 
                         <label className='label-profile'>
@@ -113,11 +115,9 @@ const ProfileAdmin: React.FC = () => {
                                 onChange={(e) => setNewPerfil(e.target.value)}
                                 className='profile-input'
                             />
-                            <div className='description-data-adm'>
-                                <img src={!user.foto_perfil ? '../assets/profile-not-foud.jpg' : user.foto_perfil} alt={`Foto de perfil de ${user.username}`} className="profile-photo-adm" />
-                                <p className='responsibility-p-adm'>Co-fundador do Rastro Urbano</p>
-                            </div>
+                                <img src={!user.foto_perfil ? fotoPerfil : user.foto_perfil} alt={`Foto de perfil de ${user.username}`} className="profile-photo-adm" />
                         </label>
+                                <p className='responsibility-p-adm'>Co-fundador do Rastro Urbano</p>
                         <div className="user-info-adm">
                             {isEditingUsername ? (
                                 <input
@@ -129,7 +129,7 @@ const ProfileAdmin: React.FC = () => {
                                     placeholder='username'
                                 />
                             ) : (
-                                <p>{originalUsername}</p>
+                                <p>username: {originalUsername}</p>
                             )}
                         <button onClick={toggleEditModeUsername} className="username-edit-button">
                             {isEditingUsername ? 'Salvar' : 'Editar'}
