@@ -140,8 +140,11 @@ const ProfileAdmin: React.FC = () => {
 
         if (id) {
             const foundUser = dadosUsers.find((u) => u._id === id);
-
+            console.log(foundUser);
+            
             if (foundUser) {
+                const emailStorage: string = foundUser.email
+                setEmail(emailStorage)
                 setUser(foundUser);
                 setOriginalDescription(foundUser.descricao_perfil);
                 setNewDescription(foundUser.descricao_perfil);
@@ -157,7 +160,9 @@ const ProfileAdmin: React.FC = () => {
         }
     }, [id, dadosUsers]);
 
-    const isAdmin = async ({ email, senha }: any) => {
+
+    
+    const isAdmin = async () => {
         try {
             const { accessToken, refreshToken } = await fazerLogin({ email, senha });
             return accessToken && refreshToken;
@@ -185,6 +190,7 @@ const ProfileAdmin: React.FC = () => {
         <>
             <HeaderAdmin />
             <div className="profile-container-adm">
+                <a href={`/profile/${id}`} className='profile-edit-finish'>Quer ver como ficou?</a>
                 {user ? (
                     <div className='form-adm-profile'>
                         <label className="label-cover">
@@ -223,7 +229,7 @@ const ProfileAdmin: React.FC = () => {
                                 )
                             }
 
-                            <button onClick={handleClick} className="email-edit-button">
+                            <button onClick={handleClick} className="email-edit-button ">
                                 {isEditingText ? 'Salvar' : 'Editar Texto'}
                             </button>
                         </div>
@@ -238,11 +244,13 @@ const ProfileAdmin: React.FC = () => {
                                     placeholder='email'
                                 />
                             ) : (
-
-                                <p className='email-input'>Email:</p>
+                                
+                                <p className='email-input'>Email: </p>
+                                
+                                
                             )}
 
-                            <button onClick={toggleEditModeEmail} className="email-edit-button">
+                            <button onClick={toggleEditModeEmail} className="email-edit-button ">
                                 {isEditingEmail ? 'Salvar' : 'Editar Email'}
                             </button>
                         </div>
@@ -252,16 +260,16 @@ const ProfileAdmin: React.FC = () => {
                                 <input
                                     type="password"
                                     name="senha"
-                                    value={newPassword}
+                                    value={`000000`}
                                     onChange={(e) => setNewPassword(e.target.value)}
                                     className="username-input"
                                     placeholder='senha'
                                 />
                             ) : (
-                                <p>Nova Senha</p>
+                                <p>Nova Senha:</p>
                             )}
 
-                            <button onClick={toggleEditModePassword} className="username-edit-button">
+                            <button onClick={toggleEditModePassword} className="email-edit-button ">
                                 {isEditingPassword ? 'Salvar' : 'Editar Senha'}
                             </button>
                         </div>
@@ -277,14 +285,15 @@ const ProfileAdmin: React.FC = () => {
                                     placeholder='username'
                                 />
                             ) : (
-
-                                <p>{originalUsername}</p>
+                                <p>username:</p>
                             )}
-                            <button onClick={toggleEditModeUsername} className="username-edit-button">
+                            <button onClick={toggleEditModeUsername} className="email-edit-button ">
                                 {isEditingUsername ? 'Salvar' : 'Editar username'}
                             </button>
                         </div>
                         {isEditing ? (
+                            <div>
+                            Descrição
                             <textarea
                                 rows={15}
                                 name="descricao"
@@ -292,9 +301,13 @@ const ProfileAdmin: React.FC = () => {
                                 onChange={(e) => setNewDescription(e.target.value)}
                                 className="description-input"
                             />
+                            </div>
                         ) : (
+                            <div>
+                               <p>Descrição:</p> 
                             <div className="description-p-adm">
                                 <p>{originalDescription}</p>
+                            </div>
                             </div>
                         )}
 
@@ -302,7 +315,7 @@ const ProfileAdmin: React.FC = () => {
                             {isEditing ? 'Salvar' : 'Editar Descrição'}
                         </button>
                         <div >
-                            <p className='form-update'>Digite seu Email e Senha para continuar</p>
+                            <p className='form-update'>Digite seu Email e Senha para continuar...</p>
 
                             <p className='email-input'>Email:</p>
                             <input
@@ -325,9 +338,11 @@ const ProfileAdmin: React.FC = () => {
                                 placeholder='senha'
                             />
 
-                            <button onClick={toggleEditModeToken} className="edit-button">
+                            <button onClick={toggleEditModeToken} className="edit-button-finish">
                                 {isEditingToken ? 'Dados atualizados' : 'Atualizar os Dados'}
                             </button>
+
+
                         </div>
                     </div>
                 ) : (
