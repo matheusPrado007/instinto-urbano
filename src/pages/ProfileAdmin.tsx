@@ -40,6 +40,21 @@ const ProfileAdmin: React.FC = () => {
     const [originalPassword, setOriginalPassword] = useState<string>('');
     const [isEditingPassword, setIsEditingPassword] = useState(false);
 
+    const [isEditingText, setIsEditingText] = useState(false);
+    const [newTexto, setNewTexto] = useState('');
+    const [texto, setTexto] = useState('Co-fundador do Rastro Urbano');
+
+    const handleClick = () => {
+
+        if (isEditingText) {
+            setTexto(newTexto)
+        } else {
+            setNewTexto(texto)
+        }
+        setIsEditingText(!isEditingText)
+    };
+
+
     const toggleEditModePassword = () => {
         if (isEditingPassword) {
             setOriginalPassword(newPassword)
@@ -68,7 +83,7 @@ const ProfileAdmin: React.FC = () => {
             setNewUsername(originalUsername);
         }
         setIsEditing(!isEditing);
-        setIsEditingUsername(false); 
+        setIsEditingUsername(false);
     };
 
     const toggleEditModeUsername = () => {
@@ -151,28 +166,45 @@ const ProfileAdmin: React.FC = () => {
                                 onChange={(e) => setNewPerfil(e.target.value)}
                                 className='profile-input'
                             />
-                                <img src={!user.foto_perfil ? fotoPerfil : user.foto_perfil} alt={`Foto de perfil de ${user.username}`} className="profile-photo-adm" />
+                            <img src={!user.foto_perfil ? fotoPerfil : user.foto_perfil} alt={`Foto de perfil de ${user.username}`} className="profile-photo-adm" />
                         </label>
-                                <p className='responsibility-p-adm'>Co-fundador do Rastro Urbano</p>
-                       
-                            <div className="user-info-adm">
+                        <div className="user-info-adm">
+                            {
+                                isEditingText ? (
+                                    <input
+                                        type="text"
+                                        value={texto}
+                                        onChange={(e) =>
+                                            setNewTexto(e.target.value)}
+                                        className="username-input"
+                                    />
+                                ) : (
+                                    <p className='responsibility-p-adm'>{texto}</p>
+                                )
+                            }
+
+                            <button onClick={handleClick} className="email-edit-button">
+                            {isEditingText ? 'Salvar' : 'Editar Texto'}
+                            </button>
+                        </div>
+                        <div className="user-info-adm">
                             {isEditingEmail ? (
                                 <input
-                                    type="text"
+                                    type="email"
                                     name="email"
                                     value={newEmail}
-                                    onChange={(e) => setNewUsername(e.target.value)}
+                                    onChange={(e) => setNewEmail(e.target.value)}
                                     className="username-input"
                                     placeholder='email'
                                 />
                             ) : (
-                                
-                                <p>{originalEmail}</p>
+
+                                <p className='email-input'>Email:</p>
                             )}
 
-                        <button onClick={toggleEditModeEmail} className="username-edit-button">
-                            {isEditingEmail ? 'Salvar' : 'Editar Email'}
-                        </button>
+                            <button onClick={toggleEditModeEmail} className="email-edit-button">
+                                {isEditingEmail ? 'Salvar' : 'Editar Email'}
+                            </button>
                         </div>
 
                         <div className="user-info-adm">
@@ -185,13 +217,13 @@ const ProfileAdmin: React.FC = () => {
                                     className="username-input"
                                     placeholder='senha'
                                 />
-                            ) : (                               
+                            ) : (
                                 <p>Nova Senha</p>
                             )}
 
-                        <button onClick={toggleEditModePassword} className="username-edit-button">
-                            {isEditingPassword ? 'Salvar' : 'Editar Senha'}
-                        </button>
+                            <button onClick={toggleEditModePassword} className="username-edit-button">
+                                {isEditingPassword ? 'Salvar' : 'Editar Senha'}
+                            </button>
                         </div>
 
                         <div className="user-info-adm">
@@ -205,12 +237,12 @@ const ProfileAdmin: React.FC = () => {
                                     placeholder='username'
                                 />
                             ) : (
-                                
+
                                 <p>{originalUsername}</p>
                             )}
-                        <button onClick={toggleEditModeUsername} className="username-edit-button">
-                            {isEditingUsername ? 'Salvar' : 'Editar username'}
-                        </button>
+                            <button onClick={toggleEditModeUsername} className="username-edit-button">
+                                {isEditingUsername ? 'Salvar' : 'Editar username'}
+                            </button>
                         </div>
                         {isEditing ? (
                             <textarea
@@ -234,6 +266,7 @@ const ProfileAdmin: React.FC = () => {
                     <Loading />
                 )}
             </div>
+            <Footer />
         </>
     );
 };
