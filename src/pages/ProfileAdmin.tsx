@@ -18,11 +18,13 @@ interface User {
 }
 
 const ProfileAdmin: React.FC = () => {
-    const { fazerLogin, dadosUsers } = useApi();
+    const { fazerLogin, dadosUsers, enviarDadosParaBackend } = useApi();
     const { id } = useParams<{ id?: string }>();
     const [user, setUser] = useState<User | null>(null);
-    const [newCapa, setNewCapa] = useState<string>('');
-    const [newPerfil, setNewPerfil] = useState<string>('');
+    const [newCapa, setNewCapa] = useState<File | null>(null);
+    const [newPerfil, setNewPerfil] = useState<File | null>(null);
+
+
     const [newDescription, setNewDescription] = useState<string>('');
     const [originalDescription, setOriginalDescription] = useState<string>('');
     const [isEditing, setIsEditing] = useState(false);
@@ -44,6 +46,11 @@ const ProfileAdmin: React.FC = () => {
     const [newTexto, setNewTexto] = useState('');
     const [texto, setTexto] = useState('Co-fundador do Rastro Urbano');
 
+
+    const [isEditingToken, setIsEditingToken] = useState(false);
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+
     const handleClick = () => {
 
         if (isEditingText) {
@@ -55,9 +62,39 @@ const ProfileAdmin: React.FC = () => {
     };
 
 
+    const handleSaveChanges = async () => {
+        try {
+            const { accessToken, refreshToken } = await fazerLogin({ email, senha });
+            console.log('token-update', refreshToken);
+            console.log(newPerfil);
+
+            const dados = {
+                newUsername,
+                newDescription,
+                newEmail,
+                newCapa,
+                newPerfil,
+                newPassword,
+                id,
+                accessToken,
+            };
+
+            await enviarDadosParaBackend(dados);
+        } catch (error) {
+            console.error('Erro durante o login:', error);
+        }
+    };
+
+    const toggleEditModeToken = () => {
+        setIsEditingToken(!isEditingToken)
+        handleSaveChanges()
+    };
+
+
     const toggleEditModePassword = () => {
         if (isEditingPassword) {
             setOriginalPassword(newPassword)
+
         } else {
             setNewPassword(originalPassword)
         }
@@ -68,6 +105,7 @@ const ProfileAdmin: React.FC = () => {
     const toggleEditModeEmail = () => {
         if (isEditingEmail) {
             setOriginalEmail(newEmail)
+
         } else {
             setNewEmail(originalEmail)
         }
@@ -78,6 +116,7 @@ const ProfileAdmin: React.FC = () => {
         if (isEditing) {
             setOriginalDescription(newDescription);
             setOriginalUsername(newUsername);
+
         } else {
             setNewDescription(originalDescription);
             setNewUsername(originalUsername);
@@ -89,6 +128,7 @@ const ProfileAdmin: React.FC = () => {
     const toggleEditModeUsername = () => {
         if (isEditingUsername) {
             setOriginalUsername(newUsername);
+
         } else {
             setNewUsername(originalUsername);
         }
@@ -96,6 +136,8 @@ const ProfileAdmin: React.FC = () => {
     };
 
     useEffect(() => {
+        console.log(newPerfil);
+
         if (id) {
             const foundUser = dadosUsers.find((u) => u._id === id);
 
@@ -125,9 +167,7 @@ const ProfileAdmin: React.FC = () => {
         }
     };
 
-    const handleSaveChanges = () => {
-        console.log('Alterações salvas:', { newCapa, newPerfil, newDescription });
-    };
+
 
     if (!isAdmin) {
         return (
@@ -151,8 +191,8 @@ const ProfileAdmin: React.FC = () => {
                             <input
                                 type="file"
                                 name='foto_capa'
-                                value={newCapa}
-                                onChange={(e) => setNewCapa(e.target.value)}
+                                accept='image/*'
+                                onChange={(e) => setNewCapa(e.target.files?.[0] || null)}
                                 className='cover-input'
                             />
                             <img src={!user.foto_capa ? fotoCapa : user.foto_capa} alt={`Capa de ${user.username}`} className="cover-photo-adm" />
@@ -162,8 +202,8 @@ const ProfileAdmin: React.FC = () => {
                             <input
                                 type="file"
                                 name='foto_perfil'
-                                value={newPerfil}
-                                onChange={(e) => setNewPerfil(e.target.value)}
+                                accept='image/*'
+                                onChange={(e) => setNewPerfil(e.target.files?.[0] || null)}
                                 className='profile-input'
                             />
                             <img src={!user.foto_perfil ? fotoPerfil : user.foto_perfil} alt={`Foto de perfil de ${user.username}`} className="profile-photo-adm" />
@@ -184,7 +224,7 @@ const ProfileAdmin: React.FC = () => {
                             }
 
                             <button onClick={handleClick} className="email-edit-button">
-                            {isEditingText ? 'Salvar' : 'Editar Texto'}
+                                {isEditingText ? 'Salvar' : 'Editar Texto'}
                             </button>
                         </div>
                         <div className="user-info-adm">
@@ -212,8 +252,8 @@ const ProfileAdmin: React.FC = () => {
                                 <input
                                     type="password"
                                     name="senha"
-                                    value={newEmail}
-                                    onChange={(e) => setNewEmail(e.target.value)}
+                                    value={newPassword}
+                                    onChange={(e) => setNewPassword(e.target.value)}
                                     className="username-input"
                                     placeholder='senha'
                                 />
@@ -261,6 +301,34 @@ const ProfileAdmin: React.FC = () => {
                         <button onClick={toggleEditMode} className="edit-button">
                             {isEditing ? 'Salvar' : 'Editar Descrição'}
                         </button>
+                        <div >
+                            <p className='form-update'>Digite seu Email e Senha para continuar</p>
+
+                            <p className='email-input'>Email:</p>
+                            <input
+                                type="email"
+                                name="email-TOKEN"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="username-input"
+                                placeholder='email'
+                            />
+
+
+                            <p>Senha:</p>
+                            <input
+                                type="password"
+                                name="senha-TOKEN"
+                                value={senha}
+                                onChange={(e) => setSenha(e.target.value)}
+                                className="username-input"
+                                placeholder='senha'
+                            />
+
+                            <button onClick={toggleEditModeToken} className="edit-button">
+                                {isEditingToken ? 'Dados atualizados' : 'Atualizar os Dados'}
+                            </button>
+                        </div>
                     </div>
                 ) : (
                     <Loading />

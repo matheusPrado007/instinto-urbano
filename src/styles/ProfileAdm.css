@@ -163,3 +163,9 @@
     background-color:  #ffffff;
   }
 
+.form-update {
+  padding: 15px;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+}
