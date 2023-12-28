@@ -7,7 +7,7 @@ import Loading from '../components/Loading';
 import { useParams } from 'react-router-dom';
 import '../styles/ProfileAdm.css';
 import fotoCapa from '../assets/not-found.png';
-import fotoPerfil from '../assets/profile-not-foud.jpg';
+import fotoPerfil from '../assets/profile-not-found.jpg';
 
 interface User {
     _id: number;
@@ -32,6 +32,33 @@ const ProfileAdmin: React.FC = () => {
     const [isEditingUsername, setIsEditingUsername] = useState(false);
 
 
+    const [newEmail, setNewEmail] = useState<string>('');
+    const [originalEmail, setOriginalEmail] = useState<string>('');
+    const [isEditingEmail, setIsEditingEmail] = useState(false);
+
+    const [newPassword, setNewPassword] = useState<string>('');
+    const [originalPassword, setOriginalPassword] = useState<string>('');
+    const [isEditingPassword, setIsEditingPassword] = useState(false);
+
+    const toggleEditModePassword = () => {
+        if (isEditingPassword) {
+            setOriginalPassword(newPassword)
+        } else {
+            setNewPassword(originalPassword)
+        }
+        setIsEditingPassword(!isEditingPassword)
+    };
+
+
+    const toggleEditModeEmail = () => {
+        if (isEditingEmail) {
+            setOriginalEmail(newEmail)
+        } else {
+            setNewEmail(originalEmail)
+        }
+        setIsEditingEmail(!isEditingEmail)
+    };
+
     const toggleEditMode = () => {
         if (isEditing) {
             setOriginalDescription(newDescription);
@@ -41,10 +68,15 @@ const ProfileAdmin: React.FC = () => {
             setNewUsername(originalUsername);
         }
         setIsEditing(!isEditing);
-        setIsEditingUsername(false); // Certifique-se de que o modo de edição do nome de usuário está desativado
+        setIsEditingUsername(false); 
     };
 
     const toggleEditModeUsername = () => {
+        if (isEditingUsername) {
+            setOriginalUsername(newUsername);
+        } else {
+            setNewUsername(originalUsername);
+        }
         setIsEditingUsername(!isEditingUsername);
     };
 
@@ -58,6 +90,10 @@ const ProfileAdmin: React.FC = () => {
                 setNewDescription(foundUser.descricao_perfil);
                 setOriginalUsername(foundUser.username);
                 setNewUsername(foundUser.username);
+                setNewEmail(foundUser.email);
+                setOriginalEmail(foundUser.email);
+                setNewPassword(foundUser.senha);
+                setOriginalPassword(foundUser.senha);
             } else {
                 console.error('Usuário não encontrado');
             }
@@ -118,6 +154,46 @@ const ProfileAdmin: React.FC = () => {
                                 <img src={!user.foto_perfil ? fotoPerfil : user.foto_perfil} alt={`Foto de perfil de ${user.username}`} className="profile-photo-adm" />
                         </label>
                                 <p className='responsibility-p-adm'>Co-fundador do Rastro Urbano</p>
+                       
+                            <div className="user-info-adm">
+                            {isEditingEmail ? (
+                                <input
+                                    type="text"
+                                    name="email"
+                                    value={newEmail}
+                                    onChange={(e) => setNewUsername(e.target.value)}
+                                    className="username-input"
+                                    placeholder='email'
+                                />
+                            ) : (
+                                
+                                <p>{originalEmail}</p>
+                            )}
+
+                        <button onClick={toggleEditModeEmail} className="username-edit-button">
+                            {isEditingEmail ? 'Salvar' : 'Editar Email'}
+                        </button>
+                        </div>
+
+                        <div className="user-info-adm">
+                            {isEditingPassword ? (
+                                <input
+                                    type="password"
+                                    name="senha"
+                                    value={newEmail}
+                                    onChange={(e) => setNewEmail(e.target.value)}
+                                    className="username-input"
+                                    placeholder='senha'
+                                />
+                            ) : (                               
+                                <p>Nova Senha</p>
+                            )}
+
+                        <button onClick={toggleEditModePassword} className="username-edit-button">
+                            {isEditingPassword ? 'Salvar' : 'Editar Senha'}
+                        </button>
+                        </div>
+
                         <div className="user-info-adm">
                             {isEditingUsername ? (
                                 <input
@@ -129,10 +205,11 @@ const ProfileAdmin: React.FC = () => {
                                     placeholder='username'
                                 />
                             ) : (
-                                <p>username: {originalUsername}</p>
+                                
+                                <p>{originalUsername}</p>
                             )}
                         <button onClick={toggleEditModeUsername} className="username-edit-button">
-                            {isEditingUsername ? 'Salvar' : 'Editar'}
+                            {isEditingUsername ? 'Salvar' : 'Editar username'}
                         </button>
                         </div>
                         {isEditing ? (
@@ -150,7 +227,7 @@ const ProfileAdmin: React.FC = () => {
                         )}
 
                         <button onClick={toggleEditMode} className="edit-button">
-                            {isEditing ? 'Salvar' : 'Editar'}
+                            {isEditing ? 'Salvar' : 'Editar Descrição'}
                         </button>
                     </div>
                 ) : (

@@ -141,9 +141,10 @@ header nav ul li a:hover {
   .titulo-esquerda {
     width: 100%;
     color: #333;
-    font-size: 1.9rem;
+    font-size: 1.6rem;
     display: flex;
     align-items: center;
+ 
     text-decoration: none;
   }
   .logo {
@@ -153,8 +154,7 @@ header nav ul li a:hover {
     border-radius: 100%;
     padding: 1px;
     max-width: 50px;
-    margin-right: 7px;
-    margin-left:5px;
+    margin-right: 0;
   }
   
 }
