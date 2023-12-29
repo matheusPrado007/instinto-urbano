@@ -239,7 +239,7 @@ const ArtAdmin: React.FC = () => {
       console.error('Arte não encontrada ');
     }
 
-  }, [newId, selectedArte]);
+  }, [newId, id, selectedArte]);
 
 
   useEffect(() => {
@@ -346,9 +346,7 @@ const ArtAdmin: React.FC = () => {
                     placeholder='Nome'
                   />
                 ) : (
-                  <div className='description-p-art'>
-                    <p>{originalName}</p>
-                  </div>
+                    <p>{originalName}</p>          
                 )}
                 <button onClick={toggleEditModeName} className="email-edit-button">
                   {isEditingName ? 'Salvar' : 'Editar Nome da Arte'}
@@ -372,13 +370,11 @@ const ArtAdmin: React.FC = () => {
                     name="descricao"
                     value={newDescription}
                     onChange={(e) => setNewDescription(e.target.value)}
-                    className="description-input"
+                    className="username-input"
                   />
                 </div>
               ) : (
-                <div className="art-descript">
                   <p>{originalDescription}</p>
-                </div>
               )}
               <button onClick={toggleEditMode} className="edit-button">
                 {isEditing ? 'Salvar' : 'Editar Descrição'}
@@ -392,15 +388,13 @@ const ArtAdmin: React.FC = () => {
                       name="nome_artista"
                       value={newArtist}
                       onChange={(e) => setNewArtist(e.target.value)}
-                      className="description-input"
+                      className="username-input"
                     />
                   </div>
                 ) : (
-                  <div className="art-info">
                     <p> Artista(s): {originalArtist}</p>
-                  </div>
                 )}
-                <button onClick={toggleEditModeArtist} className="edit-button">
+                <button onClick={toggleEditModeArtist} className="email-edit-button">
                   {isEditingArtist ? 'Salvar' : 'Editar Descrição'}
                 </button>
               </div>
@@ -414,15 +408,13 @@ const ArtAdmin: React.FC = () => {
                       name="uf"
                       value={newState}
                       onChange={(e) => setNewState(e.target.value)}
-                      className="description-input"
+                      className="username-input"
                     />
                   </div>
                 ) : (
-                  <div className="art-info">
                     <p> Estado: {originalState}</p>
-                  </div>
                 )}
-                <button onClick={toggleEditModeState} className="edit-button">
+                <button onClick={toggleEditModeState} className="email-edit-button">
                   {isEditingState ? 'Salvar' : 'Editar Descrição'}
                 </button>
               </div>
@@ -437,15 +429,13 @@ const ArtAdmin: React.FC = () => {
                       name="cidade"
                       value={newCity}
                       onChange={(e) => setNewCity(e.target.value)}
-                      className="description-input"
+                      className="username-input"
                     />
                   </div>
                 ) : (
-                  <div className="art-info">
-                    <p> Cidade: {originalCity}</p>
-                  </div>
+                    <p> Cidade: {originalCity} </p>
                 )}
-                <button onClick={toggleEditModeCity} className="edit-button">
+                <button onClick={toggleEditModeCity} className="email-edit-button">
                   {isEditingCity ? 'Salvar' : 'Editar Descrição'}
                 </button>
               </div>
@@ -459,15 +449,13 @@ const ArtAdmin: React.FC = () => {
                       name="endereco"
                       value={newAdress}
                       onChange={(e) => setNewAdress(e.target.value)}
-                      className="description-input"
+                      className="username-input"
                     />
                   </div>
                 ) : (
-                  <div className="art-info">
                     <p> Endereço: {originalAdress}</p>
-                  </div>
                 )}
-                <button onClick={toggleEditModeAdress} className="edit-button">
+                <button onClick={toggleEditModeAdress} className="email-edit-button">
                   {isEditingAdress ? 'Salvar' : 'Editar Descrição'}
                 </button>
               </div>
