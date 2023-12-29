@@ -6,6 +6,8 @@ interface ApiContextProps {
   erro: any;
   getData: () => void;
   fazerLogin: any;
+  enviarDadosParaBackend: any;
+  enviarDadosParaBackendArt: any;
 }
 
 const ApiContext = createContext<ApiContextProps | null>(null);
@@ -18,6 +20,83 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
   const [dadosArtes, setDadosArtes] = useState<any[]>([]);
   const [dadosUsers, setDadosUsers] = useState<any[]>([]);
   const [erro, setErro] = useState<any | null>(null);
+
+
+  async function enviarDadosParaBackendArt(dados: any) {    
+    const url = `https://api-rastro-urbano.onrender.com/upload/updatearte/${dados.id}`;
+  
+    const headers = {
+      'Authorization': `Bearer ${dados.accessToken}`,
+    };
+  
+    const formData = new FormData();
+  
+    formData.append('nome_artista', dados.newArtist);
+    formData.append('nome', dados.newDescription);
+    formData.append('endereco', dados.newAdress);
+    formData.append('descricao', dados.newDescription);
+    formData.append('uf', dados.newState);
+    formData.append('cidade', dados.newCity);
+  
+    // Adicione os arquivos
+    formData.append('foto', dados.newArt);
+  
+    try {
+      const response = await fetch(url, {
+        method: 'PUT', // ou 'POST', dependendo do método esperado pelo backend
+        headers,
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Erro no servidor: ${response.statusText}`);
+      }
+  
+      const resultado = await response.json();
+      console.log('Dados atualizados com sucesso:', resultado);
+      return `Dados atualizados com sucesso:`
+    } catch (error) {
+      console.error('Erro ao enviar dados para o backend:', error);
+    }
+    }
+
+ async function enviarDadosParaBackend(dados: any) {    
+  const url = `https://api-rastro-urbano.onrender.com/upload/updateuser/${dados.id}`;
+
+  const headers = {
+    'Authorization': `Bearer ${dados.accessToken}`,
+  };
+
+  const formData = new FormData();
+
+  formData.append('username', dados.newUsername);
+  formData.append('descricao_perfil', dados.newDescription);
+  formData.append('email', dados.newEmail);
+  formData.append('senha', dados.newPassword);
+
+  // Adicione os arquivos
+  formData.append('foto_capa', dados.newCapa);
+  formData.append('foto_perfil', dados.newPerfil);
+
+  try {
+    const response = await fetch(url, {
+      method: 'PUT', // ou 'POST', dependendo do método esperado pelo backend
+      headers,
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erro no servidor: ${response.statusText}`);
+    }
+
+    const resultado = await response.json();
+    console.log('Dados atualizados com sucesso:', resultado);
+    return `Dados atualizados com sucesso:`
+  } catch (error) {
+    console.error('Erro ao enviar dados para o backend:', error);
+  }
+  }
+  
 
   const fazerLogin = async ({ email, senha }: any) => {
     try {
@@ -99,6 +178,8 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     erro,
     getData,
     fazerLogin,
+    enviarDadosParaBackend,
+    enviarDadosParaBackendArt
   };
 
   return (

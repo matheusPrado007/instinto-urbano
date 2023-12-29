@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useApi } from '../services/context/ApiContext';
-import { CustomNextArrow, CustomPrevArrow } from '../components/Btn';
+import { CustomNextArrowArtPage, CustomPrevArrowArtPage } from '../components/Btn';
 import { useParams } from 'react-router-dom';
 import '../styles/Art.css';
 import Slider from 'react-slick';
@@ -57,8 +57,8 @@ const ArtList: React.FC = () => {
     autoplay: true,
     autoplaySpeed: 3000,
     arrows: true,
-    prevArrow: <CustomPrevArrow />,
-    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrowArtPage />,
+    nextArrow: <CustomNextArrowArtPage />,
   };
 
   const handleImageClick = (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {

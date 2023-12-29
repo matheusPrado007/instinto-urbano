@@ -1,0 +1,22 @@
+.popup {
+    width: 85%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    color: #000000;
+    border-radius: 5px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    background-color: #6aff00; 
+    opacity: 0.9;
+}
+
+.message-popup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    background-color: #b9b9b900; 
+  }

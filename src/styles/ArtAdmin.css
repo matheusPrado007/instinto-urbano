@@ -1,0 +1,76 @@
+.container-home-admin {
+    display:flex;
+    flex-wrap: wrap;
+    gap: 16px; 
+    padding: 5px;
+    justify-content: center;
+  }
+
+  .cards-arte {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    padding: 3px;
+  }
+
+  .arte-item-admin {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    padding: 16px;
+    border-radius: 8px;
+    width: calc(50% - 16px); 
+    box-sizing: border-box;
+  }
+  
+  .art-photo-admin {
+    width: 100%;
+    max-width: 150px;
+    min-width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  .inputField-adm {
+    width: 80%;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    border-radius: 35px;
+    position: relative;
+  }
+  
+  .search-icon-adm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: black;
+    width: 1.4rem;
+    position: absolute;
+    top: 50%;
+    right: 170px;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+  
+  .input-container-adm {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  
+  .selectField-adm {
+    padding: 3px;
+    font-size: 16px;
+    margin-left: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  

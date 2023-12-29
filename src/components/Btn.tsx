@@ -14,5 +14,22 @@ const CustomNextArrow = (props: any) => (
   </div>
 );
 
+const CustomPrevArrowArtPage = (props: any) => (
+  <div className="custom-prev-arrow-art-page" onClick={props.onClick}>
+    <FontAwesomeIcon icon={faChevronLeft} />
+  </div>
+);
 
-export {CustomNextArrow, CustomPrevArrow};
+const CustomNextArrowArtPage = (props: any) => (
+  <div className="custom-next-arrow-art-page" onClick={props.onClick}>
+    <FontAwesomeIcon icon={faChevronRight} />
+  </div>
+);
+
+
+export {
+  CustomNextArrow,
+   CustomPrevArrow,
+   CustomNextArrowArtPage,
+   CustomPrevArrowArtPage
+  };
