@@ -32,7 +32,7 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     const formData = new FormData();
   
     formData.append('nome_artista', dados.newArtist);
-    formData.append('nome', dados.newDescription);
+    formData.append('nome', dados.newName);
     formData.append('endereco', dados.newAdress);
     formData.append('descricao', dados.newDescription);
     formData.append('uf', dados.newState);
