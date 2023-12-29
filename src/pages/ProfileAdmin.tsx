@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import '../styles/ProfileAdm.css';
 import fotoCapa from '../assets/not-found.png';
 import fotoPerfil from '../assets/profile-not-found.jpg';
+import Popup from '../components/PopUp'; 
 
 interface User {
     _id: number;
@@ -20,6 +21,10 @@ interface User {
 const ProfileAdmin: React.FC = () => {
     const { fazerLogin, dadosUsers, enviarDadosParaBackend } = useApi();
     const { id } = useParams<{ id?: string }>();
+
+    const [showPopup, setShowPopup] = useState(false);
+
+
     const [user, setUser] = useState<User | null>(null);
     const [newCapa, setNewCapa] = useState<File | null>(null);
     const [newPerfil, setNewPerfil] = useState<File | null>(null);
@@ -80,14 +85,20 @@ const ProfileAdmin: React.FC = () => {
             };
 
             await enviarDadosParaBackend(dados);
+            return await enviarDadosParaBackend(dados);
         } catch (error) {
             console.error('Erro durante o login:', error);
         }
     };
 
-    const toggleEditModeToken = () => {
-        setIsEditingToken(!isEditingToken)
-        handleSaveChanges()
+    const toggleEditModeToken = async () => {
+        try {
+            setIsEditingToken(!isEditingToken)
+            await handleSaveChanges()
+            setShowPopup(true);
+        } catch (error) {
+            console.error('Erro:', error);
+        }
     };
 
 
@@ -160,6 +171,10 @@ const ProfileAdmin: React.FC = () => {
         }
     }, [id, dadosUsers]);
 
+    const closePopup = () => {
+        setShowPopup(false);
+      };
+
 
     
     const isAdmin = async () => {
@@ -171,7 +186,6 @@ const ProfileAdmin: React.FC = () => {
             return false;
         }
     };
-
 
 
     if (!isAdmin) {
@@ -315,7 +329,7 @@ const ProfileAdmin: React.FC = () => {
                             {isEditing ? 'Salvar' : 'Editar Descrição'}
                         </button>
                         <div >
-                            <p className='form-update'>Digite seu Email e Senha para continuar...</p>
+                            <p className='form-update'>Digite sua Senha para continuar...</p>
 
                             <p className='email-input'>Email:</p>
                             <input
@@ -339,10 +353,10 @@ const ProfileAdmin: React.FC = () => {
                             />
 
                             <button onClick={toggleEditModeToken} className="edit-button-finish">
-                                {isEditingToken ? 'Dados atualizados' : 'Atualizar os Dados'}
+                            Atualizar os Dados
                             </button>
 
-
+                            {showPopup && <Popup message="Dados Atualizados com Sucesso" onClose={closePopup} />}
                         </div>
                     </div>
                 ) : (

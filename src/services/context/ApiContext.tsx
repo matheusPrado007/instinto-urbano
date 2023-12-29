@@ -52,6 +52,7 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
 
     const resultado = await response.json();
     console.log('Dados atualizados com sucesso:', resultado);
+    return `Dados atualizados com sucesso:`
   } catch (error) {
     console.error('Erro ao enviar dados para o backend:', error);
   }
