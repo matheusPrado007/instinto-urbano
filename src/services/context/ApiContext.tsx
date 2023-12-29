@@ -6,7 +6,8 @@ interface ApiContextProps {
   erro: any;
   getData: () => void;
   fazerLogin: any;
-  enviarDadosParaBackend: any
+  enviarDadosParaBackend: any;
+  enviarDadosParaBackendArt: any;
 }
 
 const ApiContext = createContext<ApiContextProps | null>(null);
@@ -20,6 +21,44 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
   const [dadosUsers, setDadosUsers] = useState<any[]>([]);
   const [erro, setErro] = useState<any | null>(null);
 
+
+  async function enviarDadosParaBackendArt(dados: any) {    
+    const url = `https://api-rastro-urbano.onrender.com/upload/updatearte/${dados.id}`;
+  
+    const headers = {
+      'Authorization': `Bearer ${dados.accessToken}`,
+    };
+  
+    const formData = new FormData();
+  
+    formData.append('nome_artista', dados.newArtist);
+    formData.append('nome', dados.newDescription);
+    formData.append('endereco', dados.newAdress);
+    formData.append('descricao', dados.newDescription);
+    formData.append('uf', dados.newState);
+    formData.append('cidade', dados.newCity);
+  
+    // Adicione os arquivos
+    formData.append('foto', dados.newArt);
+  
+    try {
+      const response = await fetch(url, {
+        method: 'PUT', // ou 'POST', dependendo do método esperado pelo backend
+        headers,
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Erro no servidor: ${response.statusText}`);
+      }
+  
+      const resultado = await response.json();
+      console.log('Dados atualizados com sucesso:', resultado);
+      return `Dados atualizados com sucesso:`
+    } catch (error) {
+      console.error('Erro ao enviar dados para o backend:', error);
+    }
+    }
 
  async function enviarDadosParaBackend(dados: any) {    
   const url = `https://api-rastro-urbano.onrender.com/upload/updateuser/${dados.id}`;
@@ -139,7 +178,8 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     erro,
     getData,
     fazerLogin,
-    enviarDadosParaBackend
+    enviarDadosParaBackend,
+    enviarDadosParaBackendArt
   };
 
   return (

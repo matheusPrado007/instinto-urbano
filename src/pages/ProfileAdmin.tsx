@@ -328,7 +328,7 @@ const ProfileAdmin: React.FC = () => {
                         <button onClick={toggleEditMode} className="edit-button">
                             {isEditing ? 'Salvar' : 'Editar Descrição'}
                         </button>
-                        <div >
+                        <div>
                             <p className='form-update'>Digite sua Senha para continuar...</p>
 
                             <p className='email-input'>Email:</p>
