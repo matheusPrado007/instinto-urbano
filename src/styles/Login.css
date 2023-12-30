@@ -45,6 +45,29 @@
     background-color: rgba(40, 44, 52, 0);
   }
 
+  .login-label {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+    color: #333;
+    background-color: rgba(40, 44, 52, 0);
+  }
+  
+  .btn-senha {
+    position: absolute;
+    width: 1.7rem;
+    background-color: #ffffff00;
+    border: none;
+    right: 11.5%; 
+    top: 58%;
+    transform: translateY(-50%);
+    z-index: 1;
+    padding: 10px;
+  }
+  
+
 
   .login-input {
     width: 85%;
