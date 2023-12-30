@@ -8,6 +8,7 @@ interface ApiContextProps {
   fazerLogin: any;
   enviarDadosParaBackend: any;
   enviarDadosParaBackendArt: any;
+  enviarDadosParaBackendPost: any;
 }
 
 const ApiContext = createContext<ApiContextProps | null>(null);
@@ -20,6 +21,47 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
   const [dadosArtes, setDadosArtes] = useState<any[]>([]);
   const [dadosUsers, setDadosUsers] = useState<any[]>([]);
   const [erro, setErro] = useState<any | null>(null);
+
+
+
+  async function enviarDadosParaBackendPost(dados: any) {    
+    const url = `https://api-rastro-urbano.onrender.com/upload/createuser`;
+  
+    const headers = {
+      'Authorization': `Bearer ${dados.accessToken}`,
+    };
+  
+    const formData = new FormData();
+  
+    formData.append('username', dados.newUsername);
+    formData.append('descricao_perfil', dados.newDescription);
+    formData.append('email', dados.newEmail);
+    formData.append('senha', dados.newPassword);
+  
+    // Adicione os arquivos
+    formData.append('foto_capa', dados.newCapa);
+    formData.append('foto_perfil', dados.newPerfil);
+  
+    try {
+      const response = await fetch(url, {
+        method: 'POST', 
+        headers,
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Erro no servidor: ${response.statusText}`);
+      }
+  
+      const resultado = await response.json();
+      console.log('Dados atualizados com sucesso:', resultado);
+      return `Dados atualizados com sucesso:`
+    } catch (error) {
+      console.error('Erro ao enviar dados para o backend:', error);
+    }
+    }
+
+
 
 
   async function enviarDadosParaBackendArt(dados: any) {    
@@ -179,7 +221,8 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     getData,
     fazerLogin,
     enviarDadosParaBackend,
-    enviarDadosParaBackendArt
+    enviarDadosParaBackendArt,
+    enviarDadosParaBackendPost
   };
 
   return (

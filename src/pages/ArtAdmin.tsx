@@ -318,12 +318,12 @@ const ArtAdmin: React.FC = () => {
           <Slider {...settings} className='galeria'>
           {filteredArtes.map((item: GaleriaItem) => (
             <div key={item._id} className="galeria-item" onClick={() => handleArteClick(item._id)}>
-              <p className="nome-trabalho">{item.nome}</p>
               <img
                 src={item.foto}
                 className="imagem-galeria"
                 alt={`Arte de ${item.nome_artista}`}
               />
+              <p className="nome-trabalho">{item.nome}</p>
               <p className="nome-artista">{item.nome_artista}</p>
               <p className="nome-trabalho">{item.endereco}</p>
             </div>
