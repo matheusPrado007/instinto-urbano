@@ -28,9 +28,10 @@ const HeaderAdmin: React.FC = () => {
         </h1>
         <nav className={isMenuOpen ? 'open' : ''}>
           <ul className="lista-direita">
+          <li><a href={`/admuser/${id}`}>Início</a></li>
             <li><a href={`/admuser/${id}/perfil`}>Meu Perfil</a></li>
             <li><a href={`/admuser/${id}/artistas`}>Artistas</a></li>
-            <li><a href={`/admuser/${id}/artes`}>Artes</a></li>
+            <li><a href={`/admuser/${id}/artes`}>Editar Artes</a></li>
             <li><a href={`/admuser/${id}/profilepost`}>Novo Administrador</a></li>
           </ul>
         </nav>
