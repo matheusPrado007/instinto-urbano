@@ -1,6 +1,6 @@
 .container-home-admin {
     display:flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 16px; 
     padding: 5px;
     justify-content: center;
