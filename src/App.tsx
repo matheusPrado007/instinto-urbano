@@ -12,6 +12,9 @@ import ProfileAdmin from './pages/ProfileAdmin';
 import ArtistAdmin from './pages/ArtistAdmin';
 import ArtAdmin from './pages/ArtAdmin';
 import ProfileAdminPost from './pages/ProfilePost';
+import ProfilePageEdit from './pages/ProfileEdit';
+// import UserListAdm from './components/UsersAdm';
+
 
 const AppRouter: React.FC = () => {
   return (
@@ -28,6 +31,7 @@ const AppRouter: React.FC = () => {
         <Route path="/admuser/:id/artistas" element={<ArtistAdmin/>} />
         <Route path="/admuser/:id/artes" element={<ArtAdmin />} />
         <Route path="/admuser/:id/profilepost" element={<ProfileAdminPost />} />
+        <Route path="/admuser/:userId/userAdm" element={<ProfilePageEdit/>} />
       </Routes>
     </Router>
   );

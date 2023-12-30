@@ -1,6 +1,6 @@
 // UserList.tsx
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApi } from '../services/context/ApiContext';
 import '../styles/Users.css';
@@ -11,16 +11,18 @@ const UserList: React.FC = () => {
   const { dadosUsers } = useApi();
   const navigate = useNavigate();
   const { id } = useParams<{ id?: string }>();
+  const [userId, setUserId] = useState();
 
   const navigateToProfile = (userId: string) => {
-
-      if (id && String(id) === String(userId)) {
+    if(id) {
+      if (String(id) === String(userId)) {
         return navigate(`/admuser/${userId}/perfil`);
       }
+      return navigate(`/admuser/${userId}/useradm`);
+    }
       navigate(`/profile/${userId}`);
   }
-    
-  
+
 
   return (
     <div className="user-list-container">
