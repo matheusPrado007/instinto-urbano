@@ -462,7 +462,7 @@ const ArtAdmin: React.FC = () => {
             </div>
           )}
         </div>
-        <div>
+        <div className='form-update-post'>
           <p className='form-update'>Digite sua Senha para continuar...</p>
 
           <p className='email-input'>Email:</p>
