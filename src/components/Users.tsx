@@ -1,17 +1,28 @@
 // UserList.tsx
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApi } from '../services/context/ApiContext';
 import '../styles/Users.css';
+import { useParams } from 'react-router-dom';
+
 
 const UserList: React.FC = () => {
   const { dadosUsers } = useApi();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const { id } = useParams<{ id?: string }>();
+  const [userId, setUserId] = useState();
 
-  const navigateToProfile = (userId: number) => {
-    navigate(`/profile/${userId}`); 
-  };
+  const navigateToProfile = (userId: string) => {
+    if(id) {
+      if (String(id) === String(userId)) {
+        return navigate(`/admuser/${userId}/perfil`);
+      }
+      return navigate(`/admuser/${userId}/perfiladm`);
+    }
+      navigate(`/profile/${userId}`);
+  }
+
 
   return (
     <div className="user-list-container">
@@ -22,12 +33,12 @@ const UserList: React.FC = () => {
             <img src={user.foto_perfil} alt={user.nome} className="user-avatar" />
             <span className='nome-user'>{user.username}</span>
             <span>
-            • Desenvolvedor Web Full Stack 
+              • Desenvolvedor Web Full Stack
             </span>
             <span>
-            • Co-fundador do Rastro Urbano
+              • Co-fundador do Rastro Urbano
             </span>
-           
+
           </div>
         ))}
       </div>

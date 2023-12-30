@@ -7,6 +7,12 @@ import Loading from '../components/Loading';
 import '../styles/ArtAdmin.css'
 import Popup from '../components/PopUp'
 import { useParams } from 'react-router-dom';
+import { CustomNextArrow, CustomPrevArrow } from '../components/Btn';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import '../styles/Galeria.css';
+
 
 
 interface Arte {
@@ -19,6 +25,13 @@ interface Arte {
   uf: string;
   cidade: string
 }
+interface GaleriaItem {
+  _id: any;
+  foto: string;
+  nome_artista: string;
+  nome: string;
+  endereco: string
+}
 
 const ArtAdmin: React.FC = () => {
   const { fazerLogin, dadosArtes, enviarDadosParaBackendArt, dadosUsers} = useApi();
@@ -27,6 +40,7 @@ const ArtAdmin: React.FC = () => {
   const [searchField, setSearchField] = useState<string>('nome'); // Campo padrão para busca
   const [selectedArte, setSelectedArte] = useState<Arte | null>(null);
   const [newArt, setNewArt] = useState<File | null>(null);
+  const [larguraTotal, setLarguraTotal] = useState(100);
 
   const [showPopup, setShowPopup] = useState(false);
 
@@ -225,7 +239,42 @@ const ArtAdmin: React.FC = () => {
       console.error('Arte não encontrada ');
     }
 
-  }, [newId, selectedArte]);
+  }, [newId, id, selectedArte]);
+
+
+  useEffect(() => {
+    const handleResize = async () => {
+      const numeroDeImgs = window.innerWidth / 220;
+      console.log(numeroDeImgs);
+      
+      const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length -1
+      // console.log('numero total', +resulNumber.toFixed(0));
+      
+      const resulNumber = +numeroTotal === 0 ? 1 : +numeroTotal;
+      setLarguraTotal(+resulNumber.toFixed(0));
+    };
+
+     window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [filteredArtes.length]);
+
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: larguraTotal,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true, 
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+  };
 
   if (!isAdmin) {
     return (
@@ -266,18 +315,22 @@ const ArtAdmin: React.FC = () => {
         </div>
 
 
-        {searchTerm.length > 0 && filteredArtes.map((arte) => (
-          <div
-            key={arte._id}
-            className="artes-container-adm"
-            onClick={() => handleArteClick(arte._id)}
-          >
-            <div className='cards-arte'>
-              {arte.nome}
-              <img src={arte.foto} alt={`Capa de ${arte.nome}`} className="art-photo-admin" />
+          <Slider {...settings} className='galeria'>
+          {filteredArtes.map((item: GaleriaItem) => (
+            <div key={item._id} className="galeria-item" onClick={() => handleArteClick(item._id)}>
+              <img
+                src={item.foto}
+                className="imagem-galeria"
+                alt={`Arte de ${item.nome_artista}`}
+              />
+              <p className="nome-trabalho">{item.nome}</p>
+              <p className="nome-artista">{item.nome_artista}</p>
+              <p className="nome-trabalho">{item.endereco}</p>
             </div>
-          </div>
-        ))}
+          ))}
+        </Slider>
+
+        
 
         <div className="art-container-page">
           {selectedArte && (
@@ -293,12 +346,10 @@ const ArtAdmin: React.FC = () => {
                     placeholder='Nome'
                   />
                 ) : (
-                  <div className='description-p-art'>
-                    <p>{originalName}</p>
-                  </div>
+                    <p>{originalName}</p>          
                 )}
                 <button onClick={toggleEditModeName} className="email-edit-button">
-                  {isEditingName ? 'Salvar' : 'Editar Email'}
+                  {isEditingName ? 'Salvar' : 'Editar Nome da Arte'}
                 </button>
               </div>
               <label className="label-cover">
@@ -319,13 +370,11 @@ const ArtAdmin: React.FC = () => {
                     name="descricao"
                     value={newDescription}
                     onChange={(e) => setNewDescription(e.target.value)}
-                    className="description-input"
+                    className="username-input"
                   />
                 </div>
               ) : (
-                <div className="art-descript">
                   <p>{originalDescription}</p>
-                </div>
               )}
               <button onClick={toggleEditMode} className="edit-button">
                 {isEditing ? 'Salvar' : 'Editar Descrição'}
@@ -339,15 +388,13 @@ const ArtAdmin: React.FC = () => {
                       name="nome_artista"
                       value={newArtist}
                       onChange={(e) => setNewArtist(e.target.value)}
-                      className="description-input"
+                      className="username-input"
                     />
                   </div>
                 ) : (
-                  <div className="art-info">
                     <p> Artista(s): {originalArtist}</p>
-                  </div>
                 )}
-                <button onClick={toggleEditModeArtist} className="edit-button">
+                <button onClick={toggleEditModeArtist} className="email-edit-button">
                   {isEditingArtist ? 'Salvar' : 'Editar Descrição'}
                 </button>
               </div>
@@ -361,15 +408,13 @@ const ArtAdmin: React.FC = () => {
                       name="uf"
                       value={newState}
                       onChange={(e) => setNewState(e.target.value)}
-                      className="description-input"
+                      className="username-input"
                     />
                   </div>
                 ) : (
-                  <div className="art-info">
                     <p> Estado: {originalState}</p>
-                  </div>
                 )}
-                <button onClick={toggleEditModeState} className="edit-button">
+                <button onClick={toggleEditModeState} className="email-edit-button">
                   {isEditingState ? 'Salvar' : 'Editar Descrição'}
                 </button>
               </div>
@@ -384,15 +429,13 @@ const ArtAdmin: React.FC = () => {
                       name="cidade"
                       value={newCity}
                       onChange={(e) => setNewCity(e.target.value)}
-                      className="description-input"
+                      className="username-input"
                     />
                   </div>
                 ) : (
-                  <div className="art-info">
-                    <p> Cidade: {originalCity}</p>
-                  </div>
+                    <p> Cidade: {originalCity} </p>
                 )}
-                <button onClick={toggleEditModeCity} className="edit-button">
+                <button onClick={toggleEditModeCity} className="email-edit-button">
                   {isEditingCity ? 'Salvar' : 'Editar Descrição'}
                 </button>
               </div>
@@ -406,22 +449,20 @@ const ArtAdmin: React.FC = () => {
                       name="endereco"
                       value={newAdress}
                       onChange={(e) => setNewAdress(e.target.value)}
-                      className="description-input"
+                      className="username-input"
                     />
                   </div>
                 ) : (
-                  <div className="art-info">
                     <p> Endereço: {originalAdress}</p>
-                  </div>
                 )}
-                <button onClick={toggleEditModeAdress} className="edit-button">
+                <button onClick={toggleEditModeAdress} className="email-edit-button">
                   {isEditingAdress ? 'Salvar' : 'Editar Descrição'}
                 </button>
               </div>
             </div>
           )}
         </div>
-        <div>
+        <div className='form-update-post'>
           <p className='form-update'>Digite sua Senha para continuar...</p>
 
           <p className='email-input'>Email:</p>

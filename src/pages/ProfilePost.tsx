@@ -18,8 +18,8 @@ interface User {
     descricao_perfil: string;
 }
 
-const ProfileAdmin: React.FC = () => {
-    const { fazerLogin, dadosUsers, enviarDadosParaBackend } = useApi();
+const ProfileAdminPost: React.FC = () => {
+    const { fazerLogin, dadosUsers, enviarDadosParaBackendPost } = useApi();
     const { id } = useParams<{ id?: string }>();
 
     const [showPopup, setShowPopup] = useState(false);
@@ -28,6 +28,9 @@ const ProfileAdmin: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
     const [newCapa, setNewCapa] = useState<File | null>(null);
     const [newPerfil, setNewPerfil] = useState<File | null>(null);
+
+
+
 
 
     const [newDescription, setNewDescription] = useState<string>('');
@@ -56,6 +59,17 @@ const ProfileAdmin: React.FC = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
+
+    const [newUser, setNewUser] = useState({
+        username: originalUsername,
+        email: originalEmail,
+        senha: originalPassword,
+        foto_capa: fotoCapa,
+        foto_perfil: fotoPerfil,
+        descricao_perfil: originalDescription,
+    });
+
+
     const handleClick = () => {
 
         if (isEditingText) {
@@ -69,9 +83,8 @@ const ProfileAdmin: React.FC = () => {
 
     const handleSaveChanges = async () => {
         try {
-            // const { accessToken, refreshToken } = await fazerLogin({ email, senha });
-            // console.log('token-update', refreshToken);
-            console.log(newPerfil);
+            const { accessToken, refreshToken } = await fazerLogin({ email, senha });
+
 
             const dados = {
                 newUsername,
@@ -80,12 +93,9 @@ const ProfileAdmin: React.FC = () => {
                 newCapa,
                 newPerfil,
                 newPassword,
-                id,
-                // accessToken,
             };
 
-            await enviarDadosParaBackend(dados);
-            return await enviarDadosParaBackend(dados);
+            await enviarDadosParaBackendPost(dados);
         } catch (error) {
             console.error('Erro durante o login:', error);
         }
@@ -151,24 +161,29 @@ const ProfileAdmin: React.FC = () => {
 
         if (id) {
             const foundUser = dadosUsers.find((u) => u._id === id);
-            console.log(foundUser);
+            const newUserPost = dadosUsers.find((u) => u.username === newUsername)
+
+            if(newUserPost) {
+                setNewUser(newUserPost)
+            }
             
             if (foundUser) {
                 const emailStorage: string = foundUser.email
                 setEmail(emailStorage)
                 setUser(foundUser);
-                setOriginalDescription(foundUser.descricao_perfil);
-                setNewDescription(foundUser.descricao_perfil);
-                setOriginalUsername(foundUser.username);
-                setNewUsername(foundUser.username);
-                setNewEmail(foundUser.email);
-                setOriginalEmail(foundUser.email);
-                setNewPassword(foundUser.senha);
-                setOriginalPassword(foundUser.senha);
+                setOriginalDescription(newDescription);
+                setNewDescription(newDescription);
+                setOriginalUsername(newUsername);
+                setNewUsername(newUsername);
+                setNewEmail(newEmail);
+                setOriginalEmail(newEmail);
+                setNewPassword(newPassword);
+                setOriginalPassword(newPassword);
             } else {
                 console.error('Usuário não encontrado');
             }
         }
+
     }, [id, dadosUsers]);
 
     const closePopup = () => {
@@ -204,7 +219,7 @@ const ProfileAdmin: React.FC = () => {
         <>
             <HeaderAdmin />
             <div className="profile-container-adm">
-                <a href={`/admuser/${id}/perfiladm`} className='profile-edit-finish'>Quer ver como ficou?</a>
+                <a href={`/profile/${id}`} className='profile-edit-finish'>Quer ver como ficou?</a>
                 {user ? (
                     <div className='form-adm-profile'>
                         <label className="label-cover">
@@ -215,7 +230,7 @@ const ProfileAdmin: React.FC = () => {
                                 onChange={(e) => setNewCapa(e.target.files?.[0] || null)}
                                 className='cover-input'
                             />
-                            <img src={!user.foto_capa ? fotoCapa : user.foto_capa} alt={`Capa de ${user.username}`} className="cover-photo-adm" />
+                            <img src={!newUser.foto_capa ? fotoCapa : newUser.foto_capa} alt={`Capa de ${user.username}`} className="cover-photo-adm" />
                         </label>
 
                         <label className='label-profile'>
@@ -226,7 +241,7 @@ const ProfileAdmin: React.FC = () => {
                                 onChange={(e) => setNewPerfil(e.target.files?.[0] || null)}
                                 className='profile-input'
                             />
-                            <img src={!user.foto_perfil ? fotoPerfil : user.foto_perfil} alt={`Foto de perfil de ${user.username}`} className="profile-photo-adm" />
+                            <img src={!newUser.foto_perfil ? fotoPerfil : newUser.foto_perfil} alt={`Foto de perfil de ${user.username}`} className="profile-photo-adm" />
                         </label>
                         <div className="user-info-adm">
                             {
@@ -280,7 +295,7 @@ const ProfileAdmin: React.FC = () => {
                                     placeholder='senha'
                                 />
                             ) : (
-                                <p>Nova Senha:</p>
+                                <p>Senha:</p>
                             )}
 
                             <button onClick={toggleEditModePassword} className="email-edit-button ">
@@ -328,7 +343,7 @@ const ProfileAdmin: React.FC = () => {
                         <button onClick={toggleEditMode} className="edit-button">
                             {isEditing ? 'Salvar' : 'Editar Descrição'}
                         </button>
-                        <div className='form-update-post'>
+                        <div>
                             <p className='form-update'>Digite sua Senha para continuar...</p>
 
                             <p className='email-input'>Email:</p>
@@ -353,7 +368,7 @@ const ProfileAdmin: React.FC = () => {
                             />
 
                             <button onClick={toggleEditModeToken} className="edit-button-finish">
-                            Atualizar os Dados
+                            Adicionar novo administrador
                             </button>
 
                             {showPopup && <Popup message="Dados Atualizados com Sucesso" onClose={closePopup} />}
@@ -368,4 +383,4 @@ const ProfileAdmin: React.FC = () => {
     );
 };
 
-export default ProfileAdmin;
+export default ProfileAdminPost;

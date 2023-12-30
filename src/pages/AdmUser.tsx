@@ -4,6 +4,8 @@ import { useApi } from '../services/context/ApiContext';
 import Footer from '../components/Footer';
 import HeaderAdmin from '../components/HeaderAdmin';
 import Header from '../components/Header';
+import UserList from '../components/Users';
+import Galeria from '../components/Galeria';
 
 const AdmUser: React.FC = () => {
   const { fazerLogin } = useApi();
@@ -37,8 +39,8 @@ const AdmUser: React.FC = () => {
       
       <HeaderAdmin />
       <div className="content">
-        <h2>Página do Administrador</h2>
-
+      <UserList />
+      <Galeria />
       </div>
       <Footer />
     </>

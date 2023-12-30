@@ -6,6 +6,8 @@ import { useApi } from '../services/context/ApiContext';
 import { useNavigate } from 'react-router-dom';
 import MapsLogin from '../services/MapsLogin';
 import Loading from '../components/Loading';
+import olhoAberto from '../assets/olho-aberto.png'
+import olhoFechado from '../assets/olho-fechado.png'
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -13,6 +15,8 @@ const Login: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [saveEmail, setSaveEmail] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [senhaVisivel, setSenhaVisivel] = useState('');
+    const [mostrarSenha, setMostrarSenha] = useState(false);
 
     const { fazerLogin, dadosUsers } = useApi();
     const navigate = useNavigate();
@@ -48,10 +52,14 @@ const Login: React.FC = () => {
         }
     };
 
+    const handleToggleSenha = () => {
+        setMostrarSenha((prevMostrarSenha) => !prevMostrarSenha);
+    };
+
     return (
         <>
             <Header />
-            {loading && <Loading />} 
+            {loading && <Loading />}
             <div className='map-container'>
                 <MapsLogin />
             </div>
@@ -69,13 +77,21 @@ const Login: React.FC = () => {
                     </label>
                     <label className="login-label">
                         Senha:
+                        {/* <div className='login-label-senha'> */}
                         <input
-                            type="password"
+                             type={mostrarSenha ? 'text' : 'password'}
                             value={senha}
                             onChange={(e) => setSenha(e.target.value)}
                             className="login-input"
                             placeholder="Senha"
                         />
+                    <div onClick={handleToggleSenha} >
+                        {!mostrarSenha ?
+                        <img src={olhoFechado} alt="olho-aberto" className='btn-senha' />
+                         : <img src={olhoAberto} alt="olho-fechado" className='btn-senha' /> 
+                         }
+                    </div>
+                    {/* </div> */}
                     </label>
                     <label className="login-label-checkbox">
                         <span className="login-label-checkbox-input" >Salvar e-mail: </span>
@@ -84,7 +100,7 @@ const Login: React.FC = () => {
                                 type="checkbox"
                                 checked={saveEmail}
                                 onChange={() => setSaveEmail(!saveEmail)}
-                                className="checkbox-input login-label-checkbox-input"                             
+                                className="checkbox-input login-label-checkbox-input"
                             />
                             <div className="checkbox-custom">✔</div>
                         </div>
