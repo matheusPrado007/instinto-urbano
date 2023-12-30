@@ -18,7 +18,7 @@ const UserList: React.FC = () => {
       if (String(id) === String(userId)) {
         return navigate(`/admuser/${userId}/perfil`);
       }
-      return navigate(`/admuser/${userId}/useradm`);
+      return navigate(`/admuser/${userId}/perfiladm`);
     }
       navigate(`/profile/${userId}`);
   }
