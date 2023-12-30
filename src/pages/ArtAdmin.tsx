@@ -250,7 +250,7 @@ const ArtAdmin: React.FC = () => {
       const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length -1
       // console.log('numero total', +resulNumber.toFixed(0));
       
-      const resulNumber = +numeroTotal === 0 ? 1 : +numeroDeImgs;
+      const resulNumber = +numeroTotal === 0 ? 1 : +numeroTotal;
       setLarguraTotal(+resulNumber.toFixed(0));
     };
 
