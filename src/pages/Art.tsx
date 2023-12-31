@@ -20,6 +20,9 @@ interface GaleriaItem {
   nome_artista: string;
   nome: string;
   endereco: string;
+  descricao: string;
+  uf: string;
+  cidade: string;
 }
 
 const ArtList: React.FC = () => {
@@ -71,29 +74,36 @@ const ArtList: React.FC = () => {
       {dadosArtes.length <= 0 ? (
         <Loading />
       ) : (
-        <section className="art-container">
-          <div className="artes">
-            <Slider {...settings} 
-            className={isClick ? "galeria-artes-hover": "galeria-artes"}
-            >
+        <section className="art-container-page">
+            <Slider {...settings} >
               {dadosArtes.map((item: GaleriaItem) => (
-                <div key={item._id} className="galeria-item-artes"  >
-                  <img
-                    src={item.foto}
-                    className="imagem-galeria-artes"
-                    alt={`Arte de ${item.nome_artista}`}
-                    onClick={handleImageClick}
-                  />
-                  <p className="nome-artista-artes">Artista(s): {item.nome_artista}</p>
-                  <p className="nome-trabalho-artes">{item.nome}</p>
-                  <p className="nome-trabalho-artes">{item.endereco}</p>
+                <div>
+                <div>
+                  <p className='description-p-art'>{item.nome}</p>
                 </div>
+                <img src={item.foto} alt={`Capa de ${item.nome}`} className="art-photo" />
+                <div className="art-descript">
+                  <p>{item.descricao}</p>
+                </div>
+    
+                <div className="art-info">
+                  <p> Artista(s): {item.nome_artista}</p>
+                </div>
+                <div className="art-info">
+                  <p> Estado: {item.uf}</p>
+                </div>
+                <div className="art-info">
+                  <p> Cidade: {item.cidade}</p>
+                </div>
+                <div className="art-info">
+                  <p> Endereço: {item.endereco}</p>
+                </div>
+              </div>
               ))}
             </Slider>
-          </div>
-          <Maps />
         </section>
       )}
+      <Maps />
       <Footer />
     </>
   );
