@@ -18,13 +18,13 @@ interface GaleriaItem {
   }
 
 const ArtPage: React.FC = () => {
-  const { artId } = useParams<{ artId?: string }>();
+  const { id } = useParams<{ id?: string }>();
   const [art, setArt] = useState<GaleriaItem | null>(null);
   const { dadosArtes } = useApi();
 
   useEffect(() => {
-    if (artId) {
-      const foundArt = dadosArtes.find((u) => u._id === artId);
+    if (id) {
+      const foundArt = dadosArtes.find((u) => u._id === id);
         console.log('art',foundArt);
         
       if (foundArt) {
@@ -33,7 +33,7 @@ const ArtPage: React.FC = () => {
         console.error('Usuário não encontrado');
       }
     }
-  }, [artId, dadosArtes]);
+  }, [id, dadosArtes]);
 
   return (
     <div>

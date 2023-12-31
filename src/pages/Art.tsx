@@ -24,7 +24,7 @@ interface GaleriaItem {
 
 const ArtList: React.FC = () => {
   const { dadosArtes } = useApi();
-  const { userId } = useParams<{ userId?: string }>();
+  const { id } = useParams<{ id?: string }>();
   const [arte, setArte] = useState<GaleriaItem | null>(null);
   const { dadosUsers } = useApi();
   const [isClick, setIsClick] = useState(false);
@@ -32,8 +32,8 @@ const ArtList: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (userId) {
-        const foundArte = dadosArtes.find((a) => a._id === userId);
+      if (id) {
+        const foundArte = dadosArtes.find((a) => a._id === id);
 
         if (foundArte) {
           setArte(foundArte);
@@ -46,7 +46,7 @@ const ArtList: React.FC = () => {
 
     fetchData();
 
-  }, [userId, dadosArtes]);
+  }, [id, dadosArtes]);
 
   const settings = {
     dots: true,
