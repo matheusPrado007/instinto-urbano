@@ -203,7 +203,7 @@ const ProfileAdmin: React.FC = () => {
         <>
             <HeaderAdmin />
             <div className="profile-container-adm">
-                <a href={`/admuser/${id}/perfiladm`} className='profile-edit-finish'>Quer ver como ficou?</a>
+                <a href={`/admuser/${id}/admuser/${id}/perfiladm`} className='profile-edit-finish'>Quer ver como ficou?</a>
                 {user ? (
                     <div className='form-adm-profile'>
                         <label className="label-cover">
