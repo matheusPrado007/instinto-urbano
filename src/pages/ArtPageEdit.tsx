@@ -8,6 +8,7 @@ import '../styles/ArtAdmin.css'
 import Popup from '../components/PopUp'
 import { useParams } from 'react-router-dom';
 import arteFoto from '../assets/profile-not-found.jpg'
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -68,6 +69,15 @@ const ArtPageEdit: React.FC = () => {
   const [senha, setSenha] = useState('');
   
   const [newId, setNewId] = useState();
+
+  const navigate = useNavigate();
+
+  const navigateToArt = () => {
+    if (newId) {
+        navigate(`/arte/${newId}`);
+    }
+  }
+
   
   const [selectedArte, setSelectedArte] = useState<any>({
     foto: arteFoto,
@@ -97,7 +107,9 @@ const ArtPageEdit: React.FC = () => {
         accessToken
       };
 
-      await enviarDadosParaBackendArtPost(dados);
+      const idArt = await enviarDadosParaBackendArtPost(dados);
+        setNewId(idArt)
+
     } catch (error) {
       console.error('Erro durante o login:', error);
     }
@@ -188,13 +200,17 @@ const ArtPageEdit: React.FC = () => {
     return false;
   };
 
-  
+  useEffect(() => {
+    navigateToArt()
+  }, [newId]);
+
 
 
   useEffect(() => {
     if (id) {
       const foundUser = dadosUsers.find((u) => u._id === id);
       console.log(foundUser);
+      console.log(id);
       
       if (foundUser) {
           const emailStorage: string = foundUser.email
@@ -249,7 +265,6 @@ const ArtPageEdit: React.FC = () => {
       <HeaderAdmin />
       <div className="container-home-admin">
   
-
         <div className="art-container-page">
           {selectedArte && (
             <div>
