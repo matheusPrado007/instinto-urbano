@@ -25,12 +25,6 @@ const Home: React.FC = () => {
           <div className="main-container">
             <div className="container-home">
               <p>Sua comunidade de Arte de Rua.</p>
-              <div className="input-container">
-                <input type="text" className="inputField" placeholder="Pesquisar..." />
-                <div className="search-icon">
-                  <img src="/lupa.png" alt="Ícone de Lupa" />
-                </div>
-              </div>
             </div>
             <section className='galeria-home'>
               <Galeria />
