@@ -93,6 +93,7 @@ const ProfileAdminPost: React.FC = () => {
                 newCapa,
                 newPerfil,
                 newPassword,
+                accessToken
             };
 
             await enviarDadosParaBackendPost(dados);

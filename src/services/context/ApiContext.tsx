@@ -54,8 +54,14 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
       }
   
       const resultado = await response.json();
+
       console.log('Dados enviados com sucesso:', resultado);
-      return `Dados enviados com sucesso:`
+
+      if (resultado._id) {
+        return resultado._id; 
+      } else {
+        throw new Error('Resposta da API não contém um ID válido.');
+      }
     } catch (error) {
       console.error('Erro ao enviar dados para o backend:', error);
     }
