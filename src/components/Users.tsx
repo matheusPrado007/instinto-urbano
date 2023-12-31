@@ -12,10 +12,12 @@ const UserList: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id?: string }>();
   const [userId, setUserId] = useState();
+  const [idParams, setIdPrams] = useState<any>();
 
   const navigateToProfile = (userId: string) => {
-    if(id) {
-      if (String(id) === String(userId)) {
+
+    if(idParams) {
+      if (String(idParams) === String(userId)) {
         return navigate(`/admuser/${userId}/perfil`);
       }
       return navigate(`/admuser/${userId}/perfiladm`);
@@ -23,6 +25,9 @@ const UserList: React.FC = () => {
       navigate(`/profile/${userId}`);
   }
 
+  useEffect(() => {
+    setIdPrams(id)
+  }, [id])
 
   return (
     <div className="user-list-container">
