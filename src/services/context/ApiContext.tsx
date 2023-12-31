@@ -9,6 +9,7 @@ interface ApiContextProps {
   enviarDadosParaBackend: any;
   enviarDadosParaBackendArt: any;
   enviarDadosParaBackendPost: any;
+  enviarDadosParaBackendArtPost: any
 }
 
 const ApiContext = createContext<ApiContextProps | null>(null);
@@ -23,6 +24,42 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
   const [erro, setErro] = useState<any | null>(null);
 
 
+  async function enviarDadosParaBackendArtPost(dados: any) {    
+    const url = `https://api-rastro-urbano.onrender.com/upload/createarte`;
+  
+    const headers = {
+      'Authorization': `Bearer ${dados.accessToken}`,
+    };
+  
+    const formData = new FormData();
+  
+    formData.append('nome_artista', dados.newArtist);
+    formData.append('nome', dados.newName);
+    formData.append('endereco', dados.newAdress);
+    formData.append('descricao', dados.newDescription);
+    formData.append('uf', dados.newState);
+    formData.append('cidade', dados.newCity);
+  
+    formData.append('imagem', dados.newArt);
+  
+    try {
+      const response = await fetch(url, {
+        method: 'POST', 
+        headers,
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Erro no servidor: ${response.statusText}`);
+      }
+  
+      const resultado = await response.json();
+      console.log('Dados enviados com sucesso:', resultado);
+      return `Dados enviados com sucesso:`
+    } catch (error) {
+      console.error('Erro ao enviar dados para o backend:', error);
+    }
+    }
 
   async function enviarDadosParaBackendPost(dados: any) {    
     const url = `https://api-rastro-urbano.onrender.com/upload/createuser`;
@@ -81,7 +118,7 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     formData.append('cidade', dados.newCity);
   
     // Adicione os arquivos
-    formData.append('foto', dados.newArt);
+    formData.append('imagem', dados.newArt);
   
     try {
       const response = await fetch(url, {
@@ -222,7 +259,8 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     fazerLogin,
     enviarDadosParaBackend,
     enviarDadosParaBackendArt,
-    enviarDadosParaBackendPost
+    enviarDadosParaBackendPost,
+    enviarDadosParaBackendArtPost
   };
 
   return (

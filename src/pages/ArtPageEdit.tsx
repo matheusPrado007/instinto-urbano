@@ -30,7 +30,7 @@ interface GaleriaItem {
 }
 
 const ArtPageEdit: React.FC = () => {
-  const { fazerLogin, dadosArtes, enviarDadosParaBackendArt, dadosUsers} = useApi();
+  const { fazerLogin, dadosArtes, enviarDadosParaBackendArtPost, dadosUsers} = useApi();
   const { id } = useParams<{ id?: string }>();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchField, setSearchField] = useState<string>('nome'); 
@@ -94,12 +94,10 @@ const ArtPageEdit: React.FC = () => {
         newArtist,
         newCity,
         newState,
-        id: newId,
-        accessToken,
+        accessToken
       };
 
-      await enviarDadosParaBackendArt(dados);
-      return await enviarDadosParaBackendArt(dados);
+      await enviarDadosParaBackendArtPost(dados);
     } catch (error) {
       console.error('Erro durante o login:', error);
     }
@@ -407,10 +405,10 @@ const ArtPageEdit: React.FC = () => {
           />
 
           <button onClick={toggleEditModeToken} className="edit-button-finish">
-            Atualizar os Dados
+            Adiciona nova Arte
           </button>
 
-          {showPopup && <Popup message="Dados Atualizados com Sucesso" onClose={closePopup} />}
+          {showPopup && <Popup message="Dados Adicionados com Sucesso" onClose={closePopup} />}
         </div>
       </div>
       <Footer />
