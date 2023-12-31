@@ -163,7 +163,6 @@ const ProfileAdmin: React.FC = () => {
                 setNewUsername(foundUser.username);
                 setNewEmail(foundUser.email);
                 setOriginalEmail(foundUser.email);
-                setNewPassword(foundUser.senha);
                 setOriginalPassword(foundUser.senha);
             } else {
                 console.error('Usuário não encontrado');
@@ -272,9 +271,9 @@ const ProfileAdmin: React.FC = () => {
                         <div className="user-info-adm">
                             {isEditingPassword ? (
                                 <input
-                                    type="password"
+                                    type="text"
                                     name="senha"
-                                    value={newPassword}
+                                    required
                                     onChange={(e) => setNewPassword(e.target.value)}
                                     className="username-input"
                                     placeholder='senha'
