@@ -20,7 +20,7 @@ const UserList: React.FC = () => {
       if (String(idParams) === String(userId)) {
         return navigate(`/admuser/${userId}/perfil`);
       }
-      return navigate(`/admuser/${userId}/perfiladm`);
+      return navigate(`admuser/${userId}/perfiladm`);
     }
       navigate(`/profile/${userId}`);
   }

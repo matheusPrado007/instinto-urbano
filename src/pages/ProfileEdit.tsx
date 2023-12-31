@@ -15,7 +15,7 @@ interface User {
 }
 
 const ProfilePageEdit: React.FC = () => {
-  const { id } = useParams<{ id?: string }>();
+  const { id, userId } = useParams<{ id?: string, userId?: string }>();
   const [user, setUser] = useState<User | null>(null);
   const { dadosUsers } = useApi();
 
@@ -35,7 +35,7 @@ const ProfilePageEdit: React.FC = () => {
     <div>
       <Header />
       <div className="profile-container">
-        <a href={`/admuser/${id}`} className='profile-edit-finish'>Voltar</a>
+        <a href={`/admuser/${userId}`} className='profile-edit-finish'>Voltar</a>
         {user ? (
           <div>
             <img src={user.foto_capa} alt={`Capa de ${user.username}`} className="cover-photo" />

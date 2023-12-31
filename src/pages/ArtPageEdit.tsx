@@ -38,7 +38,7 @@ const ArtPageEdit: React.FC = () => {
 
   const [newArt, setNewArt] = useState<File | null>(null);
   
-  const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState<any>();
 
   const [newName, setNewName] = useState<string>('');
   const [originalName, setOriginalName] = useState<string>('');
@@ -89,13 +89,12 @@ const ArtPageEdit: React.FC = () => {
     cidade: newCity
   });
   const closePopup = () => {
-    setShowPopup(false);
+      setShowPopup(undefined);
   };
 
   const handleSaveChanges = async () => {
     try {
       const { accessToken, refreshToken } = await fazerLogin({ email, senha });
-
       const dados = {
         newArt,
         newName,
@@ -109,8 +108,13 @@ const ArtPageEdit: React.FC = () => {
 
       const idArt = await enviarDadosParaBackendArtPost(dados);
         setNewId(idArt)
-
-    } catch (error) {
+        if(idArt) {
+          return setShowPopup(true);
+        } else {
+         return setShowPopup(false);
+        }
+      } catch (error) {
+      setShowPopup(false);
       console.error('Erro durante o login:', error);
     }
   };
@@ -119,7 +123,11 @@ const ArtPageEdit: React.FC = () => {
     try {
       setIsEditingToken(!isEditingToken)
       await handleSaveChanges()
-      setShowPopup(true);
+      if(newId) {
+        return setShowPopup(true);
+      } else {
+       return setShowPopup(false);
+      }
     } catch (error) {
       console.error('Erro:', error);
     }
@@ -207,6 +215,7 @@ const ArtPageEdit: React.FC = () => {
 
 
   useEffect(() => {
+
     if (id) {
       const foundUser = dadosUsers.find((u) => u._id === id);
       console.log(foundUser);
@@ -423,7 +432,9 @@ const ArtPageEdit: React.FC = () => {
             Adiciona nova Arte
           </button>
 
-          {showPopup && <Popup message="Dados Adicionados com Sucesso" onClose={closePopup} />}
+          {showPopup !== undefined && (
+            <Popup message={showPopup ? "Dados Adicionados com Sucesso" : "Erro ao Adicionar Dados"} onClose={closePopup} />
+          )}
         </div>
       </div>
       <Footer />

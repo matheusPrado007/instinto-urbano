@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import '../styles/ProfileAdm.css';
 import fotoCapa from '../assets/not-found.png';
 import fotoPerfil from '../assets/profile-not-found.jpg';
-import Popup from '../components/PopUp'; 
+import Popup from '../components/PopUp';
 
 interface User {
     _id: number;
@@ -22,7 +22,7 @@ const ProfileAdminPost: React.FC = () => {
     const { fazerLogin, dadosUsers, enviarDadosParaBackendPost } = useApi();
     const { id } = useParams<{ id?: string }>();
 
-    const [showPopup, setShowPopup] = useState(false);
+    const [showPopup, setShowPopup] = useState<any>();
 
 
     const [user, setUser] = useState<User | null>(null);
@@ -30,7 +30,7 @@ const ProfileAdminPost: React.FC = () => {
     const [newPerfil, setNewPerfil] = useState<File | null>(null);
 
 
-
+    const [newResult, setNewResult] = useState<string>('');
 
 
     const [newDescription, setNewDescription] = useState<string>('');
@@ -96,7 +96,13 @@ const ProfileAdminPost: React.FC = () => {
                 accessToken
             };
 
-            await enviarDadosParaBackendPost(dados);
+           const resultPost = await enviarDadosParaBackendPost(dados);
+            setNewResult(resultPost)
+           if (resultPost ==='Dados atualizados com sucesso:') {
+           return setShowPopup(true);
+           } else {
+            return setShowPopup(false);
+           }
         } catch (error) {
             console.error('Erro durante o login:', error);
         }
@@ -106,7 +112,11 @@ const ProfileAdminPost: React.FC = () => {
         try {
             setIsEditingToken(!isEditingToken)
             await handleSaveChanges()
-            setShowPopup(true);
+            if (newResult ==='Dados atualizados com sucesso:') {
+                return setShowPopup(true);
+                } else {
+                 return setShowPopup(false);
+                }
         } catch (error) {
             console.error('Erro:', error);
         }
@@ -164,10 +174,10 @@ const ProfileAdminPost: React.FC = () => {
             const foundUser = dadosUsers.find((u) => u._id === id);
             const newUserPost = dadosUsers.find((u) => u.username === newUsername)
 
-            if(newUserPost) {
+            if (newUserPost) {
                 setNewUser(newUserPost)
             }
-            
+
             if (foundUser) {
                 const emailStorage: string = foundUser.email
                 setEmail(emailStorage)
@@ -188,11 +198,11 @@ const ProfileAdminPost: React.FC = () => {
     }, [id, dadosUsers]);
 
     const closePopup = () => {
-        setShowPopup(false);
-      };
+        setShowPopup(undefined);
+    };
 
 
-    
+
     const isAdmin = async () => {
         try {
             const { accessToken, refreshToken } = await fazerLogin({ email, senha });
@@ -274,10 +284,10 @@ const ProfileAdminPost: React.FC = () => {
                                     placeholder='email'
                                 />
                             ) : (
-                                
+
                                 <p className='email-input'>Email: </p>
-                                
-                                
+
+
                             )}
 
                             <button onClick={toggleEditModeEmail} className="email-edit-button ">
@@ -323,21 +333,21 @@ const ProfileAdminPost: React.FC = () => {
                         </div>
                         {isEditing ? (
                             <div>
-                            Descrição
-                            <textarea
-                                rows={15}
-                                name="descricao"
-                                value={newDescription}
-                                onChange={(e) => setNewDescription(e.target.value)}
-                                className="description-input"
-                            />
+                                Descrição
+                                <textarea
+                                    rows={15}
+                                    name="descricao"
+                                    value={newDescription}
+                                    onChange={(e) => setNewDescription(e.target.value)}
+                                    className="description-input"
+                                />
                             </div>
                         ) : (
                             <div>
-                               <p>Descrição:</p> 
-                            <div className="description-p-adm">
-                                <p>{originalDescription}</p>
-                            </div>
+                                <p>Descrição:</p>
+                                <div className="description-p-adm">
+                                    <p>{originalDescription}</p>
+                                </div>
                             </div>
                         )}
 
@@ -369,10 +379,12 @@ const ProfileAdminPost: React.FC = () => {
                             />
 
                             <button onClick={toggleEditModeToken} className="edit-button-finish">
-                            Adicionar novo administrador
+                                Adicionar novo administrador
                             </button>
 
-                            {showPopup && <Popup message="Dados Atualizados com Sucesso" onClose={closePopup} />}
+                            {showPopup !== undefined && (
+                                <Popup message={showPopup ? "Dados Adicionados com Sucesso" : "Erro ao Atualizar Dados"} onClose={closePopup} />
+                            )}
                         </div>
                     </div>
                 ) : (
