@@ -24,10 +24,10 @@ const AppRouter: React.FC = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sobre" element={<Sobre />} />
-        <Route path="/profile/:userId" element={<ProfilePage />} />
+        <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/artes" element={<ArtList />} />
         <Route path="/artistas" element={<Artist/>} />
-        <Route path="/arte/:artId" element={<ArtPage />} />
+        <Route path="/arte/:id" element={<ArtPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admuser/:id" element={<AdmUser />} />
         <Route path="/admuser/:id/perfil" element={<ProfileAdmin />} />

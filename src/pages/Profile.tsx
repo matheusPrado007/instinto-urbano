@@ -15,13 +15,13 @@ interface User {
 }
 
 const ProfilePage: React.FC = () => {
-  const { userId } = useParams<{ userId?: string }>();
+  const { id } = useParams<{ id?: string }>();
   const [user, setUser] = useState<User | null>(null);
   const { dadosUsers } = useApi();
 
   useEffect(() => {
-    if (userId) {
-      const foundUser = dadosUsers.find((u) => u._id === userId);
+    if (id) {
+      const foundUser = dadosUsers.find((u) => u._id === id);
 
       if (foundUser) {
         setUser(foundUser);
@@ -29,7 +29,7 @@ const ProfilePage: React.FC = () => {
         console.error('Usuário não encontrado');
       }
     }
-  }, [userId, dadosUsers]);
+  }, [id, dadosUsers]);
 
   return (
     <div>

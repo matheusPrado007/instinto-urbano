@@ -15,13 +15,13 @@ interface User {
 }
 
 const ProfilePageEdit: React.FC = () => {
-  const { userId } = useParams<{ userId?: string }>();
+  const { id } = useParams<{ id?: string }>();
   const [user, setUser] = useState<User | null>(null);
   const { dadosUsers } = useApi();
 
   useEffect(() => {
-    if (userId) {
-      const foundUser = dadosUsers.find((u) => u._id === userId);
+    if (id) {
+      const foundUser = dadosUsers.find((u) => u._id === id);
 
       if (foundUser) {
         setUser(foundUser);
@@ -29,13 +29,13 @@ const ProfilePageEdit: React.FC = () => {
         console.error('Usuário não encontrado');
       }
     }
-  }, [userId, dadosUsers]);
+  }, [id, dadosUsers]);
 
   return (
     <div>
       <Header />
       <div className="profile-container">
-        <a href={`/admuser/${userId}`} className='profile-edit-finish'>Voltar</a>
+        <a href={`/admuser/${id}`} className='profile-edit-finish'>Voltar</a>
         {user ? (
           <div>
             <img src={user.foto_capa} alt={`Capa de ${user.username}`} className="cover-photo" />
