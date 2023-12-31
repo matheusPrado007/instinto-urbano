@@ -244,7 +244,7 @@ const ArtAdmin: React.FC = () => {
 
   useEffect(() => {
     const handleResize = async () => {
-      const numeroDeImgs = window.innerWidth / 220;
+      const numeroDeImgs = window.innerWidth / 300;
       console.log(numeroDeImgs);
       
       const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length -1
