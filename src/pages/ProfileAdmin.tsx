@@ -188,10 +188,6 @@ const ProfileAdmin: React.FC = () => {
         setIsDeleteButtonDisabled(!(email && senha));
     }, [email, senha]);
 
-    useEffect(() => {
-        setIsDeleteButtonDisabled(!(email && senha));
-    }, [email, senha]);
-
 
     const isAdmin = async () => {
         try {
