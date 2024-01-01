@@ -9,9 +9,12 @@ import Popup from '../components/PopUp'
 import { useParams } from 'react-router-dom';
 import { CustomNextArrow, CustomPrevArrow } from '../components/Btn';
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import '../styles/Galeria.css';
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -34,13 +37,16 @@ interface GaleriaItem {
 }
 
 const ArtAdmin: React.FC = () => {
-  const { fazerLogin, dadosArtes, enviarDadosParaBackendArt, dadosUsers} = useApi();
+  const { fazerLogin, dadosArtes, enviarDadosParaBackendArt, dadosUsers, deleteArte } = useApi();
   const { id } = useParams<{ id?: string }>();
+  const navigate = useNavigate();
+
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchField, setSearchField] = useState<string>('nome'); // Campo padrão para busca
   const [selectedArte, setSelectedArte] = useState<Arte | null>(null);
   const [newArt, setNewArt] = useState<File | null>(null);
   const [larguraTotal, setLarguraTotal] = useState(100);
+  // const [isDeleteButtonDisabled, setIsDeleteButtonDisabled] = useState(true);
 
   const [showPopup, setShowPopup] = useState(false);
 
@@ -209,33 +215,33 @@ const ArtAdmin: React.FC = () => {
     if (id) {
       const foundUser = dadosUsers.find((u) => u._id === id);
       console.log(foundUser);
-      
+
       if (foundUser) {
-          const emailStorage: string = foundUser.email
-          setEmail(emailStorage)
+        const emailStorage: string = foundUser.email
+        setEmail(emailStorage)
       } else {
-          console.error('Usuário não encontrado');
+        console.error('Usuário não encontrado');
       }
-  }
-  if (selectedArte) {
-    setOriginalName(selectedArte.nome);
-    setNewName(selectedArte.nome);
+    }
+    if (selectedArte) {
+      setOriginalName(selectedArte.nome);
+      setNewName(selectedArte.nome);
 
-    setOriginalDescription(selectedArte.descricao);
-    setNewDescription(selectedArte.descricao);
+      setOriginalDescription(selectedArte.descricao);
+      setNewDescription(selectedArte.descricao);
 
-    setOriginalArtist(selectedArte.nome_artista);
-    setNewArtist(selectedArte.nome_artista);
+      setOriginalArtist(selectedArte.nome_artista);
+      setNewArtist(selectedArte.nome_artista);
 
-    setOriginalState(selectedArte.uf);
-    setNewState(selectedArte.uf);
+      setOriginalState(selectedArte.uf);
+      setNewState(selectedArte.uf);
 
-    setOriginalCity(selectedArte.cidade);
-    setNewCity(selectedArte.cidade);
+      setOriginalCity(selectedArte.cidade);
+      setNewCity(selectedArte.cidade);
 
-    setOriginalAdress(selectedArte.endereco);
-    setNewAdress(selectedArte.endereco);
-  } else {
+      setOriginalAdress(selectedArte.endereco);
+      setNewAdress(selectedArte.endereco);
+    } else {
       console.error('Arte não encontrada ');
     }
 
@@ -246,21 +252,82 @@ const ArtAdmin: React.FC = () => {
     const handleResize = async () => {
       const numeroDeImgs = window.innerWidth / 300;
       console.log(numeroDeImgs);
-      
-      const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length -1
+
+      const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length - 1
       // console.log('numero total', +resulNumber.toFixed(0));
-      
+
       const resulNumber = +numeroTotal === 0 ? 1 : +numeroTotal;
       setLarguraTotal(+resulNumber.toFixed(0));
     };
 
-     window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize);
     handleResize();
 
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, [filteredArtes.length]);
+
+  const showDeleteConfirmation = async () => {
+    const { accessToken, refreshToken, notOk } = await fazerLogin({ email, senha });
+
+    if (notOk) {
+      confirmAlert({
+        title: 'Aviso',
+        message: 'Por favor, forneça seu email e senha validos para confirmar a exclusão da Arte.',
+        buttons: [
+          {
+            label: 'OK',
+            onClick: () => {},
+          },
+        ],
+      });
+      return;
+    }
+    if (!newId) {
+      confirmAlert({
+        title: 'Aviso',
+        message: 'Por favor, escolha uma Arte antes de excluir.',
+        buttons: [
+          {
+            label: 'OK',
+            onClick: () => {},
+          },
+        ],
+      });
+      return;
+    }
+  
+    confirmAlert({
+      title: 'Confirmação',
+      message: 'Tem certeza que deseja deletar essa Arte?',
+      buttons: [
+        {
+          label: 'Sim',
+          onClick: async () => {
+            try {
+              const dados = {
+                token: accessToken,
+                id: newId,
+              };
+              await deleteArte(dados);
+              navigate(`/admuser/${id}`);
+            } catch (error) {
+              console.error('Error during user deletion:', error);
+            }
+          },
+        },
+        {
+          label: 'Não',
+          onClick: () => {},
+        },
+      ],
+    });
+  };
+// useEffect(() => {
+//     setIsDeleteButtonDisabled(!(email && senha));
+// }, [email, senha]);
+
 
 
   const settings = {
@@ -271,7 +338,7 @@ const ArtAdmin: React.FC = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-    arrows: true, 
+    arrows: true,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
   };
@@ -315,7 +382,7 @@ const ArtAdmin: React.FC = () => {
         </div>
 
 
-          <Slider {...settings} className='galeria'>
+        <Slider {...settings} className='galeria'>
           {filteredArtes.map((item: GaleriaItem) => (
             <div key={item._id} className="galeria-item" onClick={() => handleArteClick(item._id)}>
               <img
@@ -330,7 +397,7 @@ const ArtAdmin: React.FC = () => {
           ))}
         </Slider>
 
-        
+
 
         <div className="art-container-page">
           {selectedArte && (
@@ -346,7 +413,7 @@ const ArtAdmin: React.FC = () => {
                     placeholder='Nome'
                   />
                 ) : (
-                    <p>{originalName}</p>          
+                  <p>{originalName}</p>
                 )}
                 <button onClick={toggleEditModeName} className="email-edit-button">
                   {isEditingName ? 'Salvar' : 'Editar Nome da Arte'}
@@ -374,7 +441,7 @@ const ArtAdmin: React.FC = () => {
                   />
                 </div>
               ) : (
-                  <p>{originalDescription}</p>
+                <p>{originalDescription}</p>
               )}
               <button onClick={toggleEditMode} className="edit-button">
                 {isEditing ? 'Salvar' : 'Editar Descrição'}
@@ -392,7 +459,7 @@ const ArtAdmin: React.FC = () => {
                     />
                   </div>
                 ) : (
-                    <p> Artista(s): {originalArtist}</p>
+                  <p> Artista(s): {originalArtist}</p>
                 )}
                 <button onClick={toggleEditModeArtist} className="email-edit-button">
                   {isEditingArtist ? 'Salvar' : 'Editar Descrição'}
@@ -412,7 +479,7 @@ const ArtAdmin: React.FC = () => {
                     />
                   </div>
                 ) : (
-                    <p> Estado: {originalState}</p>
+                  <p> Estado: {originalState}</p>
                 )}
                 <button onClick={toggleEditModeState} className="email-edit-button">
                   {isEditingState ? 'Salvar' : 'Editar Descrição'}
@@ -433,13 +500,13 @@ const ArtAdmin: React.FC = () => {
                     />
                   </div>
                 ) : (
-                    <p> Cidade: {originalCity} </p>
+                  <p> Cidade: {originalCity} </p>
                 )}
                 <button onClick={toggleEditModeCity} className="email-edit-button">
                   {isEditingCity ? 'Salvar' : 'Editar Descrição'}
                 </button>
               </div>
-              
+
 
               <div className="user-info-adm">
                 {isEditingAdress ? (
@@ -453,7 +520,7 @@ const ArtAdmin: React.FC = () => {
                     />
                   </div>
                 ) : (
-                    <p> Endereço: {originalAdress}</p>
+                  <p> Endereço: {originalAdress}</p>
                 )}
                 <button onClick={toggleEditModeAdress} className="email-edit-button">
                   {isEditingAdress ? 'Salvar' : 'Editar Descrição'}
@@ -492,6 +559,13 @@ const ArtAdmin: React.FC = () => {
 
           {showPopup && <Popup message="Dados Atualizados com Sucesso" onClose={closePopup} />}
         </div>
+        <button
+          onClick={showDeleteConfirmation}
+          className="delete-button"
+          // disabled={isDeleteButtonDisabled}
+        >
+          Deletar Arte
+        </button>
       </div>
       <Footer />
     </>
