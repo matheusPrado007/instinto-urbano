@@ -30,7 +30,7 @@ const AppRouter: React.FC = () => {
         <Route path="/arte/:id" element={<ArtPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admuser/:id" element={<AdmUser />} />
-        <Route path="/admuser/:userIdperfil/admuser/:id/perfil" element={<ProfileAdmin />} />
+        <Route path="/admuser/:id/perfil/" element={<ProfileAdmin />} />
         <Route path="/admuser/:id/artistas" element={<ArtistAdmin/>} />
         <Route path="/admuser/:id/artes" element={<ArtAdmin />} />
         <Route path="/admuser/:id/profilepost" element={<ProfileAdminPost />} />
