@@ -227,3 +227,49 @@
   color: #000;
   border: 1px solid black;
 }
+
+.delete-button {
+  width: 90%;
+  background-color: #ff0000; /* Red color for delete button */
+  color: #fff;
+  padding: 10px;
+  border: none;
+  font-size: 1.3rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+/* .box-alert {
+  background-color: #ff0000;
+
+} */
+
+/* .box-alert-btn {
+  padding: 10px;
+  display: inline-flex;
+  justify-content: center;
+  margin: auto;
+  margin-left: 5px;
+  border-radius: 4px;
+  width: 40%;
+  align-items: center;
+  background-color: #ff0000;
+}
+
+.Toastify__toast-body {
+  background-color: #ff0000;
+}
+
+.Toastify__toast-container, .Toastify__toast-container--top-center {
+  background-color: #ff0000;
+}
+
+.Toastify__toast, .Toastify__toast-theme--light, .Toastify__toast--info, .Toastify__toast--close-on-click {
+  background-color: #ff0000;
+}
+ */

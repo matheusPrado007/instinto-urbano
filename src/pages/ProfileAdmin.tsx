@@ -8,7 +8,11 @@ import { useParams } from 'react-router-dom';
 import '../styles/ProfileAdm.css';
 import fotoCapa from '../assets/not-found.png';
 import fotoPerfil from '../assets/profile-not-found.jpg';
-import Popup from '../components/PopUp'; 
+import Popup from '../components/PopUp';
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { useNavigate } from 'react-router-dom';
+
 
 interface User {
     _id: number;
@@ -19,59 +23,46 @@ interface User {
 }
 
 const ProfileAdmin: React.FC = () => {
-    const { fazerLogin, dadosUsers, enviarDadosParaBackend } = useApi();
+    const { fazerLogin, dadosUsers, enviarDadosParaBackend, deleteUsuario } = useApi();
     const { id } = useParams<{ id?: string }>();
+    const navigate = useNavigate();
 
+    const [isDeleteButtonDisabled, setIsDeleteButtonDisabled] = useState(true);
     const [showPopup, setShowPopup] = useState(false);
-
-
     const [user, setUser] = useState<User | null>(null);
     const [newCapa, setNewCapa] = useState<File | null>(null);
     const [newPerfil, setNewPerfil] = useState<File | null>(null);
-
-
     const [newDescription, setNewDescription] = useState<string>('');
     const [originalDescription, setOriginalDescription] = useState<string>('');
     const [isEditing, setIsEditing] = useState(false);
-
     const [newUsername, setNewUsername] = useState<string>('');
     const [originalUsername, setOriginalUsername] = useState<string>('');
     const [isEditingUsername, setIsEditingUsername] = useState(false);
-
-
     const [newEmail, setNewEmail] = useState<string>('');
     const [originalEmail, setOriginalEmail] = useState<string>('');
     const [isEditingEmail, setIsEditingEmail] = useState(false);
-
     const [newPassword, setNewPassword] = useState<string>('');
     const [originalPassword, setOriginalPassword] = useState<string>('');
     const [isEditingPassword, setIsEditingPassword] = useState(false);
-
     const [isEditingText, setIsEditingText] = useState(false);
     const [newTexto, setNewTexto] = useState('');
     const [texto, setTexto] = useState('Co-fundador do Rastro Urbano');
-
-
     const [isEditingToken, setIsEditingToken] = useState(false);
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
     const handleClick = () => {
-
         if (isEditingText) {
-            setTexto(newTexto)
+            setTexto(newTexto);
         } else {
-            setNewTexto(texto)
+            setNewTexto(texto);
         }
-        setIsEditingText(!isEditingText)
+        setIsEditingText(!isEditingText);
     };
-
 
     const handleSaveChanges = async () => {
         try {
-            // const { accessToken, refreshToken } = await fazerLogin({ email, senha });
-            // console.log('token-update', refreshToken);
-            console.log(newPerfil);
+            const { accessToken, refreshToken } = await fazerLogin({ email, senha });
 
             const dados = {
                 newUsername,
@@ -81,11 +72,10 @@ const ProfileAdmin: React.FC = () => {
                 newPerfil,
                 newPassword,
                 id,
-                // accessToken,
+                accessToken,
             };
 
             await enviarDadosParaBackend(dados);
-            return await enviarDadosParaBackend(dados);
         } catch (error) {
             console.error('Erro durante o login:', error);
         }
@@ -93,41 +83,36 @@ const ProfileAdmin: React.FC = () => {
 
     const toggleEditModeToken = async () => {
         try {
-            setIsEditingToken(!isEditingToken)
-            await handleSaveChanges()
+            setIsEditingToken(!isEditingToken);
+            await handleSaveChanges();
             setShowPopup(true);
         } catch (error) {
             console.error('Erro:', error);
         }
     };
 
-
     const toggleEditModePassword = () => {
         if (isEditingPassword) {
-            setOriginalPassword(newPassword)
-
+            setOriginalPassword(newPassword);
         } else {
-            setNewPassword(originalPassword)
+            setNewPassword(originalPassword);
         }
-        setIsEditingPassword(!isEditingPassword)
+        setIsEditingPassword(!isEditingPassword);
     };
-
 
     const toggleEditModeEmail = () => {
         if (isEditingEmail) {
-            setOriginalEmail(newEmail)
-
+            setOriginalEmail(newEmail);
         } else {
-            setNewEmail(originalEmail)
+            setNewEmail(originalEmail);
         }
-        setIsEditingEmail(!isEditingEmail)
+        setIsEditingEmail(!isEditingEmail);
     };
 
     const toggleEditMode = () => {
         if (isEditing) {
             setOriginalDescription(newDescription);
             setOriginalUsername(newUsername);
-
         } else {
             setNewDescription(originalDescription);
             setNewUsername(originalUsername);
@@ -139,7 +124,6 @@ const ProfileAdmin: React.FC = () => {
     const toggleEditModeUsername = () => {
         if (isEditingUsername) {
             setOriginalUsername(newUsername);
-
         } else {
             setNewUsername(originalUsername);
         }
@@ -147,15 +131,12 @@ const ProfileAdmin: React.FC = () => {
     };
 
     useEffect(() => {
-        console.log(newPerfil);
-
         if (id) {
             const foundUser = dadosUsers.find((u) => u._id === id);
-            console.log(foundUser);
-            
+
             if (foundUser) {
-                const emailStorage: string = foundUser.email
-                setEmail(emailStorage)
+                const emailStorage: string = foundUser.email;
+                setEmail(emailStorage);
                 setUser(foundUser);
                 setOriginalDescription(foundUser.descricao_perfil);
                 setNewDescription(foundUser.descricao_perfil);
@@ -172,13 +153,50 @@ const ProfileAdmin: React.FC = () => {
 
     const closePopup = () => {
         setShowPopup(false);
-      };
+    };
+
+    const showDeleteConfirmation = () => {
+        confirmAlert({
+            title: 'Confirmação',
+            message: 'Tem certeza que deseja deletar esse usuário?',
+            buttons: [
+                {
+                    label: 'Sim',
+                    onClick: async () => {
+                        try {
+                            const { accessToken, refreshToken } = await fazerLogin({ email, senha });
+                            const dados = {
+                                token: accessToken,
+                                id: id,
+                            };
+                            await deleteUsuario(dados);
+                            navigate(`/admuser/${id}`);
+                        } catch (error) {
+                            console.error('Error during user deletion:', error);
+                        }
+                    },
+                },
+                {
+                    label: 'Não',
+                    onClick: () => {},
+                },
+            ],
+        });
+    };
+
+    useEffect(() => {
+        setIsDeleteButtonDisabled(!(email && senha));
+    }, [email, senha]);
+
+    useEffect(() => {
+        setIsDeleteButtonDisabled(!(email && senha));
+    }, [email, senha]);
 
 
-    
     const isAdmin = async () => {
         try {
             const { accessToken, refreshToken } = await fazerLogin({ email, senha });
+
             return accessToken && refreshToken;
         } catch (error) {
             console.error('Erro durante o login:', error);
@@ -187,7 +205,7 @@ const ProfileAdmin: React.FC = () => {
     };
 
 
-    if (!isAdmin) {
+    if (!(isAdmin())) {
         return (
             <>
                 <Header />
@@ -257,10 +275,10 @@ const ProfileAdmin: React.FC = () => {
                                     placeholder='email'
                                 />
                             ) : (
-                                
+
                                 <p className='email-input'>Email: </p>
-                                
-                                
+
+
                             )}
 
                             <button onClick={toggleEditModeEmail} className="email-edit-button ">
@@ -306,21 +324,21 @@ const ProfileAdmin: React.FC = () => {
                         </div>
                         {isEditing ? (
                             <div>
-                            Descrição
-                            <textarea
-                                rows={15}
-                                name="descricao"
-                                value={newDescription}
-                                onChange={(e) => setNewDescription(e.target.value)}
-                                className="description-input"
-                            />
+                                Descrição
+                                <textarea
+                                    rows={15}
+                                    name="descricao"
+                                    value={newDescription}
+                                    onChange={(e) => setNewDescription(e.target.value)}
+                                    className="description-input"
+                                />
                             </div>
                         ) : (
                             <div>
-                               <p>Descrição:</p> 
-                            <div className="description-p-adm">
-                                <p>{originalDescription}</p>
-                            </div>
+                                <p>Descrição:</p>
+                                <div className="description-p-adm">
+                                    <p>{originalDescription}</p>
+                                </div>
                             </div>
                         )}
 
@@ -352,11 +370,18 @@ const ProfileAdmin: React.FC = () => {
                             />
 
                             <button onClick={toggleEditModeToken} className="edit-button-finish">
-                            Atualizar os Dados
+                                Atualizar os Dados
                             </button>
 
                             {showPopup && <Popup message="Dados Atualizados com Sucesso" onClose={closePopup} />}
                         </div>
+                        <button
+                            onClick={showDeleteConfirmation}
+                            className="delete-button"
+                            disabled={isDeleteButtonDisabled}
+                        >
+                            Deletar Usuário
+                        </button>
                     </div>
                 ) : (
                     <Loading />
