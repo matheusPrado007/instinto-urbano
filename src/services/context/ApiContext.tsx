@@ -9,7 +9,8 @@ interface ApiContextProps {
   enviarDadosParaBackend: any;
   enviarDadosParaBackendArt: any;
   enviarDadosParaBackendPost: any;
-  enviarDadosParaBackendArtPost: any
+  enviarDadosParaBackendArtPost: any;
+  deleteUsuario: any;
 }
 
 const ApiContext = createContext<ApiContextProps | null>(null);
@@ -22,6 +23,38 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
   const [dadosArtes, setDadosArtes] = useState<any[]>([]);
   const [dadosUsers, setDadosUsers] = useState<any[]>([]);
   const [erro, setErro] = useState<any | null>(null);
+
+  async function deleteUsuario(dados: any) {    
+    const url = `https://api-rastro-urbano.onrender.com/upload/deleteuser/${dados.id}`;
+  
+    const headers = {
+      'Authorization': `Bearer ${dados.token}`,
+    };
+  
+    
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE', 
+        headers,
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Erro no servidor: ${response.statusText}`);
+      }
+  
+      const resultado = await response.json();
+
+      console.log('Dados enviados com sucesso:', resultado);
+
+      if (resultado._id) {
+        return resultado._id; 
+      } else {
+        throw new Error('Resposta da API não contém um ID válido.');
+      }
+    } catch (error) {
+      console.error('Erro ao enviar dados para o backend:', error);
+    }
+    }
 
 
   async function enviarDadosParaBackendArtPost(dados: any) {    
@@ -266,7 +299,8 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     enviarDadosParaBackend,
     enviarDadosParaBackendArt,
     enviarDadosParaBackendPost,
-    enviarDadosParaBackendArtPost
+    enviarDadosParaBackendArtPost,
+    deleteUsuario
   };
 
   return (
