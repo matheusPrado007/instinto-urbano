@@ -115,18 +115,12 @@ const updateArte = async () => {
       confirmAlert({
         title: 'Aviso',
         message: 'Por favor, forneça seu email e senha válidos.',
-        buttons: [
-          {
-            label: 'OK',
-            onClick: () => { },
-          },
-        ],
         customUI: ({ onClose }) => {
           return (
             <div className="custom-ui">
               <h1>{'Aviso'}</h1>
               <p>{'Por favor, forneça seu email e senha válidos para confirmar a exclusão da Arte.'}</p>
-              <button onClick={onClose}>OK</button>
+              <button className="custom-ui-btn" onClick={onClose}>OK</button>
             </div>
           );
         },
@@ -138,18 +132,12 @@ const updateArte = async () => {
       confirmAlert({
         title: 'Aviso',
         message: 'Por favor, escolha uma Arte antes de excluir.',
-        buttons: [
-          {
-            label: 'OK',
-            onClick: () => { },
-          },
-        ],
         customUI: ({ onClose }) => {
           return (
             <div className="custom-ui">
               <h1>{'Aviso'}</h1>
               <p>{'Por favor, escolha uma Arte antes de excluir.'}</p>
-              <button onClick={onClose}>OK</button>
+              <button className="custom-ui-btn" onClick={onClose}>OK</button>
             </div>
           );
         },
@@ -165,11 +153,11 @@ const updateArte = async () => {
           <div className="custom-ui">
             <h1>{'Confirmação'}</h1>
             <p>{'Tem certeza que deseja deletar essa Arte?'}</p>
-            <button onClick={() => {
+            <button className="custom-ui-btn" onClick={() => {
               updateArte()
               onClose();
             }}>Sim</button>
-            <button onClick={() => { onClose(); }}>Não</button>
+            <button className="custom-ui-btn" onClick={() => { onClose(); }}>Não</button>
           </div>
         );
       },
@@ -345,7 +333,7 @@ const updateArte = async () => {
             <div className="custom-ui">
               <h1>{'Aviso'}</h1>
               <p>{'Por favor, forneça seu email e senha válidos para confirmar a exclusão da Arte.'}</p>
-              <button onClick={onClose}>OK</button>
+              <button className="custom-ui-btn" onClick={onClose}>OK</button>
             </div>
           );
         },
@@ -362,7 +350,7 @@ const updateArte = async () => {
             <div className="custom-ui">
               <h1>{'Aviso'}</h1>
               <p>{'Por favor, escolha uma Arte antes de excluir.'}</p>
-              <button onClick={onClose}>OK</button>
+              <button className="custom-ui-btn" onClick={onClose}>OK</button>
             </div>
           );
         },
@@ -378,7 +366,7 @@ const updateArte = async () => {
           <div className="custom-ui">
             <h1>{'Confirmação'}</h1>
             <p>{'Tem certeza que deseja deletar essa Arte?'}</p>
-            <button onClick={() => {
+            <button className="custom-ui-btn" onClick={() => {
               try {
                 const dados = {
                   token: accessToken,
@@ -392,7 +380,7 @@ const updateArte = async () => {
               onClose();
               
             }}>Sim</button>
-            <button onClick={() => { onClose(); }}>Não</button>
+            <button className="custom-ui-btn" onClick={() => { onClose(); }}>Não</button>
           </div>
         );
       },
