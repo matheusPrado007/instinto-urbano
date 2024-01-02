@@ -473,7 +473,8 @@ const updateArte = async () => {
                     placeholder='Nome'
                   />
                 ) : (
-                  <p>{originalName}</p>
+                  
+                  <p className='p-instagram'>{originalName}</p>
                 )}
                 <button onClick={toggleEditModeName} className="email-edit-button">
                   {isEditingName ? 'Salvar' : 'Editar Nome da Arte'}
@@ -501,7 +502,7 @@ const updateArte = async () => {
                   />
                 </div>
               ) : (
-                <p>{originalDescription}</p>
+                <p className='p-instagram'>{originalDescription}</p>
               )}
               <button onClick={toggleEditMode} className="edit-button">
                 {isEditing ? 'Salvar' : 'Editar Descrição'}
@@ -519,7 +520,7 @@ const updateArte = async () => {
                     />
                   </div>
                 ) : (
-                  <p> Artista(s): {originalArtist}</p>
+                  <p className='p-instagram'> Artista(s): {originalArtist}</p>
                 )}
                 <button onClick={toggleEditModeArtist} className="email-edit-button">
                   {isEditingArtist ? 'Salvar' : 'Editar Descrição'}
@@ -539,7 +540,7 @@ const updateArte = async () => {
                     />
                   </div>
                 ) : (
-                  <p> Estado: {originalState}</p>
+                  <p className='p-instagram'> Estado: {originalState}</p>
                 )}
                 <button onClick={toggleEditModeState} className="email-edit-button">
                   {isEditingState ? 'Salvar' : 'Editar Descrição'}
@@ -560,7 +561,7 @@ const updateArte = async () => {
                     />
                   </div>
                 ) : (
-                  <p> Cidade: {originalCity} </p>
+                  <p className='p-instagram'> Cidade: {originalCity} </p>
                 )}
                 <button onClick={toggleEditModeCity} className="email-edit-button">
                   {isEditingCity ? 'Salvar' : 'Editar Descrição'}
@@ -580,7 +581,7 @@ const updateArte = async () => {
                     />
                   </div>
                 ) : (
-                  <p> Endereço: {originalAdress}</p>
+                  <p className='p-instagram'> Endereço: {originalAdress}</p>
                 )}
                 <button onClick={toggleEditModeAdress} className="email-edit-button">
                   {isEditingAdress ? 'Salvar' : 'Editar Descrição'}
@@ -603,7 +604,7 @@ const updateArte = async () => {
           />
 
 
-          <p>Senha:</p>
+          <p >Senha:</p>
           <input
             type="password"
             name="senha-TOKEN"
