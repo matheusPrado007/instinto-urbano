@@ -58,7 +58,7 @@ const ProfileAdmin: React.FC = () => {
     const [isEditingInstagram, setIsEditingInstagram] = useState(false);
 
     const [newAdm, setNewAdm] = useState<boolean>(false);
-    const [originalAdm, setOriginalAdm] = useState<boolean>(false);
+    const [originalAdm, setOriginalAdm] = useState<boolean>(true);
     const [isEditingAdm, setIsEditingAdm] = useState(false);
 
 
@@ -182,7 +182,7 @@ const ProfileAdmin: React.FC = () => {
             newCapa,
             newPerfil,
             newPassword,
-            newAdm, 
+            newAdm,
             newInstagram,
             newLinkedin,
             id,
@@ -347,7 +347,7 @@ const ProfileAdmin: React.FC = () => {
                             />
                             <img src={!user.foto_perfil ? fotoPerfil : user.foto_perfil} alt={`Foto de perfil de ${user.username}`} className="profile-photo-adm" />
                         </label>
-                        
+
                         <div className="user-info-adm">
                             {
                                 isEditingText ? (
@@ -368,27 +368,29 @@ const ProfileAdmin: React.FC = () => {
                             </button>
                         </div>
                         <div className="user-info-adm">
-                        {isEditingAdm ? (
-                            <div>
-                            Adm:
-                            <input
-                              type='checkbox'
-                              name="administrador"
-                              checked={newAdm}
-                              onChange={(e) => setNewAdm(e.target.checked)}
-                              className="username-input"
-                            />
-                          </div>
-                        ) : (
-                            <div>
-                                <p>Adm:</p>
-                                    <p>{originalAdm}</p>                             
-                            </div>
-                        )}
+                            {isEditingAdm ? (
+                                <label className="login-label-checkbox-profile-adm">
+                                    <span className="login-label-checkbox-input-profile-adm">Admin: </span>
+                                    <div className="checkbox-container-profile-adm">
+                                        <input
+                                            type="checkbox"
+                                            checked={newAdm}
+                                            onChange={(e) => setNewAdm(e.target.checked)}
+                                            className="checkbox-input-profile-adm login-label-checkbox-input-profile-adm"
+                                        />
+                                        <div className="checkbox-custom-profile-adm">✔</div>
+                                    </div>
+                                </label>
+                            ) : (
+                                <div>
+                                    
+                                    <p>Admin: {originalAdm ? 'Sim' : 'Não'}</p>
+                                </div>
+                            )}
 
-                        <button onClick={toggleEditModeAdm} className="email-edit-button ">
-                            {isEditingAdm ? 'Salvar' : 'Editar Admin'}
-                        </button>
+                            <button onClick={toggleEditModeAdm} className="email-edit-button">
+                                {isEditingAdm ? 'Salvar' : 'Editar Admin'}
+                            </button>
                         </div>
                         <div className="user-info-adm">
                             {isEditingEmail ? (
@@ -449,21 +451,21 @@ const ProfileAdmin: React.FC = () => {
                         </div>
                         {isEditing ? (
                             <div>
-                            Descrição
-                            <textarea
-                                rows={15}
-                                name="descricao"
-                                value={newDescription}
-                                onChange={(e) => setNewDescription(e.target.value)}
-                                className="description-input"
-                            />
+                                Descrição
+                                <textarea
+                                    rows={15}
+                                    name="descricao"
+                                    value={newDescription}
+                                    onChange={(e) => setNewDescription(e.target.value)}
+                                    className="description-input"
+                                />
                             </div>
                         ) : (
                             <div>
-                               <p>Descrição:</p> 
-                            <div className="description-p-adm">
-                                <p>{originalDescription}</p>
-                            </div>
+                                <p>Descrição:</p>
+                                <div className="description-p-adm">
+                                    <p>{originalDescription}</p>
+                                </div>
                             </div>
                         )}
 
@@ -471,50 +473,50 @@ const ProfileAdmin: React.FC = () => {
                             {isEditing ? 'Salvar' : 'Editar Descrição'}
                         </button>
                         <div className="user-info-adm">
-                        {isEditingLinkedin ? (
-                            <div>
-                                Linkedin:
-                                <input
-                                    type='text'
-                                    name="linkedin"
-                                    value={newLinkedin}
-                                    onChange={(e) => setNewLinkedin(e.target.value)}
-                                    className="username-input"
-                                />
-                            </div>
-                        ) : (
-                            <div>
-                                <p>Linkedin:</p>
-                                    <p>{originalLinkedin}</p>                             
-                            </div>
-                        )}
+                            {isEditingLinkedin ? (
+                                <div>
+                                    Linkedin:
+                                    <input
+                                        type='text'
+                                        name="linkedin"
+                                        value={newLinkedin}
+                                        onChange={(e) => setNewLinkedin(e.target.value)}
+                                        className="username-input"
+                                    />
+                                </div>
+                            ) : (
+                                <div>
+                                    <p>Linkedin:</p>
+                                    <p>{originalLinkedin}</p>
+                                </div>
+                            )}
 
-                        <button onClick={toggleEditModeLinkedin} className="email-edit-button ">
-                            {isEditingLinkedin ? 'Salvar' : 'Editar Linkedin'}
-                        </button>
+                            <button onClick={toggleEditModeLinkedin} className="email-edit-button ">
+                                {isEditingLinkedin ? 'Salvar' : 'Editar Linkedin'}
+                            </button>
                         </div>
                         <div className="user-info-adm">
-                        {isEditingInstagram ? (
-                            <div>
-                                Instagram:
-                                <input
-                                    type='text'
-                                    name="instagram"
-                                    value={newInstagram}
-                                    onChange={(e) => setNewInstagram(e.target.value)}
-                                    className="username-input"
-                                />
-                            </div>
-                        ) : (
-                            <div>
-                                <p>Instagram:</p>
-                                    <p>{originalInstagram}</p>                             
-                            </div>
-                        )}
+                            {isEditingInstagram ? (
+                                <div>
+                                    Instagram:
+                                    <input
+                                        type='text'
+                                        name="instagram"
+                                        value={newInstagram}
+                                        onChange={(e) => setNewInstagram(e.target.value)}
+                                        className="username-input"
+                                    />
+                                </div>
+                            ) : (
+                                <div>
+                                    <p>Instagram:</p>
+                                    <p>{originalInstagram}</p>
+                                </div>
+                            )}
 
-                        <button onClick={toggleEditModeInstagram} className="email-edit-button ">
-                            {isEditingInstagram ? 'Salvar' : 'Editar Linkedin'}
-                        </button>
+                            <button onClick={toggleEditModeInstagram} className="email-edit-button ">
+                                {isEditingInstagram ? 'Salvar' : 'Editar Linkedin'}
+                            </button>
                         </div>
                         <div className='form-update-post'>
                             <p className='form-update'>Digite sua Senha para continuar...</p>

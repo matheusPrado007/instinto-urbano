@@ -265,3 +265,75 @@
   padding: 8px;
   border-radius: 4px;
 }
+
+
+.login-label-checkbox-profile-adm {
+  width: 10rem;
+  display: flex;
+  flex-direction:row;
+  margin-bottom: 10px;
+  font-size: 2rem;
+  color: #ffffff;
+  background-color: rgba(40, 44, 52, 0);
+}
+
+.login-label-checkbox-input-profile-adm {
+  width: 80%;
+  display: flex;
+  margin-bottom: 10px;
+  font-size:1.2rem;
+  color: #333;
+  background-color: rgba(40, 44, 52, 0);
+} 
+
+
+.checkbox-container-profile-adm {
+  width:150px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  background-color: rgba(170, 176, 189, 0);
+}
+
+.checkbox-input-profile-adm {
+  width: 1rem;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkbox-custom-profile-adm {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  margin-left: 3px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+}
+
+.checkbox-checkmark-profile-adm {
+  position: absolute;
+  top: 2px;
+  /* left: 6px; */
+  width: 5px;
+  height: 10px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+}
+
+
+.checkbox-input-profile-adm:checked + .checkbox-custom-profile-adm {
+  background-color: #000000;
+  border: 2px solid #61dafb; 
+}
+
+.checkbox-input-profile-adm:checked + .checkbox-custom-profile-adm .checkbox-checkmark-profile-adm {
+  opacity: 1; 
+}
