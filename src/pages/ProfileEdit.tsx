@@ -18,6 +18,18 @@ const ProfilePageEdit: React.FC = () => {
   const { id, userId } = useParams<{ id?: string, userId?: string }>();
   const [user, setUser] = useState<User | null>(null);
   const { dadosUsers } = useApi();
+  const [isLoading, setIsLoading] = useState(true); 
+
+  useEffect(() => {
+    
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -34,6 +46,7 @@ const ProfilePageEdit: React.FC = () => {
   return (
     <div>
       <Header />
+      {isLoading && <Loading />}
       <div className="profile-container">
         <a href={`/admuser/${userId}`} className='profile-edit-finish'>Voltar</a>
         {user ? (

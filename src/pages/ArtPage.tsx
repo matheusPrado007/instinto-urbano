@@ -23,6 +23,18 @@ const ArtPage: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const [art, setArt] = useState<GaleriaItem | null>(null);
   const { dadosArtes } = useApi();
+  const [isLoading, setIsLoading] = useState(true); 
+
+  useEffect(() => {
+    
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -40,7 +52,7 @@ const ArtPage: React.FC = () => {
   return (
     <div>
       <Header />
-
+      {isLoading && <Loading />}
       <div className="art-container-page">
         {art ? (
           <div>

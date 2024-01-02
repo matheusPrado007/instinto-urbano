@@ -69,6 +69,18 @@ const ArtPageEdit: React.FC = () => {
   const [senha, setSenha] = useState('');
   
   const [newId, setNewId] = useState();
+  const [isLoading, setIsLoading] = useState(true); 
+
+  useEffect(() => {
+    
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   const navigate = useNavigate();
 
@@ -270,6 +282,7 @@ const ArtPageEdit: React.FC = () => {
 
   return (
     <div className='art-admin-container'>
+          {isLoading && <Loading />}
       {dadosArtes.length <= 0 && <Loading />}
       <HeaderAdmin />
       <div className="container-home-admin">

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/About.css';
@@ -13,9 +14,23 @@ import Loading from '../components/Loading';
 
 const About: React.FC = () => {
   const { dadosUsers } = useApi();
+  const [isLoading, setIsLoading] = useState(true); 
+
+  useEffect(() => {
+    
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
+
   return (
     <>
       <Header />
+      {isLoading && <Loading />}
       {dadosUsers.length > 0 ? (
         <div>
       <section className='about-section'>

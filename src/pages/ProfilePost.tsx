@@ -70,6 +70,19 @@ const ProfileAdminPost: React.FC = () => {
     const [newAdm, setNewAdm] = useState<boolean>(false);
     const [originalAdm, setOriginalAdm] = useState<boolean>(true);
     const [isEditingAdm, setIsEditingAdm] = useState(false);
+    const [isLoading, setIsLoading] = useState(true); 
+
+    useEffect(() => {
+      
+      const timeout = setTimeout(() => {
+        setIsLoading(false);
+      }, 1300);
+  
+      return () => {
+        clearTimeout(timeout);
+      };
+    }, []);
+  
 
 
 
@@ -281,6 +294,7 @@ const ProfileAdminPost: React.FC = () => {
     return (
         <>
             <HeaderAdmin />
+            {isLoading && <Loading />}
             <div className="profile-container-adm">
                 <a href={`/profile/${id}`} className='profile-edit-finish'>Quer ver como ficou?</a>
                 {user ? (

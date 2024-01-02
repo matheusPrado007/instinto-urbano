@@ -31,7 +31,18 @@ const ArtList: React.FC = () => {
   const [arte, setArte] = useState<GaleriaItem | null>(null);
   const { dadosUsers } = useApi();
   const [isClick, setIsClick] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); 
 
+  useEffect(() => {
+    
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,6 +82,7 @@ const ArtList: React.FC = () => {
   return (
     <>
       <Header />
+      {isLoading && <Loading />}
       {dadosArtes.length <= 0 ? (
         <Loading />
       ) : (
