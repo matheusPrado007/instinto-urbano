@@ -269,7 +269,7 @@ const ArtPageEdit: React.FC = () => {
   }
 
   return (
-    <>
+    <div className='art-admin-container'>
       {dadosArtes.length <= 0 && <Loading />}
       <HeaderAdmin />
       <div className="container-home-admin">
@@ -438,7 +438,7 @@ const ArtPageEdit: React.FC = () => {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
