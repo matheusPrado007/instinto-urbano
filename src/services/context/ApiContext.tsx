@@ -223,7 +223,10 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
   formData.append('username', dados.newUsername);
   formData.append('descricao_perfil', dados.newDescription);
   formData.append('email', dados.newEmail);
-  formData.append('senha', dados.newPassword);
+  
+  if (dados.password) {
+    formData.append('senha', dados.newPassword);
+  }
 
   // Adicione os arquivos
   formData.append('foto_capa', dados.newCapa);
@@ -231,7 +234,7 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
 
   try {
     const response = await fetch(url, {
-      method: 'PUT', // ou 'POST', dependendo do método esperado pelo backend
+      method: 'PUT', 
       headers,
       body: formData,
     });
@@ -241,6 +244,10 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     }
 
     const resultado = await response.json();
+    if (!resultado) {
+      console.log(`erro Result: ${resultado}`);
+      
+    }
     console.log('Dados atualizados com sucesso:', resultado);
     return `Dados atualizados com sucesso:`
   } catch (error) {

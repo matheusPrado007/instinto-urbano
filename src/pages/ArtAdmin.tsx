@@ -86,22 +86,101 @@ const ArtAdmin: React.FC = () => {
 
   const handleSaveChanges = async () => {
     try {
-      const { accessToken, refreshToken } = await fazerLogin({ email, senha });
+      const { accessToken, refreshToken, notOk } = await fazerLogin({ email, senha });
+  
+    if (notOk) {
+      confirmAlert({
+        title: 'Aviso',
+        message: 'Por favor, forneça seu email e senha válidos.',
+        buttons: [
+          {
+            label: 'OK',
+            onClick: () => { },
+          },
+        ],
+        customUI: ({ onClose }) => {
+          return (
+            <div className="custom-ui">
+              <h1>{'Aviso'}</h1>
+              <p>{'Por favor, forneça seu email e senha válidos para confirmar a exclusão da Arte.'}</p>
+              <button onClick={onClose}>OK</button>
+            </div>
+          );
+        },
+      });
+      return;
+    }
+  
+    if (!newId) {
+      confirmAlert({
+        title: 'Aviso',
+        message: 'Por favor, escolha uma Arte antes de excluir.',
+        buttons: [
+          {
+            label: 'OK',
+            onClick: () => { },
+          },
+        ],
+        customUI: ({ onClose }) => {
+          return (
+            <div className="custom-ui">
+              <h1>{'Aviso'}</h1>
+              <p>{'Por favor, escolha uma Arte antes de excluir.'}</p>
+              <button onClick={onClose}>OK</button>
+            </div>
+          );
+        },
+      });
+      return;
+    }
 
-      const dados = {
-        newArt,
-        newName,
-        newDescription,
-        newAdress,
-        newArtist,
-        newCity,
-        newState,
-        id: newId,
-        accessToken,
-      };
+    confirmAlert({
+      title: 'Confirmação',
+      message: 'Tem certeza que deseja deletar essa Arte?',
+      buttons: [
+        {
+          label: 'Sim',
+          onClick: async () => {
+            try {
+              const dados = {
+                newArt,
+                newName,
+                newDescription,
+                newAdress,
+                newArtist,
+                newCity,
+                newState,
+                id: newId,
+                accessToken,
+              };
+        
+              await enviarDadosParaBackendArt(dados);
+              return await enviarDadosParaBackendArt(dados);
+            } catch (error) {
+              console.error('Error during user deletion:', error);
+            }
+          },
+        },
+        {
+          label: 'Não',
+          onClick: () => { },
+        },
+      ],
+      customUI: ({ onClose }) => {
+        return (
+          <div className="custom-ui">
+            <h1>{'Confirmação'}</h1>
+            <p>{'Tem certeza que deseja deletar essa Arte?'}</p>
+            <button onClick={() => { onClose(); }}>Não</button>
+            <button onClick={() => {
+              onClose();
+              // Lógica para lidar com o clique em "Sim"
+            }}>Sim</button>
+          </div>
+        );
+      },
+    });
 
-      await enviarDadosParaBackendArt(dados);
-      return await enviarDadosParaBackendArt(dados);
     } catch (error) {
       console.error('Erro durante o login:', error);
     }
@@ -268,22 +347,33 @@ const ArtAdmin: React.FC = () => {
     };
   }, [filteredArtes.length]);
 
+
   const showDeleteConfirmation = async () => {
     const { accessToken, refreshToken, notOk } = await fazerLogin({ email, senha });
-
+  
     if (notOk) {
       confirmAlert({
         title: 'Aviso',
-        message: 'Por favor, forneça seu email e senha validos para confirmar a exclusão da Arte.',
+        message: 'Por favor, forneça seu email e senha válidos.',
         buttons: [
           {
             label: 'OK',
-            onClick: () => {},
+            onClick: () => { },
           },
         ],
+        customUI: ({ onClose }) => {
+          return (
+            <div className="custom-ui">
+              <h1>{'Aviso'}</h1>
+              <p>{'Por favor, forneça seu email e senha válidos para confirmar a exclusão da Arte.'}</p>
+              <button onClick={onClose}>OK</button>
+            </div>
+          );
+        },
       });
       return;
     }
+  
     if (!newId) {
       confirmAlert({
         title: 'Aviso',
@@ -291,9 +381,18 @@ const ArtAdmin: React.FC = () => {
         buttons: [
           {
             label: 'OK',
-            onClick: () => {},
+            onClick: () => { },
           },
         ],
+        customUI: ({ onClose }) => {
+          return (
+            <div className="custom-ui">
+              <h1>{'Aviso'}</h1>
+              <p>{'Por favor, escolha uma Arte antes de excluir.'}</p>
+              <button onClick={onClose}>OK</button>
+            </div>
+          );
+        },
       });
       return;
     }
@@ -319,14 +418,25 @@ const ArtAdmin: React.FC = () => {
         },
         {
           label: 'Não',
-          onClick: () => {},
+          onClick: () => { },
         },
       ],
+      customUI: ({ onClose }) => {
+        return (
+          <div className="custom-ui">
+            <h1>{'Confirmação'}</h1>
+            <p>{'Tem certeza que deseja deletar essa Arte?'}</p>
+            <button onClick={() => { onClose(); }}>Não</button>
+            <button onClick={() => {
+              onClose();
+              // Lógica para lidar com o clique em "Sim"
+            }}>Sim</button>
+          </div>
+        );
+      },
     });
   };
-// useEffect(() => {
-//     setIsDeleteButtonDisabled(!(email && senha));
-// }, [email, senha]);
+
 
 
 
