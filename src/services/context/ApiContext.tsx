@@ -223,7 +223,10 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
   formData.append('username', dados.newUsername);
   formData.append('descricao_perfil', dados.newDescription);
   formData.append('email', dados.newEmail);
-  
+  formData.append('linkedin', dados.newLinkedin);
+  formData.append('instagram', dados.newInstagram);
+  formData.append('administrador', dados.newAdm);
+
   if (dados.password) {
     formData.append('senha', dados.newPassword);
   }

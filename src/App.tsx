@@ -14,7 +14,7 @@ import ArtAdmin from './pages/ArtAdmin';
 import ProfileAdminPost from './pages/ProfilePost';
 import ProfilePageEdit from './pages/ProfileEdit';
 import Artist from './pages/Artist';
-import ArtPageEdit from './pages/ArtPageEdit';
+import ArtPageEdit from './pages/ArtPost';
 // import UserListAdm from './components/UsersAdm';
 
 
