@@ -146,6 +146,9 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     formData.append('descricao_perfil', dados.newDescription);
     formData.append('email', dados.newEmail);
     formData.append('senha', dados.newPassword);
+    formData.append('linkedin', dados.newLinkedin);
+    formData.append('instagram', dados.newInstagram);
+    formData.append('administrador', dados.newAdm);
   
     // Adicione os arquivos
     formData.append('foto_capa', dados.newCapa);
