@@ -81,6 +81,14 @@ const ProfileAdmin: React.FC = () => {
         setIsEditingInstagram(!isEditingInstagram);
     };
 
+    const toggleEditModeLinkedin = () => {
+        if (isEditingLinkedin) {
+            setOriginalLinkedin(newLinkedin);
+        } else {
+            setNewLinkedin(originalLinkedin);
+        }
+        setIsEditingLinkedin(!isEditingLinkedin);
+    };
 
     const handleClick = () => {
         if (isEditingText) {
@@ -91,14 +99,6 @@ const ProfileAdmin: React.FC = () => {
         setIsEditingText(!isEditingText);
     };
 
-    const toggleEditModeLinkedin = () => {
-        if (isEditingLinkedin) {
-            setOriginalLinkedin(newLinkedin);
-        } else {
-            setNewLinkedin(originalLinkedin);
-        }
-        setIsEditingLinkedin(!isEditingLinkedin);
-    };
 
 
     const toggleEditModePassword = () => {

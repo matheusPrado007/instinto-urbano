@@ -59,6 +59,19 @@ const ProfileAdminPost: React.FC = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
+    const [newLinkedin, setNewLinkedin] = useState<string>('');
+    const [originalLinkedin, setOriginalLinkedin] = useState<string>('');
+    const [isEditingLinkedin, setIsEditingLinkedin] = useState(false);
+
+    const [newInstagram, setNewInstagram] = useState<string>('');
+    const [originalInstagram, setOriginalInstagram] = useState<string>('');
+    const [isEditingInstagram, setIsEditingInstagram] = useState(false);
+
+    const [newAdm, setNewAdm] = useState<boolean>(false);
+    const [originalAdm, setOriginalAdm] = useState<boolean>(true);
+    const [isEditingAdm, setIsEditingAdm] = useState(false);
+
+
 
     const [newUser, setNewUser] = useState({
         username: originalUsername,
@@ -67,8 +80,38 @@ const ProfileAdminPost: React.FC = () => {
         foto_capa: fotoCapa,
         foto_perfil: fotoPerfil,
         descricao_perfil: originalDescription,
+        linkedin: newLinkedin,
+        instagram: newInstagram,
+        adminstrador: newAdm
     });
 
+    const toggleEditModeAdm = () => {
+        if (isEditingAdm) {
+            setOriginalAdm(newAdm);
+        } else {
+            setNewAdm(originalAdm);
+        }
+        setIsEditingAdm(!isEditingAdm);
+    };
+
+
+    const toggleEditModeInstagram = () => {
+        if (isEditingInstagram) {
+            setOriginalInstagram(newInstagram);
+        } else {
+            setNewInstagram(originalInstagram);
+        }
+        setIsEditingInstagram(!isEditingInstagram);
+    };
+
+    const toggleEditModeLinkedin = () => {
+        if (isEditingLinkedin) {
+            setOriginalLinkedin(newLinkedin);
+        } else {
+            setNewLinkedin(originalLinkedin);
+        }
+        setIsEditingLinkedin(!isEditingLinkedin);
+    };
 
     const handleClick = () => {
 
@@ -93,6 +136,9 @@ const ProfileAdminPost: React.FC = () => {
                 newCapa,
                 newPerfil,
                 newPassword,
+                newInstagram,
+                newLinkedin,
+                newAdm,
                 accessToken
             };
 
@@ -190,6 +236,12 @@ const ProfileAdminPost: React.FC = () => {
                 setOriginalEmail(newEmail);
                 setNewPassword(newPassword);
                 setOriginalPassword(newPassword);
+                setOriginalLinkedin(newLinkedin);
+                setNewLinkedin(newLinkedin);
+                setOriginalInstagram(newInstagram);
+                setNewInstagram(newInstagram);
+                setOriginalAdm(newAdm);
+                setNewAdm(newAdm);
             } else {
                 console.error('Usuário não encontrado');
             }
@@ -274,6 +326,31 @@ const ProfileAdminPost: React.FC = () => {
                             </button>
                         </div>
                         <div className="user-info-adm">
+                            {isEditingAdm ? (
+                                <label className="login-label-checkbox-profile-adm">
+                                    <span className="login-label-checkbox-input-profile-adm">Admin: </span>
+                                    <div className="checkbox-container-profile-adm">
+                                        <input
+                                            type="checkbox"
+                                            checked={newAdm}
+                                            onChange={(e) => setNewAdm(e.target.checked)}
+                                            className="checkbox-input-profile-adm login-label-checkbox-input-profile-adm"
+                                        />
+                                        <div className="checkbox-custom-profile-adm">✔</div>
+                                    </div>
+                                </label>
+                            ) : (
+                                <div>
+                                    
+                                    <p>Admin: {originalAdm ? 'Sim' : 'Não'}</p>
+                                </div>
+                            )}
+
+                            <button onClick={toggleEditModeAdm} className="email-edit-button">
+                                {isEditingAdm ? 'Salvar' : 'Editar Admin'}
+                            </button>
+                        </div>
+                        <div className="user-info-adm">
                             {isEditingEmail ? (
                                 <input
                                     type="email"
@@ -354,6 +431,52 @@ const ProfileAdminPost: React.FC = () => {
                         <button onClick={toggleEditMode} className="edit-button">
                             {isEditing ? 'Salvar' : 'Editar Descrição'}
                         </button>
+                        <div className="user-info-adm">
+                            {isEditingLinkedin ? (
+                                <div>
+                                    Linkedin:
+                                    <input
+                                        type='text'
+                                        name="linkedin"
+                                        value={newLinkedin}
+                                        onChange={(e) => setNewLinkedin(e.target.value)}
+                                        className="username-input"
+                                    />
+                                </div>
+                            ) : (
+                                <div>
+                                    <p>Linkedin:</p>
+                                    <p>{originalLinkedin}</p>
+                                </div>
+                            )}
+
+                            <button onClick={toggleEditModeLinkedin} className="email-edit-button ">
+                                {isEditingLinkedin ? 'Salvar' : 'Editar Linkedin'}
+                            </button>
+                        </div>
+                        <div className="user-info-adm">
+                            {isEditingInstagram ? (
+                                <div>
+                                    Instagram:
+                                    <input
+                                        type='text'
+                                        name="instagram"
+                                        value={newInstagram}
+                                        onChange={(e) => setNewInstagram(e.target.value)}
+                                        className="username-input"
+                                    />
+                                </div>
+                            ) : (
+                                <div>
+                                    <p>Instagram:</p>
+                                    <p>{originalInstagram}</p>
+                                </div>
+                            )}
+
+                            <button onClick={toggleEditModeInstagram} className="email-edit-button ">
+                                {isEditingInstagram ? 'Salvar' : 'Editar Linkedin'}
+                            </button>
+                        </div>
                         <div>
                             <p className='form-update'>Digite sua Senha para continuar...</p>
 
