@@ -84,6 +84,29 @@ const ArtAdmin: React.FC = () => {
     setShowPopup(false);
   };
 
+const updateArte = async () => {
+  const { accessToken, refreshToken, notOk } = await fazerLogin({ email, senha });
+
+  try {
+    const dados = {
+      newArt,
+      newName,
+      newDescription,
+      newAdress,
+      newArtist,
+      newCity,
+      newState,
+      id: newId,
+      accessToken,
+    };
+    setIsEditingToken(!isEditingToken)
+    setShowPopup(true);
+    return await enviarDadosParaBackendArt(dados);
+  } catch (error) {
+    console.error('Error during user deletion:', error);
+  }
+}
+
   const handleSaveChanges = async () => {
     try {
       const { accessToken, refreshToken, notOk } = await fazerLogin({ email, senha });
@@ -137,45 +160,16 @@ const ArtAdmin: React.FC = () => {
     confirmAlert({
       title: 'Confirmação',
       message: 'Tem certeza que deseja deletar essa Arte?',
-      buttons: [
-        {
-          label: 'Sim',
-          onClick: async () => {
-            try {
-              const dados = {
-                newArt,
-                newName,
-                newDescription,
-                newAdress,
-                newArtist,
-                newCity,
-                newState,
-                id: newId,
-                accessToken,
-              };
-        
-              await enviarDadosParaBackendArt(dados);
-              return await enviarDadosParaBackendArt(dados);
-            } catch (error) {
-              console.error('Error during user deletion:', error);
-            }
-          },
-        },
-        {
-          label: 'Não',
-          onClick: () => { },
-        },
-      ],
       customUI: ({ onClose }) => {
         return (
           <div className="custom-ui">
             <h1>{'Confirmação'}</h1>
             <p>{'Tem certeza que deseja deletar essa Arte?'}</p>
-            <button onClick={() => { onClose(); }}>Não</button>
             <button onClick={() => {
+              updateArte()
               onClose();
-              // Lógica para lidar com o clique em "Sim"
             }}>Sim</button>
+            <button onClick={() => { onClose(); }}>Não</button>
           </div>
         );
       },
@@ -186,15 +180,6 @@ const ArtAdmin: React.FC = () => {
     }
   };
 
-  const toggleEditModeToken = async () => {
-    try {
-      setIsEditingToken(!isEditingToken)
-      await handleSaveChanges()
-      setShowPopup(true);
-    } catch (error) {
-      console.error('Erro:', error);
-    }
-  };
 
   const toggleEditModeAdress = () => {
     if (isEditingAdress) {
@@ -355,12 +340,6 @@ const ArtAdmin: React.FC = () => {
       confirmAlert({
         title: 'Aviso',
         message: 'Por favor, forneça seu email e senha válidos.',
-        buttons: [
-          {
-            label: 'OK',
-            onClick: () => { },
-          },
-        ],
         customUI: ({ onClose }) => {
           return (
             <div className="custom-ui">
@@ -378,12 +357,6 @@ const ArtAdmin: React.FC = () => {
       confirmAlert({
         title: 'Aviso',
         message: 'Por favor, escolha uma Arte antes de excluir.',
-        buttons: [
-          {
-            label: 'OK',
-            onClick: () => { },
-          },
-        ],
         customUI: ({ onClose }) => {
           return (
             <div className="custom-ui">
@@ -400,37 +373,26 @@ const ArtAdmin: React.FC = () => {
     confirmAlert({
       title: 'Confirmação',
       message: 'Tem certeza que deseja deletar essa Arte?',
-      buttons: [
-        {
-          label: 'Sim',
-          onClick: async () => {
-            try {
-              const dados = {
-                token: accessToken,
-                id: newId,
-              };
-              await deleteArte(dados);
-              navigate(`/admuser/${id}`);
-            } catch (error) {
-              console.error('Error during user deletion:', error);
-            }
-          },
-        },
-        {
-          label: 'Não',
-          onClick: () => { },
-        },
-      ],
       customUI: ({ onClose }) => {
         return (
           <div className="custom-ui">
             <h1>{'Confirmação'}</h1>
             <p>{'Tem certeza que deseja deletar essa Arte?'}</p>
-            <button onClick={() => { onClose(); }}>Não</button>
             <button onClick={() => {
+              try {
+                const dados = {
+                  token: accessToken,
+                  id: newId,
+                };
+                deleteArte(dados);
+                navigate(`/admuser/${id}`);
+              } catch (error) {
+                console.error('Error during user deletion:', error);
+              }
               onClose();
-              // Lógica para lidar com o clique em "Sim"
+              
             }}>Sim</button>
+            <button onClick={() => { onClose(); }}>Não</button>
           </div>
         );
       },
@@ -663,7 +625,7 @@ const ArtAdmin: React.FC = () => {
             placeholder='senha'
           />
 
-          <button onClick={toggleEditModeToken} className="edit-button-finish">
+          <button onClick={handleSaveChanges} className="edit-button-finish">
             Atualizar os Dados
           </button>
 
