@@ -244,32 +244,11 @@
   margin-top: 1rem;
 }
 
-/* .box-alert {
-  background-color: #ff0000;
-
-} */
-
-/* .box-alert-btn {
-  padding: 10px;
-  display: inline-flex;
-  justify-content: center;
-  margin: auto;
-  margin-left: 5px;
-  border-radius: 4px;
-  width: 40%;
-  align-items: center;
-  background-color: #ff0000;
+.custom-ui {
+  max-width: 400px; /* Ajuste conforme necessário */
+  margin: 0 auto; /* Centraliza o alerta horizontalmente */
+  background-color: #fff; /* Cor de fundo */
+  padding: 20px; /* Espaçamento interno */
+  border-radius: 8px; /* Borda arredondada */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
 }
-
-.Toastify__toast-body {
-  background-color: #ff0000;
-}
-
-.Toastify__toast-container, .Toastify__toast-container--top-center {
-  background-color: #ff0000;
-}
-
-.Toastify__toast, .Toastify__toast-theme--light, .Toastify__toast--info, .Toastify__toast--close-on-click {
-  background-color: #ff0000;
-}
- */

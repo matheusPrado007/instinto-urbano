@@ -9,10 +9,9 @@ import '../styles/ProfileAdm.css';
 import fotoCapa from '../assets/not-found.png';
 import fotoPerfil from '../assets/profile-not-found.jpg';
 import Popup from '../components/PopUp';
-import { confirmAlert } from 'react-confirm-alert'; 
+import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from 'react-router-dom';
-
 
 interface User {
     _id: number;
@@ -27,7 +26,6 @@ const ProfileAdmin: React.FC = () => {
     const { id } = useParams<{ id?: string }>();
     const navigate = useNavigate();
 
-    const [isDeleteButtonDisabled, setIsDeleteButtonDisabled] = useState(true);
     const [showPopup, setShowPopup] = useState(false);
     const [user, setUser] = useState<User | null>(null);
     const [newCapa, setNewCapa] = useState<File | null>(null);
@@ -60,36 +58,8 @@ const ProfileAdmin: React.FC = () => {
         setIsEditingText(!isEditingText);
     };
 
-    const handleSaveChanges = async () => {
-        try {
-            const { accessToken, refreshToken } = await fazerLogin({ email, senha });
 
-            const dados = {
-                newUsername,
-                newDescription,
-                newEmail,
-                newCapa,
-                newPerfil,
-                newPassword,
-                id,
-                accessToken,
-            };
 
-            await enviarDadosParaBackend(dados);
-        } catch (error) {
-            console.error('Erro durante o login:', error);
-        }
-    };
-
-    const toggleEditModeToken = async () => {
-        try {
-            setIsEditingToken(!isEditingToken);
-            await handleSaveChanges();
-            setShowPopup(true);
-        } catch (error) {
-            console.error('Erro:', error);
-        }
-    };
 
     const toggleEditModePassword = () => {
         if (isEditingPassword) {
@@ -155,39 +125,132 @@ const ProfileAdmin: React.FC = () => {
         setShowPopup(false);
     };
 
-    const showDeleteConfirmation = () => {
-        confirmAlert({
-            title: 'Confirmação',
-            message: 'Tem certeza que deseja deletar esse usuário?',
-            buttons: [
-                {
-                    label: 'Sim',
-                    onClick: async () => {
-                        try {
-                            const { accessToken, refreshToken } = await fazerLogin({ email, senha });
-                            const dados = {
-                                token: accessToken,
-                                id: id,
-                            };
-                            await deleteUsuario(dados);
-                            navigate(`/admuser/${id}`);
-                        } catch (error) {
-                            console.error('Error during user deletion:', error);
-                        }
-                    },
-                },
-                {
-                    label: 'Não',
-                    onClick: () => {},
-                },
-            ],
-        });
+
+    const updateDados = async () => {
+        const { accessToken, refreshToken } = await fazerLogin({ email, senha });
+        const dados = {
+            newUsername,
+            newDescription,
+            newEmail,
+            newCapa,
+            newPerfil,
+            newPassword,
+            id,
+            accessToken,
+        };
+
+        await enviarDadosParaBackend(dados);
+        setShowPopup(true);
+        setIsEditingToken(!isEditingToken);
+    }
+
+    const handleSaveChanges = async () => {
+        try {
+            const { accessToken, refreshToken, notOk } = await fazerLogin({ email, senha });
+            if (notOk) {
+                confirmAlert({
+                    title: 'Aviso',
+                    message: 'Por favor, forneça seu email e senha válidos para confirmar a exclusão da Arte.',
+                    buttons: [
+                        {
+                            label: 'OK',
+                            onClick: () => { },
+                        },
+                    ],
+                    customUI: ({ onClose }) => (
+                        <div className="custom-ui">
+                            <h1>{'Aviso'}</h1>
+                            <p>{'Por favor, forneça seu email e senha válidos para confirmar a Atualização do perfil.'}</p>
+                            <button onClick={onClose}>OK</button>
+                        </div>
+                    ),
+                });
+                return;
+            }
+            confirmAlert({
+                title: 'Confirmação',
+                message: 'Tem certeza que deseja atualizar esses dados?',
+                customUI: ({ onClose }) => (
+                    <div className="custom-ui">
+                        <h1>{'Confirmação'}</h1>
+                        <p>{'Tem certeza que deseja atualizar esses dados?'}</p>
+                        <button onClick={() => { updateDados(); onClose(); }}>Sim</button>
+                        <button onClick={() => { onClose(); }}>Não</button>
+                    </div>
+                ),
+            });
+        } catch (error) {
+            console.error('Erro durante o login:', error);
+        }
     };
 
-    useEffect(() => {
-        setIsDeleteButtonDisabled(!(email && senha));
-    }, [email, senha]);
-
+    const showDeleteConfirmation = async () => {
+        const { accessToken, refreshToken, notOk } = await fazerLogin({ email, senha });
+        if (notOk) {
+            confirmAlert({
+                title: 'Aviso',
+                message: 'Por favor, forneça seu email e senha válidos.',
+                buttons: [
+                    {
+                        label: 'OK',
+                        onClick: () => { },
+                    },
+                ],
+                customUI: ({ onClose }) => {
+                    return (
+                        <div className="custom-ui">
+                            <h1>{'Aviso'}</h1>
+                            <p>{'Por favor, forneça seu email e senha válidos para confirmar a exclusão d perfil.'}</p>
+                            <button onClick={onClose}>OK</button>
+                        </div>
+                    );
+                },
+            });
+            return;
+        }
+        if (!id) {
+            confirmAlert({
+                title: 'Aviso',
+                message: 'Por favor, escolha um Usuário antes de excluir.',
+                customUI: ({ onClose }) => {
+                    return (
+                        <div className="custom-ui">
+                            <h1>{'Aviso'}</h1>
+                            <p>{'Por favor, escolha um Usuário antes de excluir.'}</p>
+                            <button onClick={onClose}>OK</button>
+                        </div>
+                    );
+                },
+            });
+            return;
+        }
+        confirmAlert({
+            title: 'Confirmação',
+            message: 'Tem certeza que deseja deletar essa Arte?',
+            customUI: ({ onClose }) => {
+                return (
+                    <div className="custom-ui">
+                        <h1>{'Confirmação'}</h1>
+                        <p>{'Tem certeza que deseja deletar essa Arte?'}</p>
+                        <button onClick={() => { onClose(); }}>Não</button>
+                        <button onClick={() => {
+                            onClose();
+                            try {
+                                const dados = {
+                                    token: accessToken,
+                                    id: id,
+                                };
+                                deleteUsuario(dados);
+                                navigate(`/admuser/${id}`);
+                            } catch (error) {
+                                console.error('Error during user deletion:', error);
+                            }
+                        }}>Sim</button>
+                    </div>
+                );
+            },
+        });
+    };
 
     const isAdmin = async () => {
         try {
@@ -200,8 +263,7 @@ const ProfileAdmin: React.FC = () => {
         }
     };
 
-
-    if (!(isAdmin())) {
+    if (!(isAdmin)) {
         return (
             <>
                 <Header />
@@ -273,7 +335,6 @@ const ProfileAdmin: React.FC = () => {
                             ) : (
 
                                 <p className='email-input'>Email: </p>
-
 
                             )}
 
@@ -354,7 +415,6 @@ const ProfileAdmin: React.FC = () => {
                                 placeholder='email'
                             />
 
-
                             <p>Senha:</p>
                             <input
                                 type="password"
@@ -365,7 +425,7 @@ const ProfileAdmin: React.FC = () => {
                                 placeholder='senha'
                             />
 
-                            <button onClick={toggleEditModeToken} className="edit-button-finish">
+                            <button onClick={handleSaveChanges} className="edit-button-finish">
                                 Atualizar os Dados
                             </button>
 
@@ -374,7 +434,6 @@ const ProfileAdmin: React.FC = () => {
                         <button
                             onClick={showDeleteConfirmation}
                             className="delete-button"
-                            disabled={isDeleteButtonDisabled}
                         >
                             Deletar Usuário
                         </button>
@@ -389,3 +448,11 @@ const ProfileAdmin: React.FC = () => {
 };
 
 export default ProfileAdmin;
+
+
+
+
+
+
+
+
