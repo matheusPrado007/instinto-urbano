@@ -61,4 +61,24 @@
     font-size: 1.1rem;
 }
 
-  
+.social-links {
+  display: flex;
+  gap: 10px; 
+  margin-top: 20px;
+  margin-left: 35px;
+}
+
+.social-logo-profile {
+  width: 25px; 
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out; 
+}
+
+.social-logo:hover {
+  transform: scale(1.2); 
+}
+
+.social-links a:hover {
+  text-decoration: none;
+}
