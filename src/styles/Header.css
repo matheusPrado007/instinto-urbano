@@ -96,6 +96,77 @@ header nav ul li a:hover {
 }
 
 
+@media screen and (max-width: 750px) {
+  header {
+    padding: 0;
+    margin-top: 5px;
+  }
+  
+  
+  header nav ul {
+    display: none;
+  }
+  
+  header nav ul li {
+    margin: 5px 0;
+    display: block;
+  }
+
+  header nav.open ul {
+    display: block;
+    position: absolute;
+    top: 70px; 
+    left: 0;
+    width: 90%;
+    background-color: #f8f8f8;
+    z-index: 1000;
+    border-bottom: 2px solid #3333331f;
+    border-radius: 16px;
+  }
+  
+  .head-1 {
+    flex-direction: column;
+    padding: 3px;
+    padding-left: 2px;
+    font-size: 15px;
+  }
+
+  .menu-button {
+    display: block;
+    cursor: pointer;
+    color: #333;
+    font-size: 2rem;
+  }
+
+  .lista-direita {
+    font-size: 1.5rem;
+    margin-left: 10px;
+  }
+  
+  .titulo-esquerda {
+    width: 100%;
+    color: #333;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    margin-right: 0px;
+    text-decoration: none;
+  }
+  .logo {
+    width: 100%; 
+    height: auto; 
+    background-color: #00000098;
+    border-radius: 100%;
+    padding: 1px;
+    max-width: 45px;
+    margin-right: 7px;
+    margin-left: 50px;
+  }
+  
+}
+
+
+
 @media screen and (max-width: 600px) {
   header {
     padding: 0;
@@ -138,6 +209,80 @@ header nav ul li a:hover {
     font-size: 2rem;
   }
 
+  .lista-direita {
+    font-size: 1.5rem;
+    margin-left: 10px;
+  }
+  
+  .titulo-esquerda {
+    width: 100%;
+    color: #333;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    margin-right: 0px;
+    text-decoration: none;
+  }
+  .logo {
+    width: 100%; 
+    height: auto; 
+    background-color: #00000098;
+    border-radius: 100%;
+    padding: 1px;
+    max-width: 45px;
+    margin-right: 7px;
+    margin-left: 17px;
+  }
+  
+}
+
+@media screen and (max-width: 350px) {
+  header {
+    padding: 0;
+    margin-top: 5px;
+  }
+  
+  
+  header nav ul {
+    display: none;
+  }
+  
+  header nav ul li {
+    margin: 5px 0;
+    display: block;
+  }
+
+  header nav.open ul {
+    display: block;
+    position: absolute;
+    top: 70px; 
+    left: 0;
+    width: 90%;
+    background-color: #f8f8f8;
+    z-index: 1000;
+    border-bottom: 2px solid #3333331f;
+    border-radius: 16px;
+  }
+  
+  .head-1 {
+    flex-direction: column;
+    padding: 3px;
+    padding-left: 2px;
+    font-size: 15px;
+  }
+
+  .menu-button {
+    display: block;
+    cursor: pointer;
+    color: #333;
+    font-size: 2rem;
+  }
+
+  .lista-direita {
+    font-size: 1.5rem;
+    margin-left: 10px;
+  }
+  
   .titulo-esquerda {
     width: 100%;
     color: #333;
@@ -153,11 +298,78 @@ header nav ul li a:hover {
     background-color: #00000098;
     border-radius: 100%;
     padding: 1px;
-    max-width: 50px;
+    max-width: 45px;
     margin-right: 7px;
-    margin-left: 3px;
+    margin-left: 10px;
   }
   
 }
 
+@media screen and (max-width: 260px) {
+  header {
+    padding: 0;
+    margin-top: 5px;
+  }
+  
+  
+  header nav ul {
+    display: none;
+  }
+  
+  header nav ul li {
+    margin: 5px 0;
+    display: block;
+  }
 
+  header nav.open ul {
+    display: block;
+    position: absolute;
+    top: 70px; 
+    left: 0;
+    width: 90%;
+    background-color: #f8f8f8;
+    z-index: 1000;
+    border-bottom: 2px solid #3333331f;
+    border-radius: 16px;
+  }
+  
+  .head-1 {
+    flex-direction: column;
+    padding: 3px;
+    padding-left: 2px;
+    font-size: 15px;
+  }
+
+  .menu-button {
+    display: block;
+    cursor: pointer;
+    color: #333;
+    font-size: 2rem;
+  }
+
+  .lista-direita {
+    font-size: 1.5rem;
+    margin-left: 10px;
+  }
+  
+  .titulo-esquerda {
+    width: 100%;
+    color: #333;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    margin-right: 37px;
+    text-decoration: none;
+  }
+  .logo {
+    width: 100%; 
+    height: auto; 
+    background-color: #00000098;
+    border-radius: 100%;
+    padding: 1px;
+    max-width: 40px;
+    margin-right: 7px;
+    margin-left: 17px;
+  }
+  
+}
