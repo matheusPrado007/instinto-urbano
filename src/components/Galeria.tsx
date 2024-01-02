@@ -41,6 +41,8 @@ const ArtAdmin: React.FC = () => {
   const [searchField, setSearchField] = useState<string>('nome'); // Campo padrão para busca
   const [selectedArte, setSelectedArte] = useState<Arte | null>(null);
   const [larguraTotal, setLarguraTotal] = useState(100);
+  const [isLoading, setIsLoading] = useState(true); // Novo estado para rastrear o carregamento
+
 
   const [newId, setNewId] = useState();
   const navigate = useNavigate();
@@ -101,8 +103,13 @@ const ArtAdmin: React.FC = () => {
     window.addEventListener('resize', handleResize);
     handleResize();
 
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1300);
+
     return () => {
       window.removeEventListener('resize', handleResize);
+      clearTimeout(timeout);
     };
   }, [filteredArtes.length]);
 
@@ -134,7 +141,7 @@ const ArtAdmin: React.FC = () => {
 
   return (
     <>
-      {dadosArtes.length <= 0 && <Loading />}
+      
       <div className="container-home-admin">
         <div className="input-container-adm">
           <input
@@ -156,7 +163,7 @@ const ArtAdmin: React.FC = () => {
             <option value="cidade">Cidade</option>
           </select>
         </div>
-
+        {isLoading && <Loading />} 
         {filteredArtes.length === 0 && <p className="galeria-item">Nenhuma arte encontada</p>}
         <Slider {...settings} className='galeria'>
           {filteredArtes.map((item: GaleriaItem) => (
