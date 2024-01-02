@@ -151,17 +151,11 @@ const ProfileAdmin: React.FC = () => {
                 confirmAlert({
                     title: 'Aviso',
                     message: 'Por favor, forneça seu email e senha válidos para confirmar a exclusão da Arte.',
-                    buttons: [
-                        {
-                            label: 'OK',
-                            onClick: () => { },
-                        },
-                    ],
                     customUI: ({ onClose }) => (
                         <div className="custom-ui">
                             <h1>{'Aviso'}</h1>
                             <p>{'Por favor, forneça seu email e senha válidos para confirmar a Atualização do perfil.'}</p>
-                            <button onClick={onClose}>OK</button>
+                            <button className="custom-ui-btn" onClick={onClose}>OK</button>
                         </div>
                     ),
                 });
@@ -174,8 +168,8 @@ const ProfileAdmin: React.FC = () => {
                     <div className="custom-ui">
                         <h1>{'Confirmação'}</h1>
                         <p>{'Tem certeza que deseja atualizar esses dados?'}</p>
-                        <button onClick={() => { updateDados(); onClose(); }}>Sim</button>
-                        <button onClick={() => { onClose(); }}>Não</button>
+                        <button className="custom-ui-btn" onClick={() => { updateDados(); onClose(); }}>Sim</button>
+                        <button className="custom-ui-btn" onClick={() => { onClose(); }}>Não</button>
                     </div>
                 ),
             });
@@ -201,7 +195,7 @@ const ProfileAdmin: React.FC = () => {
                         <div className="custom-ui">
                             <h1>{'Aviso'}</h1>
                             <p>{'Por favor, forneça seu email e senha válidos para confirmar a exclusão d perfil.'}</p>
-                            <button onClick={onClose}>OK</button>
+                            <button className="custom-ui-btn" onClick={onClose}>OK</button>
                         </div>
                     );
                 },
@@ -217,7 +211,7 @@ const ProfileAdmin: React.FC = () => {
                         <div className="custom-ui">
                             <h1>{'Aviso'}</h1>
                             <p>{'Por favor, escolha um Usuário antes de excluir.'}</p>
-                            <button onClick={onClose}>OK</button>
+                            <button className="custom-ui-btn" onClick={onClose}>OK</button>
                         </div>
                     );
                 },
@@ -232,8 +226,7 @@ const ProfileAdmin: React.FC = () => {
                     <div className="custom-ui">
                         <h1>{'Confirmação'}</h1>
                         <p>{'Tem certeza que deseja deletar essa Arte?'}</p>
-                        <button onClick={() => { onClose(); }}>Não</button>
-                        <button onClick={() => {
+                        <button className="custom-ui-btn" onClick={() => {
                             onClose();
                             try {
                                 const dados = {
@@ -246,6 +239,7 @@ const ProfileAdmin: React.FC = () => {
                                 console.error('Error during user deletion:', error);
                             }
                         }}>Sim</button>
+                        <button className="custom-ui-btn" onClick={() => { onClose(); }}>Não</button>
                     </div>
                 );
             },

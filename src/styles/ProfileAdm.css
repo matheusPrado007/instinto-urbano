@@ -245,10 +245,23 @@
 }
 
 .custom-ui {
-  max-width: 400px; /* Ajuste conforme necessário */
-  margin: 0 auto; /* Centraliza o alerta horizontalmente */
-  background-color: #fff; /* Cor de fundo */
-  padding: 20px; /* Espaçamento interno */
-  border-radius: 8px; /* Borda arredondada */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  max-width: 400px; 
+  margin: 0 auto; 
+  background-color: #fff;
+  padding: 20px; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.custom-ui-btn {
+  width: 55px;
+  padding: 5px;
+  margin-left: 3px;
+  border-radius: 4px;
+}
+
+.custom-ui-btn:hover {
+  width: 60px;
+  padding: 8px;
+  border-radius: 4px;
 }
