@@ -46,7 +46,7 @@ const ArtAdmin: React.FC = () => {
   const [selectedArte, setSelectedArte] = useState<Arte | null>(null);
   const [newArt, setNewArt] = useState<File | null>(null);
   const [larguraTotal, setLarguraTotal] = useState(100);
-  // const [isDeleteButtonDisabled, setIsDeleteButtonDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); 
 
   const [showPopup, setShowPopup] = useState(false);
 
@@ -79,6 +79,17 @@ const ArtAdmin: React.FC = () => {
   const [senha, setSenha] = useState('');
 
   const [newId, setNewId] = useState();
+
+  useEffect(() => {
+    
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   const closePopup = () => {
     setShowPopup(false);
@@ -417,6 +428,7 @@ const updateArte = async () => {
 
   return (
     <div className='art-admin-container'>
+       {isLoading && <Loading />}
       {dadosArtes.length <= 0 && <Loading />}
       <HeaderAdmin />
       <div className="container-home-admin">
