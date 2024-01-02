@@ -32,10 +32,10 @@
   font-size: 1.3rem;
   margin-bottom: 10px;
   display: flex;
-  align-items: le;
+  align-items: center;
   justify-content: left;
   padding: 3px;
-  /* border: 1px solid#ccc; */
+
   border-radius: 4px;
 }
 
@@ -336,4 +336,10 @@
 
 .checkbox-input-profile-adm:checked + .checkbox-custom-profile-adm .checkbox-checkmark-profile-adm {
   opacity: 1; 
+}
+
+.p-instagram {
+  /* display: flex; */
+  word-wrap: break-word;
+  word-break: break-all;
 }

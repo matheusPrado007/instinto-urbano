@@ -404,7 +404,11 @@ const ProfileAdmin: React.FC = () => {
                                 />
                             ) : (
 
-                                <p className='email-input'>Email: </p>
+                                <div className='p-instagram'>
+                                    <p className='email-input'>Email: </p>
+                                    
+                                    <p >{originalEmail}</p>
+                                </div>
 
                             )}
 
@@ -443,7 +447,11 @@ const ProfileAdmin: React.FC = () => {
                                     placeholder='username'
                                 />
                             ) : (
-                                <p>username:</p>
+                                <div className='p-instagram'>
+                                    <p>username:</p>
+                                    <p >{originalUsername}</p>
+                                </div>
+                               
                             )}
                             <button onClick={toggleEditModeUsername} className="email-edit-button ">
                                 {isEditingUsername ? 'Salvar' : 'Editar username'}
@@ -485,7 +493,7 @@ const ProfileAdmin: React.FC = () => {
                                     />
                                 </div>
                             ) : (
-                                <div>
+                                <div className='p-instagram'>
                                     <p>Linkedin:</p>
                                     <p>{originalLinkedin}</p>
                                 </div>
@@ -508,9 +516,9 @@ const ProfileAdmin: React.FC = () => {
                                     />
                                 </div>
                             ) : (
-                                <div>
-                                    <p>Instagram:</p>
-                                    <p>{originalInstagram}</p>
+                                <div className='p-instagram'>
+                                    <p >Instagram:</p>
+                                    <p >{originalInstagram}</p>
                                 </div>
                             )}
 
