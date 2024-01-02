@@ -141,9 +141,10 @@ const ArtAdmin: React.FC = () => {
 
   return (
     <>
-      
+
       <div className="container-home-admin">
         <div className="input-container-adm">
+
           <input
             type="text"
             className="inputField-adm"
@@ -163,7 +164,7 @@ const ArtAdmin: React.FC = () => {
             <option value="cidade">Cidade</option>
           </select>
         </div>
-        {isLoading && <Loading />} 
+        {isLoading && <Loading />}
         {filteredArtes.length === 0 && <p className="galeria-item">Nenhuma arte encontada</p>}
         <Slider {...settings} className='galeria'>
           {filteredArtes.map((item: GaleriaItem) => (

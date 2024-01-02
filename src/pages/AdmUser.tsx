@@ -35,15 +35,12 @@ const AdmUser: React.FC = () => {
   }
 
   return (
-    <>
-      
+    <div className='art-admin-container'>
       <HeaderAdmin />
-      <div className="content">
       <UserList />
       <Galeria />
-      </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

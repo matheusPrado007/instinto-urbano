@@ -1,9 +1,18 @@
+.art-admin-container {
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  max-width: 1200px;
+}
+
+
 .container-home-admin {
     display:flex;
     flex-direction: column;
     gap: 16px; 
     padding: 5px;
     justify-content: center;
+    max-width: 1200px;
   }
 
   .cards-arte {
@@ -51,7 +60,7 @@
     width: 1.4rem;
     position: absolute;
     top: 50%;
-    right: 195px;
+    right: 200px;
     transform: translateY(-50%);
     z-index: 1;
   }
@@ -73,6 +82,30 @@
     border-radius: 4px;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 1200px) {
+    .search-icon-adm {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: black;
+      width: 1.4rem;
+      position: absolute;
+      top: 50%;
+      right: calc(15.9vw + 27px); 
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    .selectField-adm {
+      padding: 3px;
+      font-size: 12.5px;
+      margin-left: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  }
   
   @media screen and (max-width: 600px) {
     .search-icon-adm {
@@ -84,7 +117,7 @@
       width: 1.4rem;
       position: absolute;
       top: 50%;
-      right: 150px;
+      right: 140px;
       transform: translateY(-50%);
       z-index: 1;
     }
