@@ -12,16 +12,17 @@ const Header: React.FC = () => {
 
 
   return (
-    <header>
+    <div className='header'>
       <div className="menu-button" onClick={toggleMenu}>
         ☰
       </div>
       <section className="head-1">
-      <a href="/" className='link-sem-sublinhado'>
-        <h1 className="titulo-esquerda"><img className="logo" src={logo} alt="Logo Rastro Urbano" /> 
-       Rastro Urbano
+        <h1 className="titulo-esquerda">
+          <img className="logo" src={logo} alt="Logo Rastro Urbano" />
+          <a href="/" className="link-sem-sublinhado">
+            Rastro Urbano
+          </a>
         </h1>
-        </a>
         <nav className={isMenuOpen ? 'open' : ''}>
           <ul className="lista-direita">
             <li><a href="/">Página Inicial</a></li>
@@ -32,7 +33,7 @@ const Header: React.FC = () => {
           </ul>
         </nav>
       </section>
-    </header>
+    </div>
   );
 };
 

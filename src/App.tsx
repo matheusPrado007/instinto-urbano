@@ -15,7 +15,6 @@ import ProfileAdminPost from './pages/ProfilePost';
 import ProfilePageEdit from './pages/ProfileEdit';
 import Artist from './pages/Artist';
 import ArtPageEdit from './pages/ArtPost';
-// import UserListAdm from './components/UsersAdm';
 
 
 const AppRouter: React.FC = () => {

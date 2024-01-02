@@ -7,7 +7,7 @@
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-.header {
+.header-admin {
   background-color: #f8f8f8;
   color: #333;
   padding: 10px;
@@ -17,7 +17,7 @@
   align-items: center;
 }
 
-.header nav.open ul {
+.header-admin nav.open ul {
   display: block;
   position: absolute;
   top: 70px;
@@ -27,15 +27,15 @@
   z-index: 1000;
 }
 
-.header h1 {
+.header-admin h1 {
   margin: 0;
 }
 
-.header nav {
+.header-admin nav {
   margin-top: 10px;
 }
 
-.header nav ul {
+.header-admin nav ul {
   width: 100%;
   list-style: none;
   padding: 0;
@@ -43,21 +43,21 @@
   margin: 1rem;
 }
 
-.header nav ul li {
+.header-admin nav ul li {
   margin: 0 15px;
   display: inline-block;
 }
 
-.header nav ul li a {
+.header-admin nav ul li a {
   text-decoration: none;
   color: #333;
 }
 
-.header nav ul li a:hover {
+.header-admin nav ul li a:hover {
   text-decoration: underline;
 }
 
-.menu-button {
+.menu-button-admin {
   display: none;
   position: absolute;
   top: 10px;
@@ -66,30 +66,30 @@
   color: #333;
 }
 
-.head-1 {
+.head-1-admin {
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-.titulo-esquerda {
+.titulo-esquerda-admin {
   color: #333;
   font-size: 2.1rem;
   display: flex;
   align-items: center;
 }
 
-.lista-direita {
+.lista-direita-admin {
   font-size: 1.5rem;
 }
 
-.link-sem-sublinhado {
+.link-sem-sublinhado-admin {
   text-decoration: none;
   color: #333;
 }
 
-.logo {
+.logo-admin {
   width: 100%;
   height: auto;
   background-color: #00000098;
@@ -102,21 +102,21 @@
 /* Restante do CSS para diferentes tamanhos de tela */
 
 @media screen and (max-width: 750px) {
-  .header {
+  .header-admin {
     padding: 0;
     margin-top: 5px;
   }
 
-  .header nav ul {
+  .header-admin nav ul {
     display: none;
   }
 
-  .header nav ul li {
+  .header-admin nav ul li {
     margin: 5px 0;
     display: block;
   }
 
-  .header nav.open ul {
+  .header-admin nav.open ul {
     display: block;
     position: absolute;
     top: 70px;
@@ -128,26 +128,26 @@
     border-radius: 16px;
   }
 
-  .head-1 {
+  .head-1-admin {
     flex-direction: column;
     padding: 3px;
     padding-left: 2px;
     font-size: 15px;
   }
 
-  .menu-button {
+  .menu-button-admin {
     display: block;
     cursor: pointer;
     color: #333;
     font-size: 2rem;
   }
 
-  .lista-direita {
+  .lista-direita-admin {
     font-size: 1.5rem;
     margin-left: 10px;
   }
 
-  .titulo-esquerda {
+  .titulo-esquerda-admin {
     width: 100%;
     color: #333;
     font-size: 2rem;
@@ -157,7 +157,7 @@
     text-decoration: none;
   }
 
-  .logo {
+  .logo-admin {
     width: 100%;
     height: auto;
     background-color: #00000098;
@@ -170,21 +170,21 @@
 }
 
 @media screen and (max-width: 600px) {
-  .header {
+  .header-admin {
     padding: 0;
     margin-top: 5px;
   }
 
-  .header nav ul {
+  .header-admin nav ul {
     display: none;
   }
 
-  .header nav ul li {
+  .header-admin nav ul li {
     margin: 5px 0;
     display: block;
   }
 
-  .header nav.open ul {
+  .header-admin nav.open ul {
     display: block;
     position: absolute;
     top: 70px;
@@ -196,26 +196,26 @@
     border-radius: 16px;
   }
 
-  .head-1 {
+  .head-1-admin {
     flex-direction: column;
     padding: 3px;
     padding-left: 2px;
     font-size: 15px;
   }
 
-  .menu-button {
+  .menu-button-admin {
     display: block;
     cursor: pointer;
     color: #333;
     font-size: 2rem;
   }
 
-  .lista-direita {
+  .lista-direita-admin {
     font-size: 1.5rem;
     margin-left: 10px;
   }
 
-  .titulo-esquerda {
+  .titulo-esquerda-admin {
     width: 100%;
     color: #333;
     font-size: 2rem;
@@ -225,7 +225,7 @@
     text-decoration: none;
   }
 
-  .logo {
+  .logo-admin {
     width: 100%;
     height: auto;
     background-color: #00000098;
@@ -238,21 +238,21 @@
 }
 
 @media screen and (max-width: 350px) {
-  .header {
+  .header-admin {
     padding: 0;
     margin-top: 5px;
   }
 
-  .header nav ul {
+  .header-admin nav ul {
     display: none;
   }
 
-  .header nav ul li {
+  .header-admin nav ul li {
     margin: 5px 0;
     display: block;
   }
 
-  .header nav.open ul {
+  .header-admin nav.open ul {
     display: block;
     position: absolute;
     top: 70px;
@@ -264,26 +264,26 @@
     border-radius: 16px;
   }
 
-  .head-1 {
+  .head-1-admin {
     flex-direction: column;
     padding: 3px;
     padding-left: 2px;
     font-size: 15px;
   }
 
-  .menu-button {
+  .menu-button-admin {
     display: block;
     cursor: pointer;
     color: #333;
     font-size: 2rem;
   }
 
-  .lista-direita {
+  .lista-direita-admin {
     font-size: 1.5rem;
     margin-left: 10px;
   }
 
-  .titulo-esquerda {
+  .titulo-esquerda-admin {
     width: 100%;
     color: #333;
     font-size: 1.7rem;
@@ -293,7 +293,7 @@
     text-decoration: none;
   }
 
-  .logo {
+  .logo-admin {
     width: 100%;
     height: auto;
     background-color: #00000098;
@@ -306,21 +306,21 @@
 }
 
 @media screen and (max-width: 280px) {
-  .header {
+  .header-admin {
     padding: 0;
     margin-top: 5px;
   }
 
-  .header nav ul {
+  .header-admin nav ul {
     display: none;
   }
 
-  .header nav ul li {
+  .header-admin nav ul li {
     margin: 5px 0;
     display: block;
   }
 
-  .header nav.open ul {
+  .header-admin nav.open ul {
     display: block;
     position: absolute;
     top: 70px;
@@ -332,26 +332,26 @@
     border-radius: 16px;
   }
 
-  .head-1 {
+  .head-1-admin {
     flex-direction: column;
     padding: 3px;
     padding-left: 2px;
     font-size: 15px;
   }
 
-  .menu-button {
+  .menu-button-admin {
     display: block;
     cursor: pointer;
     color: #333;
     font-size: 2rem;
   }
 
-  .lista-direita {
+  .lista-direita-admin {
     font-size: 1.5rem;
     margin-left: 10px;
   }
 
-  .titulo-esquerda {
+  .titulo-esquerda-admin {
     width: 100%;
     color: #333;
     font-size: 1.6rem;
@@ -361,7 +361,7 @@
     text-decoration: none;
   }
 
-  .logo {
+  .logo-admin {
     width: 100%;
     height: auto;
     background-color: #00000098;
