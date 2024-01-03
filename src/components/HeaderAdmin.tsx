@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../styles/HeaderAdmin.css'; 
 import logo from '../assets/logo.png';
 import { useParams } from 'react-router-dom';
@@ -6,10 +6,27 @@ import { useParams } from 'react-router-dom';
 const HeaderAdmin: React.FC = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const { id } = useParams<{ id?: string }>();
+  const menuRef = useRef(null);
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
+
+  const closeMenu = (event: MouseEvent) => {
+    if (menuRef.current && (menuRef.current as HTMLElement).contains(event.target as HTMLElement)) {
+      return;
+    }
+    
+    setMenuOpen(false);
+  };
+  
+  useEffect(() => {
+    document.addEventListener('mousedown', closeMenu);
+
+    return () => {
+      document.removeEventListener('mousedown', closeMenu);
+    };
+  }, []);
 
   return (
     <div className='header-admin'>
