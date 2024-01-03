@@ -23,18 +23,8 @@ interface User {
 const ProfilePage: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true); 
 
-  useEffect(() => {
-    
-    const timeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
 
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, []);
   const { dadosUsers } = useApi();
 
   useEffect(() => {
@@ -52,7 +42,7 @@ const ProfilePage: React.FC = () => {
   return (
     <div>
       <Header />
-      {isLoading && <Loading />}
+
       <div className="profile-container">
         {user && (
           <div>
