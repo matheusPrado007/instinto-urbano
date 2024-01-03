@@ -29,7 +29,7 @@ const ProfilePage: React.FC = () => {
     
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 1300);
+    }, 2000);
 
     return () => {
       clearTimeout(timeout);
@@ -54,7 +54,7 @@ const ProfilePage: React.FC = () => {
       <Header />
       {isLoading && <Loading />}
       <div className="profile-container">
-        {user ? (
+        {user && (
           <div>
             <img src={user.foto_capa} alt={`Capa de ${user.username}`} className="cover-photo" />
             <div className='description-data'>
@@ -80,8 +80,6 @@ const ProfilePage: React.FC = () => {
             </div>
             
           </div>
-        ) : (
-          <Loading />
         )}
       </div>
       <Footer />

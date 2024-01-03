@@ -48,12 +48,14 @@ const AdmUser: React.FC = () => {
   }
 
   return (
-    <div className='art-admin-container'>
+    <>
       <HeaderAdmin />
+    <div className='art-admin-container'>
       <UserList />
       <Galeria />
-      <Footer />
     </div>
+      <Footer />
+    </>
   );
 };
 

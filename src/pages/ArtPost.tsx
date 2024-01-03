@@ -281,10 +281,11 @@ const ArtPageEdit: React.FC = () => {
   }
 
   return (
+    <>
+      <HeaderAdmin />
     <div className='art-admin-container'>
           {isLoading && <Loading />}
       {dadosArtes.length <= 0 && <Loading />}
-      <HeaderAdmin />
       <div className="container-home-admin">
   
         <div className="art-container-page">
@@ -450,8 +451,9 @@ const ArtPageEdit: React.FC = () => {
           )}
         </div>
       </div>
-      <Footer />
     </div>
+      <Footer />
+    </>
   );
 };
 
