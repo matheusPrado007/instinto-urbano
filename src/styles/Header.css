@@ -136,6 +136,8 @@
   }
 
   .menu-button {
+    top: 0px;
+    right: 10px;
     display: block;
     cursor: pointer;
     color: #333;
@@ -204,6 +206,8 @@
   }
 
   .menu-button {
+    top: 0px;
+    right: 10px;
     display: block;
     cursor: pointer;
     color: #333;

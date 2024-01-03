@@ -4,33 +4,40 @@ import logo from '../assets/logo.png';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef(null);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const buttonRef = useRef<HTMLDivElement | null>(null);
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
 
   const closeMenu = (event: MouseEvent) => {
-    if (menuRef.current && (menuRef.current as HTMLElement).contains(event.target as HTMLElement)) {
-      return;
+    if (menuRef.current && buttonRef.current) {
+      if (!menuRef.current.contains(event.target as Node) && !buttonRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
     }
-    
-    setMenuOpen(false);
   };
-  
 
+  const handleButtonClick = () => {
+    toggleMenu();
+  };
 
   useEffect(() => {
-    document.addEventListener('mousedown', closeMenu);
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', closeMenu);
+    } else {
+      document.removeEventListener('mousedown', closeMenu);
+    }
 
     return () => {
       document.removeEventListener('mousedown', closeMenu);
     };
-  }, []);
+  }, [isMenuOpen]);
 
   return (
     <div className='header'>
-      <div className="menu-button" onClick={toggleMenu}>
+      <div className="menu-button" ref={buttonRef} onClick={handleButtonClick}>
         ☰
       </div>
       <section className="head-1">
