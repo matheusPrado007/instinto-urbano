@@ -427,10 +427,11 @@ const updateArte = async () => {
   }
 
   return (
+    <>
+      <HeaderAdmin />
     <div className='art-admin-container'>
        {isLoading && <Loading />}
       {dadosArtes.length <= 0 && <Loading />}
-      <HeaderAdmin />
       <div className="container-home-admin">
         <div className="input-container-adm">
           <input
@@ -640,8 +641,9 @@ const updateArte = async () => {
           Deletar Arte
         </button>
       </div>
-      <Footer />
     </div>
+      <Footer />
+    </>
   );
 };
 
