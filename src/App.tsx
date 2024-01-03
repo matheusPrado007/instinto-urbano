@@ -14,7 +14,7 @@ import ArtAdmin from './pages/ArtAdmin';
 import ProfileAdminPost from './pages/ProfilePost';
 import ProfilePageEdit from './pages/ProfileEdit';
 import Artist from './pages/Artist';
-// import UserListAdm from './components/UsersAdm';
+import ArtPageEdit from './pages/ArtPost';
 
 
 const AppRouter: React.FC = () => {
@@ -23,17 +23,19 @@ const AppRouter: React.FC = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sobre" element={<Sobre />} />
-        <Route path="/profile/:userId" element={<ProfilePage />} />
+        <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/artes" element={<ArtList />} />
         <Route path="/artistas" element={<Artist/>} />
-        <Route path="/arte/:artId" element={<ArtPage />} />
+        <Route path="/arte/:id" element={<ArtPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admuser/:id" element={<AdmUser />} />
-        <Route path="/admuser/:id/perfil" element={<ProfileAdmin />} />
+        <Route path="/admuser/:id/perfil/" element={<ProfileAdmin />} />
         <Route path="/admuser/:id/artistas" element={<ArtistAdmin/>} />
         <Route path="/admuser/:id/artes" element={<ArtAdmin />} />
         <Route path="/admuser/:id/profilepost" element={<ProfileAdminPost />} />
-        <Route path="/admuser/:userId/perfiladm" element={<ProfilePageEdit/>} />
+        <Route path="/admuser/:userId/admuser/:id/perfiladm" element={<ProfilePageEdit/>} />
+        <Route path="/admuser/:id/artedit" element={<ArtPageEdit/>} />
+
 
       </Routes>
     </Router>

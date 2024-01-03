@@ -9,9 +9,12 @@ import Popup from '../components/PopUp'
 import { useParams } from 'react-router-dom';
 import { CustomNextArrow, CustomPrevArrow } from '../components/Btn';
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import '../styles/Galeria.css';
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -34,13 +37,16 @@ interface GaleriaItem {
 }
 
 const ArtAdmin: React.FC = () => {
-  const { fazerLogin, dadosArtes, enviarDadosParaBackendArt, dadosUsers} = useApi();
+  const { fazerLogin, dadosArtes, enviarDadosParaBackendArt, dadosUsers, deleteArte } = useApi();
   const { id } = useParams<{ id?: string }>();
+  const navigate = useNavigate();
+
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchField, setSearchField] = useState<string>('nome'); // Campo padrão para busca
   const [selectedArte, setSelectedArte] = useState<Arte | null>(null);
   const [newArt, setNewArt] = useState<File | null>(null);
   const [larguraTotal, setLarguraTotal] = useState(100);
+  const [isLoading, setIsLoading] = useState(true); 
 
   const [showPopup, setShowPopup] = useState(false);
 
@@ -74,42 +80,105 @@ const ArtAdmin: React.FC = () => {
 
   const [newId, setNewId] = useState();
 
+  useEffect(() => {
+    
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
+
   const closePopup = () => {
     setShowPopup(false);
   };
 
+const updateArte = async () => {
+  const { accessToken, refreshToken, notOk } = await fazerLogin({ email, senha });
+
+  try {
+    const dados = {
+      newArt,
+      newName,
+      newDescription,
+      newAdress,
+      newArtist,
+      newCity,
+      newState,
+      id: newId,
+      accessToken,
+    };
+    setIsEditingToken(!isEditingToken)
+    setShowPopup(true);
+    return await enviarDadosParaBackendArt(dados);
+  } catch (error) {
+    console.error('Error during user deletion:', error);
+  }
+}
+
   const handleSaveChanges = async () => {
     try {
-      const { accessToken, refreshToken } = await fazerLogin({ email, senha });
+      const { accessToken, refreshToken, notOk } = await fazerLogin({ email, senha });
+  
+    if (notOk) {
+      confirmAlert({
+        title: 'Aviso',
+        message: 'Por favor, forneça seu email e senha válidos.',
+        customUI: ({ onClose }) => {
+          return (
+            <div className="custom-ui">
+              <h1>{'Aviso'}</h1>
+              <p>{'Por favor, forneça seu email e senha válidos para confirmar a exclusão da Arte.'}</p>
+              <button className="custom-ui-btn" onClick={onClose}>OK</button>
+            </div>
+          );
+        },
+      });
+      return;
+    }
+  
+    if (!newId) {
+      confirmAlert({
+        title: 'Aviso',
+        message: 'Por favor, escolha uma Arte antes de excluir.',
+        customUI: ({ onClose }) => {
+          return (
+            <div className="custom-ui">
+              <h1>{'Aviso'}</h1>
+              <p>{'Por favor, escolha uma Arte antes de excluir.'}</p>
+              <button className="custom-ui-btn" onClick={onClose}>OK</button>
+            </div>
+          );
+        },
+      });
+      return;
+    }
 
-      const dados = {
-        newArt,
-        newName,
-        newDescription,
-        newAdress,
-        newArtist,
-        newCity,
-        newState,
-        id: newId,
-        accessToken,
-      };
+    confirmAlert({
+      title: 'Confirmação',
+      message: 'Tem certeza que deseja deletar essa Arte?',
+      customUI: ({ onClose }) => {
+        return (
+          <div className="custom-ui">
+            <h1>{'Confirmação'}</h1>
+            <p>{'Tem certeza que deseja deletar essa Arte?'}</p>
+            <button className="custom-ui-btn" onClick={() => {
+              updateArte()
+              onClose();
+            }}>Sim</button>
+            <button className="custom-ui-btn" onClick={() => { onClose(); }}>Não</button>
+          </div>
+        );
+      },
+    });
 
-      await enviarDadosParaBackendArt(dados);
-      return await enviarDadosParaBackendArt(dados);
     } catch (error) {
       console.error('Erro durante o login:', error);
     }
   };
 
-  const toggleEditModeToken = async () => {
-    try {
-      setIsEditingToken(!isEditingToken)
-      await handleSaveChanges()
-      setShowPopup(true);
-    } catch (error) {
-      console.error('Erro:', error);
-    }
-  };
 
   const toggleEditModeAdress = () => {
     if (isEditingAdress) {
@@ -209,33 +278,33 @@ const ArtAdmin: React.FC = () => {
     if (id) {
       const foundUser = dadosUsers.find((u) => u._id === id);
       console.log(foundUser);
-      
+
       if (foundUser) {
-          const emailStorage: string = foundUser.email
-          setEmail(emailStorage)
+        const emailStorage: string = foundUser.email
+        setEmail(emailStorage)
       } else {
-          console.error('Usuário não encontrado');
+        console.error('Usuário não encontrado');
       }
-  }
-  if (selectedArte) {
-    setOriginalName(selectedArte.nome);
-    setNewName(selectedArte.nome);
+    }
+    if (selectedArte) {
+      setOriginalName(selectedArte.nome);
+      setNewName(selectedArte.nome);
 
-    setOriginalDescription(selectedArte.descricao);
-    setNewDescription(selectedArte.descricao);
+      setOriginalDescription(selectedArte.descricao);
+      setNewDescription(selectedArte.descricao);
 
-    setOriginalArtist(selectedArte.nome_artista);
-    setNewArtist(selectedArte.nome_artista);
+      setOriginalArtist(selectedArte.nome_artista);
+      setNewArtist(selectedArte.nome_artista);
 
-    setOriginalState(selectedArte.uf);
-    setNewState(selectedArte.uf);
+      setOriginalState(selectedArte.uf);
+      setNewState(selectedArte.uf);
 
-    setOriginalCity(selectedArte.cidade);
-    setNewCity(selectedArte.cidade);
+      setOriginalCity(selectedArte.cidade);
+      setNewCity(selectedArte.cidade);
 
-    setOriginalAdress(selectedArte.endereco);
-    setNewAdress(selectedArte.endereco);
-  } else {
+      setOriginalAdress(selectedArte.endereco);
+      setNewAdress(selectedArte.endereco);
+    } else {
       console.error('Arte não encontrada ');
     }
 
@@ -244,23 +313,92 @@ const ArtAdmin: React.FC = () => {
 
   useEffect(() => {
     const handleResize = async () => {
-      const numeroDeImgs = window.innerWidth / 220;
+      const numeroDeImgs = window.innerWidth / 300;
       console.log(numeroDeImgs);
-      
-      const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length -1
+
+      const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length - 1
       // console.log('numero total', +resulNumber.toFixed(0));
-      
+
       const resulNumber = +numeroTotal === 0 ? 1 : +numeroTotal;
       setLarguraTotal(+resulNumber.toFixed(0));
     };
 
-     window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize);
     handleResize();
 
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, [filteredArtes.length]);
+
+
+  const showDeleteConfirmation = async () => {
+    const { accessToken, refreshToken, notOk } = await fazerLogin({ email, senha });
+  
+    if (notOk) {
+      confirmAlert({
+        title: 'Aviso',
+        message: 'Por favor, forneça seu email e senha válidos.',
+        customUI: ({ onClose }) => {
+          return (
+            <div className="custom-ui">
+              <h1>{'Aviso'}</h1>
+              <p>{'Por favor, forneça seu email e senha válidos para confirmar a exclusão da Arte.'}</p>
+              <button className="custom-ui-btn" onClick={onClose}>OK</button>
+            </div>
+          );
+        },
+      });
+      return;
+    }
+  
+    if (!newId) {
+      confirmAlert({
+        title: 'Aviso',
+        message: 'Por favor, escolha uma Arte antes de excluir.',
+        customUI: ({ onClose }) => {
+          return (
+            <div className="custom-ui">
+              <h1>{'Aviso'}</h1>
+              <p>{'Por favor, escolha uma Arte antes de excluir.'}</p>
+              <button className="custom-ui-btn" onClick={onClose}>OK</button>
+            </div>
+          );
+        },
+      });
+      return;
+    }
+  
+    confirmAlert({
+      title: 'Confirmação',
+      message: 'Tem certeza que deseja deletar essa Arte?',
+      customUI: ({ onClose }) => {
+        return (
+          <div className="custom-ui">
+            <h1>{'Confirmação'}</h1>
+            <p>{'Tem certeza que deseja deletar essa Arte?'}</p>
+            <button className="custom-ui-btn" onClick={() => {
+              try {
+                const dados = {
+                  token: accessToken,
+                  id: newId,
+                };
+                deleteArte(dados);
+                navigate(`/admuser/${id}`);
+              } catch (error) {
+                console.error('Error during user deletion:', error);
+              }
+              onClose();
+              
+            }}>Sim</button>
+            <button className="custom-ui-btn" onClick={() => { onClose(); }}>Não</button>
+          </div>
+        );
+      },
+    });
+  };
+
+
 
 
   const settings = {
@@ -271,7 +409,7 @@ const ArtAdmin: React.FC = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-    arrows: true, 
+    arrows: true,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
   };
@@ -290,8 +428,10 @@ const ArtAdmin: React.FC = () => {
 
   return (
     <>
-      {dadosArtes.length <= 0 && <Loading />}
       <HeaderAdmin />
+    <div className='art-admin-container'>
+       {isLoading && <Loading />}
+      {dadosArtes.length <= 0 && <Loading />}
       <div className="container-home-admin">
         <div className="input-container-adm">
           <input
@@ -315,7 +455,7 @@ const ArtAdmin: React.FC = () => {
         </div>
 
 
-          <Slider {...settings} className='galeria'>
+        <Slider {...settings} className='galeria'>
           {filteredArtes.map((item: GaleriaItem) => (
             <div key={item._id} className="galeria-item" onClick={() => handleArteClick(item._id)}>
               <img
@@ -330,7 +470,7 @@ const ArtAdmin: React.FC = () => {
           ))}
         </Slider>
 
-        
+
 
         <div className="art-container-page">
           {selectedArte && (
@@ -346,7 +486,8 @@ const ArtAdmin: React.FC = () => {
                     placeholder='Nome'
                   />
                 ) : (
-                    <p>{originalName}</p>          
+                  
+                  <p className='p-instagram'>{originalName}</p>
                 )}
                 <button onClick={toggleEditModeName} className="email-edit-button">
                   {isEditingName ? 'Salvar' : 'Editar Nome da Arte'}
@@ -374,7 +515,7 @@ const ArtAdmin: React.FC = () => {
                   />
                 </div>
               ) : (
-                  <p>{originalDescription}</p>
+                <p className='p-instagram'>{originalDescription}</p>
               )}
               <button onClick={toggleEditMode} className="edit-button">
                 {isEditing ? 'Salvar' : 'Editar Descrição'}
@@ -392,7 +533,7 @@ const ArtAdmin: React.FC = () => {
                     />
                   </div>
                 ) : (
-                    <p> Artista(s): {originalArtist}</p>
+                  <p className='p-instagram'> Artista(s): {originalArtist}</p>
                 )}
                 <button onClick={toggleEditModeArtist} className="email-edit-button">
                   {isEditingArtist ? 'Salvar' : 'Editar Descrição'}
@@ -412,7 +553,7 @@ const ArtAdmin: React.FC = () => {
                     />
                   </div>
                 ) : (
-                    <p> Estado: {originalState}</p>
+                  <p className='p-instagram'> Estado: {originalState}</p>
                 )}
                 <button onClick={toggleEditModeState} className="email-edit-button">
                   {isEditingState ? 'Salvar' : 'Editar Descrição'}
@@ -433,13 +574,13 @@ const ArtAdmin: React.FC = () => {
                     />
                   </div>
                 ) : (
-                    <p> Cidade: {originalCity} </p>
+                  <p className='p-instagram'> Cidade: {originalCity} </p>
                 )}
                 <button onClick={toggleEditModeCity} className="email-edit-button">
                   {isEditingCity ? 'Salvar' : 'Editar Descrição'}
                 </button>
               </div>
-              
+
 
               <div className="user-info-adm">
                 {isEditingAdress ? (
@@ -453,7 +594,7 @@ const ArtAdmin: React.FC = () => {
                     />
                   </div>
                 ) : (
-                    <p> Endereço: {originalAdress}</p>
+                  <p className='p-instagram'> Endereço: {originalAdress}</p>
                 )}
                 <button onClick={toggleEditModeAdress} className="email-edit-button">
                   {isEditingAdress ? 'Salvar' : 'Editar Descrição'}
@@ -476,7 +617,7 @@ const ArtAdmin: React.FC = () => {
           />
 
 
-          <p>Senha:</p>
+          <p >Senha:</p>
           <input
             type="password"
             name="senha-TOKEN"
@@ -486,13 +627,21 @@ const ArtAdmin: React.FC = () => {
             placeholder='senha'
           />
 
-          <button onClick={toggleEditModeToken} className="edit-button-finish">
+          <button onClick={handleSaveChanges} className="edit-button-finish">
             Atualizar os Dados
           </button>
 
           {showPopup && <Popup message="Dados Atualizados com Sucesso" onClose={closePopup} />}
         </div>
+        <button
+          onClick={showDeleteConfirmation}
+          className="delete-button"
+          // disabled={isDeleteButtonDisabled}
+        >
+          Deletar Arte
+        </button>
       </div>
+    </div>
       <Footer />
     </>
   );

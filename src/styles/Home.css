@@ -7,11 +7,11 @@
 
 .main-container {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     max-width: 1200px;
     justify-content: center;
     margin: auto;
-  }
+}
 
 .container-home {
     font-size: 1.3rem;
@@ -21,89 +21,87 @@
     text-align: center;
     padding: 20px;
     flex: 1;
-  }
-  
-  .input-container {
+}
+
+.input-container {
     position: relative;
     width: 100%;
     margin-top: 10px;
-  }
-  
-  .inputField {
+}
+
+.inputField {
     width: 80%;
     padding: 10px;
     box-sizing: border-box;
     font-size: 0.9rem;
     border-radius: 35px;
-  }
-  
-  .search-icon img {
+    padding-right: 0px; /* Adiciona espaço para a imagem */
+}
+
+.search-icon {
     position: absolute;
     top: 50%;
-    right: 12%;
+    right: 10px;
     transform: translateY(-50%);
     cursor: pointer;
     color: black;
     width: 1.4rem;
-  }
+}
 
-  .titulo-sobre {
+.titulo-sobre {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-  }
+}
 
-  .sobre-section {
+.sobre-section {
     max-width: 80%;
     margin: 50px auto;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-  }
+}
 
-  .about-sec {
+.about-sec {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .intro-text {
+}
+
+.intro-text {
     color: #333;
     line-height: 1.6;
     font-size: 1.1rem;
     margin-bottom: .5rem;
-  }
+}
 
-  .text-sobre {
+.text-sobre {
     margin-bottom: 1rem;
-  }
+}
 
-  .sobre-btn {
-    background-color: #7fbee9; 
+.sobre-btn {
+    background-color: #7fbee9;
     color: #ffffff;
-    padding: 10px 20px; 
-    border: none; 
-    border-radius: 5px; 
-    font-size: 16px; 
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
-  }
-  
-  /* Efeitos de hover */
-  .sobre-btn:hover {
-    background-color: #2980b9; /* Cor de fundo ao passar o mouse */
-  }
-  
+}
 
+.sobre-btn:hover {
+    background-color: #2980b9;
+}
 
-  @media screen and (max-width: 600px) {
+@media screen and (max-width: 600px) {
     .inputField {
-      margin-top: 5px;
+        margin-top: 5px;
     }
-  }
+}
 
-  .map-container {
+.map-container {
     display: flex;
     width: 50%;
     align-items: center;
-  }
+}

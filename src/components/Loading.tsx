@@ -1,8 +1,8 @@
 // Loading.tsx
 
 import React from 'react';
-import '../styles/Loading.css';  // Importe ou crie um arquivo CSS para estilizar o componente
-import logo from '../assets/logo.png';  // Importe o caminho do seu logo
+import '../styles/Loading.css';  
+import logo from '../assets/logo.png';  
 
 const Loading: React.FC = () => {
   return (

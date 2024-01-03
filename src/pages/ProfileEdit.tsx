@@ -15,13 +15,25 @@ interface User {
 }
 
 const ProfilePageEdit: React.FC = () => {
-  const { userId } = useParams<{ userId?: string }>();
+  const { id, userId } = useParams<{ id?: string, userId?: string }>();
   const [user, setUser] = useState<User | null>(null);
   const { dadosUsers } = useApi();
+  const [isLoading, setIsLoading] = useState(true); 
 
   useEffect(() => {
-    if (userId) {
-      const foundUser = dadosUsers.find((u) => u._id === userId);
+    
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (id) {
+      const foundUser = dadosUsers.find((u) => u._id === id);
 
       if (foundUser) {
         setUser(foundUser);
@@ -29,11 +41,12 @@ const ProfilePageEdit: React.FC = () => {
         console.error('Usuário não encontrado');
       }
     }
-  }, [userId, dadosUsers]);
+  }, [id, dadosUsers]);
 
   return (
     <div>
       <Header />
+      {isLoading && <Loading />}
       <div className="profile-container">
         <a href={`/admuser/${userId}`} className='profile-edit-finish'>Voltar</a>
         {user ? (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importe o useHistory
 
 import Header from '../components/Header';
@@ -12,6 +12,18 @@ import Loading from '../components/Loading';
 const Home: React.FC = () => {
   const { dadosArtes } = useApi();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true); 
+
+  useEffect(() => {
+    
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   const redirecionarParaSobre = () => {
     navigate('/sobre');
@@ -20,17 +32,12 @@ const Home: React.FC = () => {
   return (
     <>
           <Header />
+          {isLoading && <Loading />}
       {dadosArtes.length > 0 ? (
         <>
           <div className="main-container">
             <div className="container-home">
               <p>Sua comunidade de Arte de Rua.</p>
-              <div className="input-container">
-                <input type="text" className="inputField" placeholder="Pesquisar..." />
-                <div className="search-icon">
-                  <img src="/lupa.png" alt="Ícone de Lupa" />
-                </div>
-              </div>
             </div>
             <section className='galeria-home'>
               <Galeria />
