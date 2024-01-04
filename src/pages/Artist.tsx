@@ -38,19 +38,15 @@ const UserList: React.FC = () => {
     <>
     <Header />
     <div className="user-list-container">
-      <p className="user-list-header">Equipe de Criação</p>
+      <p className="user-list-header">Conheça os Artistas</p>
       <div className="user-grid">
         {adm && adm.map((user: any) => (
           <div key={user._id} className="user-item clicavel" onClick={() => navigateToProfile(user._id)}>
             <img src={user.foto_perfil} alt={user.nome} className="user-avatar" />
             <span className='nome-user'>{user.username}</span>
             <span>
-              • Desenvolvedor Web Full Stack
+            {user.descricao_perfil}
             </span>
-            <span>
-              • Co-fundador do Rastro Urbano
-            </span>
-
           </div>
         ))}
       </div>
