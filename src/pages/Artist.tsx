@@ -24,7 +24,7 @@ const UserList: React.FC = () => {
       }
       return navigate(`admuser/${userId}/perfiladm`);
     }
-      navigate(`/profile/${userId}`);
+      navigate(`/profileartist/${userId}`);
   }
 
     const adm = dadosUsers.filter((user) => user.administrador === false)
