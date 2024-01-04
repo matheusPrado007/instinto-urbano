@@ -30,7 +30,6 @@ const About: React.FC = () => {
   return (
     <>
       <Header />
-      {isLoading && <Loading />}
       {dadosUsers.length > 0 ? (
         <div>
       <section className='about-section'>
