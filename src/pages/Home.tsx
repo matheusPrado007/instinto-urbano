@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importe o useHistory
+import { useNavigate } from 'react-router-dom';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import '../styles/Home.css';
 import Galeria from '../components/Galeria';
 import Maps from '../services/Maps';
+import UserList from '../components/Users';
+
 import { useApi } from '../services/context/ApiContext';
 import Loading from '../components/Loading';
+
+import '../styles/Home.css';
+
 
 const Home: React.FC = () => {
   const { dadosArtes } = useApi();
@@ -31,17 +35,18 @@ const Home: React.FC = () => {
 
   return (
     <>
-          <Header />
-          {isLoading && <Loading />}
+      <Header />
       {dadosArtes.length > 0 ? (
         <>
           <div className="main-container">
+            
             <div className="container-home">
               <p>Sua comunidade de Arte de Rua.</p>
-            </div>
+            </div>            
             <section className='galeria-home'>
               <Galeria />
             </section>
+            <section className='section-middle'>
             <Maps />
             <div className='about-sec'>
               <section className="sobre-section">
@@ -57,7 +62,11 @@ const Home: React.FC = () => {
                 <button className='sobre-btn' onClick={redirecionarParaSobre}>Sobre nós</button>
               </section>
             </div>
+            </section>
           </div>
+          <section className='users-list-home'>
+            <UserList />
+          </section>
         </>
       ) : (
         <Loading />

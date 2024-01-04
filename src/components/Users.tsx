@@ -11,7 +11,7 @@ const UserList: React.FC = () => {
   const { dadosUsers } = useApi();
   const navigate = useNavigate();
   const { id } = useParams<{ id?: string }>();
-  const [userId, setUserId] = useState();
+  const [user, setUser] = useState<any>();
   const [idParams, setIdPrams] = useState<any>();
 
   const navigateToProfile = (userId: string) => {
@@ -26,14 +26,18 @@ const UserList: React.FC = () => {
   }
 
   useEffect(() => {
-    setIdPrams(id)
+    setIdPrams(id);
+    const adm = dadosUsers.filter((user) => user.administrador === true)
+    if(dadosUsers) {
+      setUser(adm)
+    }
   }, [id])
 
   return (
     <div className="user-list-container">
       <p className="user-list-header">Equipe de Criação</p>
       <div className="user-grid">
-        {dadosUsers.map((user) => (
+        {user && user.map((user: any) => (
           <div key={user._id} className="user-item clicavel" onClick={() => navigateToProfile(user._id)}>
             <img src={user.foto_perfil} alt={user.nome} className="user-avatar" />
             <span className='nome-user'>{user.username}</span>
