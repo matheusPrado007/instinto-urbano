@@ -27,12 +27,11 @@ const UserList: React.FC = () => {
       navigate(`/profile/${userId}`);
   }
 
+    const adm = dadosUsers.filter((user) => user.administrador === false)
+
   useEffect(() => {
     setIdPrams(id);
-    const adm = dadosUsers.filter((user) => user.administrador === false)
-    if(adm) {
-      setUser(adm)
-    }
+ 
   }, [id])
 
   return (
@@ -41,7 +40,7 @@ const UserList: React.FC = () => {
     <div className="user-list-container">
       <p className="user-list-header">Equipe de Criação</p>
       <div className="user-grid">
-        {user && user.map((user: any) => (
+        {adm && adm.map((user: any) => (
           <div key={user._id} className="user-item clicavel" onClick={() => navigateToProfile(user._id)}>
             <img src={user.foto_perfil} alt={user.nome} className="user-avatar" />
             <span className='nome-user'>{user.username}</span>
