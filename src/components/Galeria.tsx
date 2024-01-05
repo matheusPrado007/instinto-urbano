@@ -88,13 +88,18 @@ const Galeria: React.FC = () => {
 
   useEffect(() => {
     const handleResize = async () => {
-      const numeroDeImgs = window.innerWidth / 170;
+      const numeroDeImgs = window.innerWidth / 160;
+      console.log(numeroDeImgs);
 
       const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length - 1
       console.log(numeroTotal.toFixed(1));
 
       const resulNumber = +numeroTotal === 0 ? 1 : +numeroTotal;
-      setLarguraTotal(+resulNumber.toFixed(0));
+      console.log('result', resulNumber);
+      
+      const finalResult = +resulNumber.toFixed(0) > 6 ? 5 : +resulNumber
+
+      setLarguraTotal(+finalResult.toFixed(0));
     };
 
     window.addEventListener('resize', handleResize);
