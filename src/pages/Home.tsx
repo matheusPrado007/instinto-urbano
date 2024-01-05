@@ -11,6 +11,8 @@ import { useApi } from '../services/context/ApiContext';
 import Loading from '../components/Loading';
 
 import '../styles/Home.css';
+import Artist from './Artist';
+import ArtistList from '../components/ArtistList';
 
 
 const Home: React.FC = () => {
@@ -64,6 +66,9 @@ const Home: React.FC = () => {
             </div>
             </section>
           </div>
+          <section>
+            <ArtistList />
+          </section>
           <section className='users-list-home'>
             <UserList />
           </section>

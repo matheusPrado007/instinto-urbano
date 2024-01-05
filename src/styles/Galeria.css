@@ -28,9 +28,9 @@
 
 
 .imagem-galeria {
-  width: calc(100% - 20px);
+  width: calc(100% - 10px);
   height: 170px;
-  max-width: 300px; 
+  max-width: 400px; 
   border-radius: 8px;
   margin: 0 auto;
   object-fit: cover;
