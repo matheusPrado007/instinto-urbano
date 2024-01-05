@@ -124,7 +124,7 @@ const ProfilePageArtist: React.FC = () => {
                     <p>{user.descricao_perfil}</p>
                 </div>
                 <section>
-                    <p className="title-profile-artist">Conheça as minhas Artes</p>
+                    <p className="title-profile-artist">Artes de {user.username}</p>
                     <Slider {...settings} className="galeria">
                         {filteredArtes.map((item: GaleriaItem) => (
                             <div key={item._id} className="galeria-item" onClick={() => handleArteClick(item._id)}>
