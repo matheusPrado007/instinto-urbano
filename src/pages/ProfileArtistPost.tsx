@@ -1,11 +1,11 @@
 import React, { useState} from 'react';
 import { useApi } from '../services/context/ApiContext';
 import Footer from '../components/Footer';
-import HeaderAdmin from '../components/HeaderAdmin';
 import Header from '../components/Header';
 import '../styles/ArtAdmin.css'
 
-import ArtPostComponent from '../components/ArtPostComponent';;
+import ArtPostComponent from '../components/ArtPostComponent';import HeaderArtist from '../components/HeaderArtist';
+;
 
 
 
@@ -27,7 +27,7 @@ interface GaleriaItem {
   endereco: string
 }
 
-const ArtPageEdit: React.FC = () => {
+const ProfileArtistPost: React.FC = () => {
   const { fazerLogin} = useApi();
 
   const [email, setEmail] = useState('');
@@ -67,11 +67,11 @@ const ArtPageEdit: React.FC = () => {
 
   return (
     <>
-      <HeaderAdmin />
+      <HeaderArtist />
          <ArtPostComponent />
       <Footer />
     </>
   );
 };
 
-export default ArtPageEdit;
+export default ProfileArtistPost;

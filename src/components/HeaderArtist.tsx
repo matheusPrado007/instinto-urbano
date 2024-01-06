@@ -49,7 +49,7 @@ const HeaderArtist: React.FC = () => {
           <ul className="lista-direita-admin">
             <li><a href={`/admartist/${id}`}>Início</a></li>
             <li><a href={`/admartist/${id}/profile`}>Meu Perfil</a></li>
-            <li><a href={`/admuser/${id}/artedit`}>Nova Arte</a></li>
+            <li><a href={`/admartist/${id}/arteedit`}>Nova Arte</a></li>
           </ul>
         </nav>
       </section>
