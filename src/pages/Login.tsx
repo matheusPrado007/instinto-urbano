@@ -38,6 +38,10 @@ const Login: React.FC = () => {
         navigate(`/admuser/${userId}`);
     };
 
+    const navigateToProfileArtist = (userId: string) => {
+        navigate(`/admartist/${userId}`);
+    };
+
     useEffect(() => {
         const savedEmail = localStorage.getItem('savedEmail');
         if (savedEmail) {
@@ -57,7 +61,12 @@ const Login: React.FC = () => {
                 }
 
                 const userId = dadosUsers.find((user) => user.email === email)._id;
-                navigateToProfileAdm(userId);
+                const user = dadosUsers.find((user) => user.email === email);
+                if(user.administrador === true) {
+                    navigateToProfileAdm(userId);
+                } else {
+                    navigateToProfileArtist(userId)
+                }
             }
         } catch (error) {
             console.error('Erro durante o login:', error);
