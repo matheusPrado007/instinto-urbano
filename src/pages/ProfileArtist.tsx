@@ -11,6 +11,7 @@ import { CustomNextArrow, CustomPrevArrow } from '../components/Btn';
 import '../styles/Profile.css';
 import '../styles/Galeria.css';
 import '../styles/ProfileArtist.css';
+import ProfileArtistComponent from '../components/ProfileArtistComponent';
 
 interface User {
     _id: number;
@@ -50,32 +51,32 @@ const ProfileArtist: React.FC = () => {
     // Effects
     useEffect(() => {
         const handleResize = async () => {
-          const numeroDeImgs = window.innerWidth / 160;
-          console.log(numeroDeImgs);
-    
-          const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length - 1
-          console.log(numeroTotal.toFixed(1));
-    
-          const resulNumber = +numeroTotal === 0 ? 1 : +numeroTotal;
-          console.log('result', resulNumber);
-          
-          const finalResult = +resulNumber.toFixed(0) > 6 ? 5 : +resulNumber
-    
-          setLarguraTotal(+finalResult.toFixed(0));
+            const numeroDeImgs = window.innerWidth / 160;
+            console.log(numeroDeImgs);
+
+            const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length - 1
+            console.log(numeroTotal.toFixed(1));
+
+            const resulNumber = +numeroTotal === 0 ? 1 : +numeroTotal;
+            console.log('result', resulNumber);
+
+            const finalResult = +resulNumber.toFixed(0) > 6 ? 5 : +resulNumber
+
+            setLarguraTotal(+finalResult.toFixed(0));
         };
-    
+
         window.addEventListener('resize', handleResize);
         handleResize();
-    
+
         const timeout = setTimeout(() => {
-          setIsLoading(false);
+            setIsLoading(false);
         }, 1300);
-    
+
         return () => {
-          window.removeEventListener('resize', handleResize);
-          clearTimeout(timeout);
+            window.removeEventListener('resize', handleResize);
+            clearTimeout(timeout);
         };
-      }, [filteredArtes.length]);
+    }, [filteredArtes.length]);
 
     // Other Functions
     const handleArteClick = (arteId: string) => {
@@ -105,43 +106,7 @@ const ProfileArtist: React.FC = () => {
     return (
         <>
             <Header />
-            <div className="profile-container">
-                <img src={user.foto_capa} alt={`Capa de ${user.username}`} className="cover-photo" />
-                <div className="description-data">
-                    <img src={user.foto_perfil} alt={`Foto de perfil de ${user.username}`} className="profile-photo" />
-                    <p className="responsibility-p">Co-fundador do Rastro Urbano</p>
-                </div>
-                <div className="user-info">
-                    <div className="social-links">
-                        <a href={`mailto:${user.email}`}>
-                            <img src={EmailLogo} alt="E-mail" className="social-logo-profile" />
-                        </a>
-                        <a href={user.linkedin} target="_blank" rel="noopener noreferrer">
-                            <img src={LinkedInLogo} alt="LinkedIn" className="social-logo-profile" />
-                        </a>
-                        <a href={user.instagram} target="_blank" rel="noopener noreferrer">
-                            <img src={InstagramLogo} alt="Instagram" className="social-logo-profile" />
-                        </a>
-                    </div>
-                    <p>{user.username}</p>
-                </div>
-                <div className="description-p">
-                    <p>{user.descricao_perfil}</p>
-                </div>
-                <section>
-                    <p className="title-profile-artist">Artes de {user.username}</p>
-                    <Slider {...settings} className="galeria">
-                        {filteredArtes.map((item: GaleriaItem) => (
-                            <div key={item._id} className="galeria-item" onClick={() => handleArteClick(item._id)}>
-                                <img src={item.foto} className="imagem-galeria" alt={`Arte de ${item.nome_artista}`} />
-                                <p className="nome-trabalho">{item.nome}</p>
-                                <p className="nome-artista">{item.nome_artista}</p>
-                                <p className="nome-trabalho">{item.endereco}</p>
-                            </div>
-                        ))}
-                    </Slider>
-                </section>
-            </div>
+                <ProfileArtistComponent />
             <Footer />
         </>
     );
