@@ -16,6 +16,7 @@ interface User {
     foto_capa: string;
     foto_perfil: string;
     descricao_perfil: string;
+    administrador: string
 }
 
 const ProfileEditComponent: React.FC = () => {
@@ -57,19 +58,19 @@ const ProfileEditComponent: React.FC = () => {
     const [newAdm, setNewAdm] = useState<boolean>(false);
     const [originalAdm, setOriginalAdm] = useState<boolean>(true);
     const [isEditingAdm, setIsEditingAdm] = useState(false);
-    const [isLoading, setIsLoading] = useState(true); 
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-      
-      const timeout = setTimeout(() => {
-        setIsLoading(false);
-      }, 1300);
-  
-      return () => {
-        clearTimeout(timeout);
-      };
+
+        const timeout = setTimeout(() => {
+            setIsLoading(false);
+        }, 1300);
+
+        return () => {
+            clearTimeout(timeout);
+        };
     }, []);
-  
+
 
 
     const toggleEditModeAdm = () => {
@@ -376,29 +377,33 @@ const ProfileEditComponent: React.FC = () => {
                             </button>
                         </div>
                         <div className="user-info-adm">
-                            {isEditingAdm ? (
-                                <label className="login-label-checkbox-profile-adm">
-                                    <span className="login-label-checkbox-input-profile-adm">Admin: </span>
-                                    <div className="checkbox-container-profile-adm">
-                                        <input
-                                            type="checkbox"
-                                            checked={newAdm}
-                                            onChange={(e) => setNewAdm(e.target.checked)}
-                                            className="checkbox-input-profile-adm login-label-checkbox-input-profile-adm"
-                                        />
-                                        <div className="checkbox-custom-profile-adm">✔</div>
-                                    </div>
-                                </label>
-                            ) : (
+                            {user.administrador && (
                                 <div>
-                                    
-                                    <p>Admin: {originalAdm ? 'Sim' : 'Não'}</p>
+                                    {isEditingAdm ? (
+                                        <label className="login-label-checkbox-profile-adm">
+                                            <span className="login-label-checkbox-input-profile-adm">Admin: </span>
+                                            <div className="checkbox-container-profile-adm">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={newAdm}
+                                                    onChange={(e) => setNewAdm(e.target.checked)}
+                                                    className="checkbox-input-profile-adm login-label-checkbox-input-profile-adm"
+                                                />
+                                                <div className="checkbox-custom-profile-adm">✔</div>
+                                            </div>
+                                        </label>
+                                    ) : (
+                                        <div>
+                                            <p>Admin: {originalAdm ? 'Sim' : 'Não'}</p>
+                                        </div>
+                                    )}
+
+                                    <button onClick={toggleEditModeAdm} className="email-edit-button">
+                                        {isEditingAdm ? 'Salvar' : 'Editar Admin'}
+                                    </button>
                                 </div>
                             )}
 
-                            <button onClick={toggleEditModeAdm} className="email-edit-button">
-                                {isEditingAdm ? 'Salvar' : 'Editar Admin'}
-                            </button>
                         </div>
                         <div className="user-info-adm">
                             {isEditingEmail ? (
@@ -414,7 +419,7 @@ const ProfileEditComponent: React.FC = () => {
 
                                 <div className='p-instagram'>
                                     <p className='email-input'>Email: </p>
-                                    
+
                                     <p >{originalEmail}</p>
                                 </div>
 
@@ -459,7 +464,7 @@ const ProfileEditComponent: React.FC = () => {
                                     <p>username:</p>
                                     <p >{originalUsername}</p>
                                 </div>
-                               
+
                             )}
                             <button onClick={toggleEditModeUsername} className="email-edit-button ">
                                 {isEditingUsername ? 'Salvar' : 'Editar username'}
