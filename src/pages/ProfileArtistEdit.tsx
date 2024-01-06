@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import '../styles/ProfileAdm.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import ProfileEditComponent from '../components/ProfileEditComponent';
+import HeaderArtist from '../components/HeaderArtist';
 
 interface User {
     _id: number;
@@ -15,7 +16,7 @@ interface User {
     descricao_perfil: string;
 }
 
-const ProfileAdmin: React.FC = () => {
+const ProfileArtistEdit: React.FC = () => {
     const { fazerLogin } = useApi();
 
     const [email, setEmail] = useState('');
@@ -46,14 +47,14 @@ const ProfileAdmin: React.FC = () => {
 
     return (
         <>
-            <HeaderAdmin />
+            <HeaderArtist/>
             <ProfileEditComponent />
             <Footer />
         </>
     );
 };
 
-export default ProfileAdmin;
+export default ProfileArtistEdit;
 
 
 
