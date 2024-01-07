@@ -16,9 +16,9 @@ import ProfilePageEdit from './pages/ProfileEdit';
 import Artist from './pages/InicialPages/Artist';
 import ArtPageEdit from './pages/ArtPost';
 import ProfileArtist from './pages/ProfileArtist';
-import AdmArtist from './pages/AdmArtist';
+import AdmArtist from './pages/artistPages/AdmArtist';
 import ProfileArtistEdit from './pages/ProfileArtistEdit';
-import ProfileArtistPost from './pages/ProfileArtistPost';
+import ProfileArtistPost from './pages/artistPages/ProfileArtistPost';
 import ProfileArtistArtEdit from './pages/ProfileArtistArtEdit';
 
 

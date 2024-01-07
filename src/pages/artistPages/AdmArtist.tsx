@@ -1,13 +1,11 @@
 // AdmUser.tsx
 import React, { useState, useEffect } from 'react';
-import { useApi } from '../services/context/ApiContext';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import Galeria from '../components/Galeria';
-import Loading from '../components/Loading';
-import HeaderArtist from '../components/HeaderArtist';
-import ProfileArtist from './ProfileArtist';
-import ProfileArtistComponent from '../components/ProfileArtistComponent';
+import { useApi } from '../../services/context/ApiContext';
+import Footer from '../../components/Footer';
+import Header from '../../components/Header';
+import Loading from '../../components/Loading';
+import HeaderArtist from '../../components/HeaderArtist';
+import ProfileArtistComponent from '../../components/ProfileArtistComponent';
 
 
 const AdmArtist: React.FC = () => {
