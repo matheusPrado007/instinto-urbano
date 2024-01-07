@@ -1,19 +1,19 @@
 // AppRouter.tsx
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './pages/InicialPage/Home';
-import Sobre from './pages/InicialPage/About';
+import Home from './pages/InicialPages/Home';
+import Sobre from './pages/InicialPages/About';
 import ProfilePage from './pages/Profile';
-import ArtList from './pages/Art';
+import ArtList from './pages/InicialPages/Art';
 import ArtPage from './pages/ArtPage';
-import Login from './pages/Login';
+import Login from './pages/InicialPages/Login';
 import AdmUser from './pages/AdmUser';
 import ProfileAdmin from './pages/ProfileAdmin';
 import ArtistAdmin from './pages/ArtistAdmin';
 import ArtAdmin from './pages/ArtAdmin';
 import ProfileAdminPost from './pages/ProfilePost';
 import ProfilePageEdit from './pages/ProfileEdit';
-import Artist from './pages/InicialPage/Artist';
+import Artist from './pages/InicialPages/Artist';
 import ArtPageEdit from './pages/ArtPost';
 import ProfileArtist from './pages/ProfileArtist';
 import AdmArtist from './pages/AdmArtist';

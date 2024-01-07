@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Header from '../../../src/components/Header';
-import Footer from '../../../src/components/Footer';
-import Galeria from '../../../src/components/Galeria';
-import Maps from '../../../src/services/Maps';
-import UserList from '../../../src/components/Users';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import Galeria from '../../components/Galeria';
+import Maps from '../../services/Maps';
+import UserList from '../../components/Users';
 
-import { useApi } from '../../../src/services/context/ApiContext';
-import Loading from '../../../src/components/Loading';
+import { useApi } from '../../services/context/ApiContext';
+import Loading from '../../components/Loading';
 
 import '../../styles/Home.css';
 import ArtistList from '../../components/ArtistList';

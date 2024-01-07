@@ -1,18 +1,18 @@
 // ArtList.tsx
 
 import React, { useState, useEffect } from 'react';
-import { useApi } from '../services/context/ApiContext';
-import { CustomNextArrowArtPage, CustomPrevArrowArtPage } from '../components/Btn';
+import { useApi } from '../../services/context/ApiContext';
+import { CustomNextArrowArtPage, CustomPrevArrowArtPage } from '../../components/Btn';
 import { useParams } from 'react-router-dom';
-import '../styles/Art.css';
+import '../../styles/Art.css';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import '../styles/Galeria.css';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import Loading from '../components/Loading';
-import Maps from '../services/Maps';
+import '../../styles/Galeria.css';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import Loading from '../../components/Loading';
+import Maps from '../../services/Maps';
 
 interface GaleriaItem {
   _id: string;

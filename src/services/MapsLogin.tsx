@@ -9,7 +9,7 @@ import IconShadow from 'leaflet/dist/images/marker-shadow.png';
 import IconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import { useApi } from '../services/context/ApiContext';
 import { useNavigate } from 'react-router-dom';
-import Login from '../pages/Login';
+
 
 
 const MapsLogin = () => {
