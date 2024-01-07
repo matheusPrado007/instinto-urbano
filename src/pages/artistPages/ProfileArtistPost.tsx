@@ -1,10 +1,10 @@
 import React, { useState} from 'react';
-import { useApi } from '../services/context/ApiContext';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import '../styles/ArtAdmin.css'
+import { useApi } from '../../services/context/ApiContext';
+import Footer from '../../components/Footer';
+import Header from '../../components/Header';
+import '../../styles/ArtAdmin.css'
 
-import ArtPostComponent from '../components/ArtPostComponent';import HeaderArtist from '../components/HeaderArtist';
+import ArtPostComponent from '../../components/ArtPostComponent';import HeaderArtist from '../../components/HeaderArtist';
 ;
 
 
