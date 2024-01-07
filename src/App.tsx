@@ -13,7 +13,7 @@ import ArtistAdmin from './pages/ArtistAdmin';
 import ArtAdmin from './pages/ArtAdmin';
 import ProfileAdminPost from './pages/ProfilePost';
 import ProfilePageEdit from './pages/ProfileEdit';
-import Artist from './pages/Artist';
+import Artist from './pages/InicialPage/Artist';
 import ArtPageEdit from './pages/ArtPost';
 import ProfileArtist from './pages/ProfileArtist';
 import AdmArtist from './pages/AdmArtist';
