@@ -48,8 +48,8 @@ const HeaderArtist: React.FC = () => {
         <nav ref={menuRef} className={isMenuOpen ? 'open' : ''}>
           <ul className="lista-direita-admin">
             <li><a href={`/admartist/${id}`}>Início</a></li>
-            <li><a href={`/admartist/${id}/profile`}>Editar Perfil</a></li>
             <li><a href={`/admartist/${id}/artepost`}>Nova Arte</a></li>
+            <li><a href={`/admartist/${id}/profile`}>Editar Perfil</a></li>
             <li><a href={`/admartist/${id}/arteedit`}>Editar Arte</a></li>
           </ul>
         </nav>
