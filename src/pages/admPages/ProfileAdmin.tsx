@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useApi } from '../services/context/ApiContext';
-import Footer from '../components/Footer';
-import HeaderAdmin from '../components/HeaderAdmin';
-import Header from '../components/Header';
-import '../styles/ProfileAdm.css';
+import { useApi } from '../../services/context/ApiContext';
+import Footer from '../../components/Footer';
+import HeaderAdmin from '../../components/HeaderAdmin';
+import Header from '../../components/Header';
+import '../../styles/ProfileAdm.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import ProfileEditComponent from '../components/ProfileEditComponent';
+import ProfileEditComponent from '../../components/ProfileEditComponent';
 
 interface User {
     _id: number;
