@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useApi } from '../services/context/ApiContext';
-import Footer from '../components/Footer';
-import HeaderAdmin from '../components/HeaderAdmin';
-import Header from '../components/Header';
-import Loading from '../components/Loading';
+import { useApi } from '../../services/context/ApiContext';
+import Footer from '../../components/Footer';
+import HeaderAdmin from '../../components/HeaderAdmin';
+import Header from '../../components/Header';
+import Loading from '../../components/Loading';
 import { useParams } from 'react-router-dom';
-import '../styles/ProfileAdm.css';
-import fotoCapa from '../assets/not-found.png';
-import fotoPerfil from '../assets/profile-not-found.jpg';
-import Popup from '../components/PopUp';
+import '../../styles/ProfileAdm.css';
+import fotoCapa from '../../assets/not-found.png';
+import fotoPerfil from '../../assets/profile-not-found.jpg';
+import Popup from '../../components/PopUp';
 
 interface User {
     _id: number;

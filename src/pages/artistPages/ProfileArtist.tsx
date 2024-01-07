@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useApi } from '../services/context/ApiContext';
-import Slider from 'react-slick';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import InstagramLogo from '../assets/instagram.png';
-import LinkedInLogo from '../assets/linkedin.png';
-import EmailLogo from '../assets/email.png';
-import { CustomNextArrow, CustomPrevArrow } from '../components/Btn';
-import '../styles/Profile.css';
-import '../styles/Galeria.css';
-import '../styles/ProfileArtist.css';
-import ProfileArtistComponent from '../components/ProfileArtistComponent';
+import { useApi } from '../../services/context/ApiContext';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+
+import { CustomNextArrow, CustomPrevArrow } from '../../components/Btn';
+import '../../styles/Profile.css';
+import '../../styles/Galeria.css';
+import '../../styles/ProfileArtist.css';
+import ProfileArtistComponent from '../../components/ProfileArtistComponent';
 
 interface User {
     _id: number;
