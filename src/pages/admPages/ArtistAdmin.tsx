@@ -1,11 +1,11 @@
 // AdmUser.tsx
 import React, { useState, useEffect } from 'react';
 
-import { useApi } from '../services/context/ApiContext';
-import Footer from '../components/Footer';
-import HeaderAdmin from '../components/HeaderAdmin';
-import Header from '../components/Header';
-import Loading from '../components/Loading';
+import { useApi } from '../../services/context/ApiContext';
+import Footer from '../../components/Footer';
+import HeaderAdmin from '../../components/HeaderAdmin';
+import Header from '../../components/Header';
+import Loading from '../../components/Loading';
 
 const ArtistAdmin: React.FC = () => {
   const { fazerLogin, dadosArtes } = useApi();
