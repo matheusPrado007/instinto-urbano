@@ -15,6 +15,7 @@ import '../styles/Galeria.css';
 import { confirmAlert } from 'react-confirm-alert'; 
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from 'react-router-dom';
+import HeaderArtist from '../components/HeaderArtist';
 
 
 
@@ -316,15 +317,15 @@ const updateArte = async () => {
   useEffect(() => {
     const handleResize = async () => {
       const numeroDeImgs = window.innerWidth / 160;
-      console.log(numeroDeImgs);
+      console.log('numeroimgs',numeroDeImgs);
 
-      const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length - 1
+      const numeroTotal = +numeroDeImgs < filteredArtes.length ? numeroDeImgs : filteredArtes.length - 1
       console.log(numeroTotal.toFixed(1));
 
       const resulNumber = +numeroTotal === 0 ? 1 : +numeroTotal;
       console.log('result', resulNumber);
       
-      const finalResult = +resulNumber.toFixed(0) > 6 ? 5 : +resulNumber
+      const finalResult = +resulNumber.toFixed(0) > 6 ? 5 : +resulNumber;
 
       setLarguraTotal(+finalResult.toFixed(0));
     };
@@ -439,7 +440,7 @@ const updateArte = async () => {
 
   return (
     <>
-      <HeaderAdmin />
+      <HeaderArtist />
     <div className='art-admin-container'>
        {isLoading && <Loading />}
       {filteredArtesByArtist.length <= 0 && <Loading />}
