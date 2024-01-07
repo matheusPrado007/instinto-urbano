@@ -17,9 +17,9 @@ import Artist from './pages/InicialPages/Artist';
 import ArtPageEdit from './pages/ArtPost';
 import ProfileArtist from './pages/ProfileArtist';
 import AdmArtist from './pages/artistPages/AdmArtist';
-import ProfileArtistEdit from './pages/ProfileArtistEdit';
+import ProfileArtistEdit from './pages/artistPages/ProfileArtistEdit';
 import ProfileArtistPost from './pages/artistPages/ProfileArtistPost';
-import ProfileArtistArtEdit from './pages/ProfileArtistArtEdit';
+import ProfileArtistArtEdit from './pages/artistPages/ProfileArtistArtEdit';
 
 
 const AppRouter: React.FC = () => {
