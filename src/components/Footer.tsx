@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
     <section className='footer'>
       <div className="container-footer clearfix">
         <div className="footer-content">
-          <p>&copy; 2023 Matheus Prado. Todos os direitos reservados.</p>
+          <p>&copy; Comunidade Brasileira de Arte de rua.</p>
         </div>
       </div>
     </section>

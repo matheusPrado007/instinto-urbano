@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/Login.css';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import { useApi } from '../services/context/ApiContext';
+import '../../styles/Login.css';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import { useApi } from '../../services/context/ApiContext';
 import { useNavigate } from 'react-router-dom';
-import MapsLogin from '../services/MapsLogin';
-import Loading from '../components/Loading';
-import olhoAberto from '../assets/olho-aberto.png'
-import olhoFechado from '../assets/olho-fechado.png'
+import MapsLogin from '../../services/MapsLogin';
+import Loading from '../../components/Loading';
+import olhoAberto from '../../assets/olho-aberto.png'
+import olhoFechado from '../../assets/olho-fechado.png'
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -38,6 +38,10 @@ const Login: React.FC = () => {
         navigate(`/admuser/${userId}`);
     };
 
+    const navigateToProfileArtist = (userId: string) => {
+        navigate(`/admartist/${userId}`);
+    };
+
     useEffect(() => {
         const savedEmail = localStorage.getItem('savedEmail');
         if (savedEmail) {
@@ -57,7 +61,12 @@ const Login: React.FC = () => {
                 }
 
                 const userId = dadosUsers.find((user) => user.email === email)._id;
-                navigateToProfileAdm(userId);
+                const user = dadosUsers.find((user) => user.email === email);
+                if(user.administrador === true) {
+                    navigateToProfileAdm(userId);
+                } else {
+                    navigateToProfileArtist(userId)
+                }
             }
         } catch (error) {
             console.error('Erro durante o login:', error);

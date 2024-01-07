@@ -1,8 +1,6 @@
-import React, { useState, ChangeEvent, useEffect } from 'react';
+import React, { useState,  useEffect } from 'react';
 import { useApi } from '../services/context/ApiContext';
-import Footer from '../components/Footer';
-import HeaderAdmin from '../components/HeaderAdmin';
-import Header from '../components/Header';
+
 import Loading from '../components/Loading';
 import '../styles/ArtAdmin.css'
 import Popup from '../components/PopUp'
@@ -30,7 +28,7 @@ interface GaleriaItem {
   endereco: string
 }
 
-const ArtPageEdit: React.FC = () => {
+const ArtPostComponent: React.FC = () => {
   const { fazerLogin, dadosArtes, enviarDadosParaBackendArtPost, dadosUsers} = useApi();
   const { id } = useParams<{ id?: string }>();
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -271,18 +269,15 @@ const ArtPageEdit: React.FC = () => {
   if (!isAdmin) {
     return (
       <>
-        <Header />
         <div className="content">
           <p>Você não tem permissão para acessar esta página.</p>
         </div>
-        <Footer />
       </>
     );
   }
 
   return (
     <>
-      <HeaderAdmin />
     <div className='art-admin-container'>
           {isLoading && <Loading />}
       {dadosArtes.length <= 0 && <Loading />}
@@ -452,9 +447,8 @@ const ArtPageEdit: React.FC = () => {
         </div>
       </div>
     </div>
-      <Footer />
     </>
   );
 };
 
-export default ArtPageEdit;
+export default ArtPostComponent;

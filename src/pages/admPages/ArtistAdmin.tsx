@@ -1,15 +1,14 @@
 // AdmUser.tsx
 import React, { useState, useEffect } from 'react';
-import { useApi } from '../services/context/ApiContext';
-import Footer from '../components/Footer';
-import HeaderAdmin from '../components/HeaderAdmin';
-import Header from '../components/Header';
-import UserList from '../components/Users';
-import Galeria from '../components/Galeria';
-import Loading from '../components/Loading';
 
-const AdmUser: React.FC = () => {
-  const { fazerLogin } = useApi();
+import { useApi } from '../../services/context/ApiContext';
+import Footer from '../../components/Footer';
+import HeaderAdmin from '../../components/HeaderAdmin';
+import Header from '../../components/Header';
+import Loading from '../../components/Loading';
+
+const ArtistAdmin: React.FC = () => {
+  const { fazerLogin, dadosArtes } = useApi();
   const [isLoading, setIsLoading] = useState(true); 
 
   useEffect(() => {
@@ -22,6 +21,7 @@ const AdmUser: React.FC = () => {
       clearTimeout(timeout);
     };
   }, []);
+
 
   const isAdmin = async ({ email, senha }: any) => {
     try {
@@ -50,13 +50,15 @@ const AdmUser: React.FC = () => {
   return (
     <>
       <HeaderAdmin />
-    <div className='art-admin-container'>
-      <UserList />
-      <Galeria />
-    </div>
+      {isLoading && <Loading />}
+      {dadosArtes.length <= 0 && <Loading />} 
+      <div className="content">
+        <h2>Página do Administrador - Artista</h2>
+
+      </div>
       <Footer />
     </>
   );
 };
 
-export default AdmUser;
+export default ArtistAdmin;

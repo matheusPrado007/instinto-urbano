@@ -1,36 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import '../styles/About.css';
-import logo from '../assets/logo.png';
-import Galeria from '../components/Galeria';
-import UserList from '../components/Users';
-import { useApi } from '../services/context/ApiContext';
-import Loading from '../components/Loading';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import '../../styles/About.css';
+import logo from '../../assets/logo.png';
+import Galeria from '../../components/Galeria';
+import UserList from '../../components/Users';
+import { useApi } from '../../services/context/ApiContext';
+import Loading from '../../components/Loading';
 
 
 
 
 const About: React.FC = () => {
   const { dadosUsers } = useApi();
-  const [isLoading, setIsLoading] = useState(true); 
 
-  useEffect(() => {
-    
-    const timeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 1300);
 
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, []);
 
   return (
     <>
       <Header />
-      {isLoading && <Loading />}
       {dadosUsers.length > 0 ? (
         <div>
       <section className='about-section'>

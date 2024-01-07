@@ -1,11 +1,9 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import { useApi } from '../services/context/ApiContext';
 import Footer from '../components/Footer';
-import HeaderAdmin from '../components/HeaderAdmin';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import '../styles/ArtAdmin.css'
-import Popup from '../components/PopUp'
 import { useParams } from 'react-router-dom';
 import { CustomNextArrow, CustomPrevArrow } from '../components/Btn';
 import Slider from "react-slick";
@@ -34,15 +32,14 @@ interface GaleriaItem {
   endereco: string
 }
 
-const ArtAdmin: React.FC = () => {
+const Galeria: React.FC = () => {
   const { fazerLogin, dadosArtes, enviarDadosParaBackendArt, dadosUsers } = useApi();
   const { id } = useParams<{ id?: string }>();
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [searchField, setSearchField] = useState<string>('nome'); // Campo padrão para busca
+  const [searchField, setSearchField] = useState<string>('nome'); 
   const [selectedArte, setSelectedArte] = useState<Arte | null>(null);
   const [larguraTotal, setLarguraTotal] = useState(100);
-  const [isLoading, setIsLoading] = useState(true); // Novo estado para rastrear o carregamento
-
+  const [isLoading, setIsLoading] = useState(true); 
 
   const [newId, setNewId] = useState();
   const navigate = useNavigate();
@@ -91,13 +88,18 @@ const ArtAdmin: React.FC = () => {
 
   useEffect(() => {
     const handleResize = async () => {
-      const numeroDeImgs = window.innerWidth / 170;
+      const numeroDeImgs = window.innerWidth / 160;
+      console.log(numeroDeImgs);
 
       const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length - 1
       console.log(numeroTotal.toFixed(1));
 
       const resulNumber = +numeroTotal === 0 ? 1 : +numeroTotal;
-      setLarguraTotal(+resulNumber.toFixed(0));
+      console.log('result', resulNumber);
+      
+      const finalResult = +resulNumber.toFixed(0) > 6 ? 5 : +resulNumber
+
+      setLarguraTotal(+finalResult.toFixed(0));
     };
 
     window.addEventListener('resize', handleResize);
@@ -141,7 +143,6 @@ const ArtAdmin: React.FC = () => {
 
   return (
     <>
-
       <div className="container-home-admin">
         <div className="input-container-adm">
 
@@ -185,4 +186,4 @@ const ArtAdmin: React.FC = () => {
   );
 };
 
-export default ArtAdmin;
+export default Galeria;

@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useApi } from '../services/context/ApiContext';
-import Footer from '../components/Footer';
-import HeaderAdmin from '../components/HeaderAdmin';
-import Header from '../components/Header';
-import Loading from '../components/Loading';
+import { useApi } from '../../services/context/ApiContext';
+import Footer from '../../components/Footer';
+import HeaderAdmin from '../../components/HeaderAdmin';
+import Header from '../../components/Header';
+import Loading from '../../components/Loading';
 import { useParams } from 'react-router-dom';
-import '../styles/ProfileAdm.css';
-import fotoCapa from '../assets/not-found.png';
-import fotoPerfil from '../assets/profile-not-found.jpg';
-import Popup from '../components/PopUp';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
-import { useNavigate } from 'react-router-dom';
+import '../../styles/ProfileAdm.css';
+import fotoCapa from '../../assets/not-found.png';
+import fotoPerfil from '../../assets/profile-not-found.jpg';
+import Popup from '../../components/PopUp';
 
 interface User {
     _id: number;
@@ -21,30 +18,43 @@ interface User {
     descricao_perfil: string;
 }
 
-const ProfileAdmin: React.FC = () => {
-    const { fazerLogin, dadosUsers, enviarDadosParaBackend, deleteUsuario } = useApi();
+const ProfileAdminPost: React.FC = () => {
+    const { fazerLogin, dadosUsers, enviarDadosParaBackendPost } = useApi();
     const { id } = useParams<{ id?: string }>();
-    const navigate = useNavigate();
 
-    const [showPopup, setShowPopup] = useState(false);
+    const [showPopup, setShowPopup] = useState<any>();
+
+
     const [user, setUser] = useState<User | null>(null);
     const [newCapa, setNewCapa] = useState<File | null>(null);
     const [newPerfil, setNewPerfil] = useState<File | null>(null);
+
+
+    const [newResult, setNewResult] = useState<string>('');
+
+
     const [newDescription, setNewDescription] = useState<string>('');
     const [originalDescription, setOriginalDescription] = useState<string>('');
     const [isEditing, setIsEditing] = useState(false);
+
     const [newUsername, setNewUsername] = useState<string>('');
     const [originalUsername, setOriginalUsername] = useState<string>('');
     const [isEditingUsername, setIsEditingUsername] = useState(false);
+
+
     const [newEmail, setNewEmail] = useState<string>('');
     const [originalEmail, setOriginalEmail] = useState<string>('');
     const [isEditingEmail, setIsEditingEmail] = useState(false);
+
     const [newPassword, setNewPassword] = useState<string>('');
     const [originalPassword, setOriginalPassword] = useState<string>('');
     const [isEditingPassword, setIsEditingPassword] = useState(false);
+
     const [isEditingText, setIsEditingText] = useState(false);
     const [newTexto, setNewTexto] = useState('');
     const [texto, setTexto] = useState('Co-fundador do Rastro Urbano');
+
+
     const [isEditingToken, setIsEditingToken] = useState(false);
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
@@ -75,6 +85,19 @@ const ProfileAdmin: React.FC = () => {
   
 
 
+
+    const [newUser, setNewUser] = useState({
+        username: originalUsername,
+        email: originalEmail,
+        senha: originalPassword,
+        foto_capa: fotoCapa,
+        foto_perfil: fotoPerfil,
+        descricao_perfil: originalDescription,
+        linkedin: newLinkedin,
+        instagram: newInstagram,
+        adminstrador: newAdm
+    });
+
     const toggleEditModeAdm = () => {
         if (isEditingAdm) {
             setOriginalAdm(newAdm);
@@ -104,38 +127,87 @@ const ProfileAdmin: React.FC = () => {
     };
 
     const handleClick = () => {
+
         if (isEditingText) {
-            setTexto(newTexto);
+            setTexto(newTexto)
         } else {
-            setNewTexto(texto);
+            setNewTexto(texto)
         }
-        setIsEditingText(!isEditingText);
+        setIsEditingText(!isEditingText)
     };
 
+
+    const handleSaveChanges = async () => {
+        try {
+            const { accessToken, refreshToken } = await fazerLogin({ email, senha });
+
+
+            const dados = {
+                newUsername,
+                newDescription,
+                newEmail,
+                newCapa,
+                newPerfil,
+                newPassword,
+                newInstagram,
+                newLinkedin,
+                newAdm,
+                accessToken
+            };
+
+           const resultPost = await enviarDadosParaBackendPost(dados);
+            setNewResult(resultPost)
+           if (resultPost ==='Dados atualizados com sucesso:') {
+           return setShowPopup(true);
+           } else {
+            return setShowPopup(false);
+           }
+        } catch (error) {
+            console.error('Erro durante o login:', error);
+        }
+    };
+
+    const toggleEditModeToken = async () => {
+        try {
+            setIsEditingToken(!isEditingToken)
+            await handleSaveChanges()
+            if (newResult ==='Dados atualizados com sucesso:') {
+                return setShowPopup(true);
+                } else {
+                 return setShowPopup(false);
+                }
+        } catch (error) {
+            console.error('Erro:', error);
+        }
+    };
 
 
     const toggleEditModePassword = () => {
         if (isEditingPassword) {
-            setOriginalPassword(newPassword);
+            setOriginalPassword(newPassword)
+
         } else {
-            setNewPassword(originalPassword);
+            setNewPassword(originalPassword)
         }
-        setIsEditingPassword(!isEditingPassword);
+        setIsEditingPassword(!isEditingPassword)
     };
+
 
     const toggleEditModeEmail = () => {
         if (isEditingEmail) {
-            setOriginalEmail(newEmail);
+            setOriginalEmail(newEmail)
+
         } else {
-            setNewEmail(originalEmail);
+            setNewEmail(originalEmail)
         }
-        setIsEditingEmail(!isEditingEmail);
+        setIsEditingEmail(!isEditingEmail)
     };
 
     const toggleEditMode = () => {
         if (isEditing) {
             setOriginalDescription(newDescription);
             setOriginalUsername(newUsername);
+
         } else {
             setNewDescription(originalDescription);
             setNewUsername(originalUsername);
@@ -147,6 +219,7 @@ const ProfileAdmin: React.FC = () => {
     const toggleEditModeUsername = () => {
         if (isEditingUsername) {
             setOriginalUsername(newUsername);
+
         } else {
             setNewUsername(originalUsername);
         }
@@ -154,165 +227,50 @@ const ProfileAdmin: React.FC = () => {
     };
 
     useEffect(() => {
+        console.log(newPerfil);
+
         if (id) {
             const foundUser = dadosUsers.find((u) => u._id === id);
+            const newUserPost = dadosUsers.find((u) => u.username === newUsername)
+
+            if (newUserPost) {
+                setNewUser(newUserPost)
+            }
 
             if (foundUser) {
-                const emailStorage: string = foundUser.email;
-                setEmail(emailStorage);
+                const emailStorage: string = foundUser.email
+                setEmail(emailStorage)
                 setUser(foundUser);
-                setOriginalDescription(foundUser.descricao_perfil);
-                setNewDescription(foundUser.descricao_perfil);
-                setOriginalUsername(foundUser.username);
-                setNewUsername(foundUser.username);
-                setNewEmail(foundUser.email);
-                setOriginalEmail(foundUser.email);
-                setOriginalPassword(foundUser.senha);
-                setOriginalLinkedin(foundUser.linkedin);
-                setNewLinkedin(foundUser.linkedin);
-                setOriginalInstagram(foundUser.instagram);
-                setNewInstagram(foundUser.instagram);
-                setOriginalAdm(foundUser.administrador);
-                setNewAdm(foundUser.administrador);
-
+                setOriginalDescription(newDescription);
+                setNewDescription(newDescription);
+                setOriginalUsername(newUsername);
+                setNewUsername(newUsername);
+                setNewEmail(newEmail);
+                setOriginalEmail(newEmail);
+                setNewPassword(newPassword);
+                setOriginalPassword(newPassword);
+                setOriginalLinkedin(newLinkedin);
+                setNewLinkedin(newLinkedin);
+                setOriginalInstagram(newInstagram);
+                setNewInstagram(newInstagram);
+                setOriginalAdm(newAdm);
+                setNewAdm(newAdm);
             } else {
                 console.error('Usuário não encontrado');
             }
         }
+
     }, [id, dadosUsers]);
 
     const closePopup = () => {
-        setShowPopup(false);
+        setShowPopup(undefined);
     };
 
 
-    const updateDados = async () => {
-        const { accessToken, refreshToken } = await fazerLogin({ email, senha });
-        const dados = {
-            newUsername,
-            newDescription,
-            newEmail,
-            newCapa,
-            newPerfil,
-            newPassword,
-            newAdm,
-            newInstagram,
-            newLinkedin,
-            id,
-            accessToken,
-        };
-
-        await enviarDadosParaBackend(dados);
-        setShowPopup(true);
-        setIsEditingToken(!isEditingToken);
-    }
-
-    const handleSaveChanges = async () => {
-        try {
-            const { accessToken, refreshToken, notOk } = await fazerLogin({ email, senha });
-            if (notOk) {
-                confirmAlert({
-                    title: 'Aviso',
-                    message: 'Por favor, forneça seu email e senha válidos para confirmar a exclusão da Arte.',
-                    customUI: ({ onClose }) => (
-                        <div className="custom-ui">
-                            <h1>{'Aviso'}</h1>
-                            <p>{'Por favor, forneça seu email e senha válidos para confirmar a Atualização do perfil.'}</p>
-                            <button className="custom-ui-btn" onClick={onClose}>OK</button>
-                        </div>
-                    ),
-                });
-                return;
-            }
-            confirmAlert({
-                title: 'Confirmação',
-                message: 'Tem certeza que deseja atualizar esses dados?',
-                customUI: ({ onClose }) => (
-                    <div className="custom-ui">
-                        <h1>{'Confirmação'}</h1>
-                        <p>{'Tem certeza que deseja atualizar esses dados?'}</p>
-                        <button className="custom-ui-btn" onClick={() => { updateDados(); onClose(); }}>Sim</button>
-                        <button className="custom-ui-btn" onClick={() => { onClose(); }}>Não</button>
-                    </div>
-                ),
-            });
-        } catch (error) {
-            console.error('Erro durante o login:', error);
-        }
-    };
-
-    const showDeleteConfirmation = async () => {
-        const { accessToken, refreshToken, notOk } = await fazerLogin({ email, senha });
-        if (notOk) {
-            confirmAlert({
-                title: 'Aviso',
-                message: 'Por favor, forneça seu email e senha válidos.',
-                buttons: [
-                    {
-                        label: 'OK',
-                        onClick: () => { },
-                    },
-                ],
-                customUI: ({ onClose }) => {
-                    return (
-                        <div className="custom-ui">
-                            <h1>{'Aviso'}</h1>
-                            <p>{'Por favor, forneça seu email e senha válidos para confirmar a exclusão d perfil.'}</p>
-                            <button className="custom-ui-btn" onClick={onClose}>OK</button>
-                        </div>
-                    );
-                },
-            });
-            return;
-        }
-        if (!id) {
-            confirmAlert({
-                title: 'Aviso',
-                message: 'Por favor, escolha um Usuário antes de excluir.',
-                customUI: ({ onClose }) => {
-                    return (
-                        <div className="custom-ui">
-                            <h1>{'Aviso'}</h1>
-                            <p>{'Por favor, escolha um Usuário antes de excluir.'}</p>
-                            <button className="custom-ui-btn" onClick={onClose}>OK</button>
-                        </div>
-                    );
-                },
-            });
-            return;
-        }
-        confirmAlert({
-            title: 'Confirmação',
-            message: 'Tem certeza que deseja deletar essa Arte?',
-            customUI: ({ onClose }) => {
-                return (
-                    <div className="custom-ui">
-                        <h1>{'Confirmação'}</h1>
-                        <p>{'Tem certeza que deseja deletar essa Arte?'}</p>
-                        <button className="custom-ui-btn" onClick={() => {
-                            onClose();
-                            try {
-                                const dados = {
-                                    token: accessToken,
-                                    id: id,
-                                };
-                                deleteUsuario(dados);
-                                navigate(`/admuser/${id}`);
-                            } catch (error) {
-                                console.error('Error during user deletion:', error);
-                            }
-                        }}>Sim</button>
-                        <button className="custom-ui-btn" onClick={() => { onClose(); }}>Não</button>
-                    </div>
-                );
-            },
-        });
-    };
 
     const isAdmin = async () => {
         try {
             const { accessToken, refreshToken } = await fazerLogin({ email, senha });
-
             return accessToken && refreshToken;
         } catch (error) {
             console.error('Erro durante o login:', error);
@@ -320,7 +278,8 @@ const ProfileAdmin: React.FC = () => {
         }
     };
 
-    if (!(isAdmin)) {
+
+    if (!isAdmin) {
         return (
             <>
                 <Header />
@@ -337,7 +296,7 @@ const ProfileAdmin: React.FC = () => {
             <HeaderAdmin />
             {isLoading && <Loading />}
             <div className="profile-container-adm">
-                <a href={`/admuser/${id}/admuser/${id}/perfiladm`} className='profile-edit-finish'>Quer ver como ficou?</a>
+                <a href={`/profile/${id}`} className='profile-edit-finish'>Quer ver como ficou?</a>
                 {user ? (
                     <div className='form-adm-profile'>
                         <label className="label-cover">
@@ -348,7 +307,7 @@ const ProfileAdmin: React.FC = () => {
                                 onChange={(e) => setNewCapa(e.target.files?.[0] || null)}
                                 className='cover-input'
                             />
-                            <img src={!user.foto_capa ? fotoCapa : user.foto_capa} alt={`Capa de ${user.username}`} className="cover-photo-adm" />
+                            <img src={!newUser.foto_capa ? fotoCapa : newUser.foto_capa} alt={`Capa de ${user.username}`} className="cover-photo-adm" />
                         </label>
 
                         <label className='label-profile'>
@@ -359,9 +318,8 @@ const ProfileAdmin: React.FC = () => {
                                 onChange={(e) => setNewPerfil(e.target.files?.[0] || null)}
                                 className='profile-input'
                             />
-                            <img src={!user.foto_perfil ? fotoPerfil : user.foto_perfil} alt={`Foto de perfil de ${user.username}`} className="profile-photo-adm" />
+                            <img src={!newUser.foto_perfil ? fotoPerfil : newUser.foto_perfil} alt={`Foto de perfil de ${user.username}`} className="profile-photo-adm" />
                         </label>
-
                         <div className="user-info-adm">
                             {
                                 isEditingText ? (
@@ -418,11 +376,8 @@ const ProfileAdmin: React.FC = () => {
                                 />
                             ) : (
 
-                                <div className='p-instagram'>
-                                    <p className='email-input'>Email: </p>
-                                    
-                                    <p >{originalEmail}</p>
-                                </div>
+                                <p className='email-input'>Email: </p>
+
 
                             )}
 
@@ -434,15 +389,15 @@ const ProfileAdmin: React.FC = () => {
                         <div className="user-info-adm">
                             {isEditingPassword ? (
                                 <input
-                                    type="text"
+                                    type="password"
                                     name="senha"
-                                    required
+                                    value={newPassword}
                                     onChange={(e) => setNewPassword(e.target.value)}
                                     className="username-input"
                                     placeholder='senha'
                                 />
                             ) : (
-                                <p>Nova Senha:</p>
+                                <p>Senha:</p>
                             )}
 
                             <button onClick={toggleEditModePassword} className="email-edit-button ">
@@ -461,11 +416,7 @@ const ProfileAdmin: React.FC = () => {
                                     placeholder='username'
                                 />
                             ) : (
-                                <div className='p-instagram'>
-                                    <p>username:</p>
-                                    <p >{originalUsername}</p>
-                                </div>
-                               
+                                <p>username:</p>
                             )}
                             <button onClick={toggleEditModeUsername} className="email-edit-button ">
                                 {isEditingUsername ? 'Salvar' : 'Editar username'}
@@ -507,7 +458,7 @@ const ProfileAdmin: React.FC = () => {
                                     />
                                 </div>
                             ) : (
-                                <div className='p-instagram'>
+                                <div>
                                     <p>Linkedin:</p>
                                     <p>{originalLinkedin}</p>
                                 </div>
@@ -530,9 +481,9 @@ const ProfileAdmin: React.FC = () => {
                                     />
                                 </div>
                             ) : (
-                                <div className='p-instagram'>
-                                    <p >Instagram:</p>
-                                    <p >{originalInstagram}</p>
+                                <div>
+                                    <p>Instagram:</p>
+                                    <p>{originalInstagram}</p>
                                 </div>
                             )}
 
@@ -540,7 +491,7 @@ const ProfileAdmin: React.FC = () => {
                                 {isEditingInstagram ? 'Salvar' : 'Editar Linkedin'}
                             </button>
                         </div>
-                        <div className='form-update-post'>
+                        <div>
                             <p className='form-update'>Digite sua Senha para continuar...</p>
 
                             <p className='email-input'>Email:</p>
@@ -553,6 +504,7 @@ const ProfileAdmin: React.FC = () => {
                                 placeholder='email'
                             />
 
+
                             <p>Senha:</p>
                             <input
                                 type="password"
@@ -563,18 +515,14 @@ const ProfileAdmin: React.FC = () => {
                                 placeholder='senha'
                             />
 
-                            <button onClick={handleSaveChanges} className="edit-button-finish">
-                                Atualizar os Dados
+                            <button onClick={toggleEditModeToken} className="edit-button-finish">
+                                Adicionar novo administrador
                             </button>
 
-                            {showPopup && <Popup message="Dados Atualizados com Sucesso" onClose={closePopup} />}
+                            {showPopup !== undefined && (
+                                <Popup message={showPopup ? "Dados Adicionados com Sucesso" : "Erro ao Atualizar Dados"} onClose={closePopup} />
+                            )}
                         </div>
-                        <button
-                            onClick={showDeleteConfirmation}
-                            className="delete-button"
-                        >
-                            Deletar Usuário
-                        </button>
                     </div>
                 ) : (
                     <Loading />
@@ -585,12 +533,4 @@ const ProfileAdmin: React.FC = () => {
     );
 };
 
-export default ProfileAdmin;
-
-
-
-
-
-
-
-
+export default ProfileAdminPost;

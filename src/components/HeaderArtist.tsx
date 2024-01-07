@@ -3,7 +3,7 @@ import '../styles/HeaderAdmin.css';
 import logo from '../assets/logo.png';
 import { useParams } from 'react-router-dom';
 
-const HeaderAdmin: React.FC = () => {
+const HeaderArtist: React.FC = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const { id } = useParams<{ id?: string }>();
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -47,12 +47,10 @@ const HeaderAdmin: React.FC = () => {
         </h1>
         <nav ref={menuRef} className={isMenuOpen ? 'open' : ''}>
           <ul className="lista-direita-admin">
-            <li><a href={`/admuser/${id}`}>Início</a></li>
-            <li><a href={`/admuser/${id}/perfil`}>Meu Perfil</a></li>
-            <li><a href={`/admuser/${id}/artistas`}>Artistas</a></li>
-            <li><a href={`/admuser/${id}/artes`}>Editar Artes</a></li>
-            <li><a href={`/admuser/${id}/profilepost`}>Novo Administrador</a></li>
-            <li><a href={`/admuser/${id}/artepost`}>Nova Arte</a></li>
+            <li><a href={`/admartist/${id}`}>Início</a></li>
+            <li><a href={`/admartist/${id}/artepost`}>Nova Arte</a></li>
+            <li><a href={`/admartist/${id}/profile`}>Editar Perfil</a></li>
+            <li><a href={`/admartist/${id}/arteedit`}>Editar Arte</a></li>
           </ul>
         </nav>
       </section>
@@ -60,4 +58,4 @@ const HeaderAdmin: React.FC = () => {
   );
 };
 
-export default HeaderAdmin;
+export default HeaderArtist;

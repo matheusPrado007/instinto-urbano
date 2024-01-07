@@ -74,7 +74,7 @@
 }
 
 .titulo-esquerda {
-  color: #333;
+  color: #a61e1e;
   font-size: 2.1rem;
   display: flex;
   align-items: center;
@@ -112,14 +112,14 @@
   }
 
   .header nav ul li {
-    margin: 5px 0;
+    margin: 0;
     display: block;
   }
 
   .header nav.open ul {
     display: block;
     position: absolute;
-    top: 70px;
+    top: 50px;
     left: 0;
     width: 90%;
     background-color: #f8f8f8;
@@ -136,6 +136,8 @@
   }
 
   .menu-button {
+    top: 0px;
+    right: 10px;
     display: block;
     cursor: pointer;
     color: #333;
@@ -180,14 +182,14 @@
   }
 
   .header nav ul li {
-    margin: 5px 0;
+    margin: 0;
     display: block;
   }
 
   .header nav.open ul {
     display: block;
     position: absolute;
-    top: 70px;
+    top: 50px;
     left: 0;
     width: 90%;
     background-color: #f8f8f8;
@@ -204,6 +206,8 @@
   }
 
   .menu-button {
+    top: 0px;
+    right: 10px;
     display: block;
     cursor: pointer;
     color: #333;
@@ -248,14 +252,14 @@
   }
 
   .header nav ul li {
-    margin: 5px 0;
+    margin: 0;
     display: block;
   }
 
   .header nav.open ul {
     display: block;
     position: absolute;
-    top: 70px;
+    top: 45px;
     left: 0;
     width: 90%;
     background-color: #f8f8f8;
@@ -323,7 +327,7 @@
   .header nav.open ul {
     display: block;
     position: absolute;
-    top: 70px;
+    top: 45px;
     left: 0;
     width: 90%;
     background-color: #f8f8f8;
