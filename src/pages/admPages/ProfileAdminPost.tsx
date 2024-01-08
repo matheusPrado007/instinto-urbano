@@ -227,7 +227,6 @@ const ProfileAdminPost: React.FC = () => {
     };
 
     useEffect(() => {
-        console.log(newPerfil);
 
         if (id) {
             const foundUser = dadosUsers.find((u) => u._id === id);

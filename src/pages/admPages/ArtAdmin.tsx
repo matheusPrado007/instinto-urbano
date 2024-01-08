@@ -277,7 +277,6 @@ const updateArte = async () => {
   useEffect(() => {
     if (id) {
       const foundUser = dadosUsers.find((u) => u._id === id);
-      console.log(foundUser);
 
       if (foundUser) {
         const emailStorage: string = foundUser.email
@@ -314,10 +313,8 @@ const updateArte = async () => {
   useEffect(() => {
     const handleResize = async () => {
       const numeroDeImgs = window.innerWidth / 300;
-      console.log(numeroDeImgs);
 
       const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length - 1
-      // console.log('numero total', +resulNumber.toFixed(0));
 
       const resulNumber = +numeroTotal === 0 ? 1 : +numeroTotal;
       setLarguraTotal(+resulNumber.toFixed(0));
