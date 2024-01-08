@@ -39,7 +39,6 @@ const ArtPage: React.FC = () => {
   useEffect(() => {
     if (id) {
       const foundArt = dadosArtes.find((u) => u._id === id);
-      console.log('art', foundArt);
 
       if (foundArt) {
         setArt(foundArt);
