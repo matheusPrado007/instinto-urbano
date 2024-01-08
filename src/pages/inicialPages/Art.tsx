@@ -9,9 +9,9 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../../styles/Galeria.css';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
-import Loading from '../../components/Loading';
+import Header from '../../components/HeaderComponent';
+import Footer from '../../components/FooterComponent';
+import Loading from '../../components/LoadingComponent';
 import Maps from '../../services/Maps';
 
 interface GaleriaItem {
