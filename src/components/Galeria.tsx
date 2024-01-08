@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import Loading from '../components/Loading';
 import '../styles/ArtAdmin.css'
 import { useParams } from 'react-router-dom';
-import { CustomNextArrow, CustomPrevArrow } from '../components/Btn';
+import { CustomNextArrow, CustomPrevArrow } from './BtnComponent';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

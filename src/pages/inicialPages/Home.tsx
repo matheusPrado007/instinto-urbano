@@ -11,7 +11,7 @@ import { useApi } from '../../services/context/ApiContext';
 import Loading from '../../components/Loading';
 
 import '../../styles/Home.css';
-import ArtistList from '../../components/ArtistList';
+import ArtistList from '../../components/ArtistListComponent';
 
 
 
