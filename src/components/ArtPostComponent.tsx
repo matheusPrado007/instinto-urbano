@@ -228,8 +228,7 @@ const ArtPostComponent: React.FC = () => {
 
     if (id) {
       const foundUser = dadosUsers.find((u) => u._id === id);
-      console.log(foundUser);
-      console.log(id);
+    
       
       if (foundUser) {
           const emailStorage: string = foundUser.email
