@@ -6,7 +6,7 @@ import Slider from 'react-slick';
 import InstagramLogo from '../assets/instagram.png';
 import LinkedInLogo from '../assets/linkedin.png';
 import EmailLogo from '../assets/email.png';
-import { CustomNextArrow, CustomPrevArrow } from '../components/Btn';
+import { CustomNextArrow, CustomPrevArrow } from './BtnComponent';
 import '../styles/Profile.css';
 import '../styles/Galeria.css';
 import '../styles/ProfileArtist.css';
@@ -50,13 +50,13 @@ const ProfileArtistComponent: React.FC = () => {
     useEffect(() => {
         const handleResize = async () => {
           const numeroDeImgs = window.innerWidth / 160;
-          console.log(numeroDeImgs);
+         
     
           const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length - 1
-          console.log(numeroTotal.toFixed(1));
+       
     
           const resulNumber = +numeroTotal === 0 ? 1 : +numeroTotal;
-          console.log('result', resulNumber);
+        
           
           const finalResult = +resulNumber.toFixed(0) > 6 ? 5 : +resulNumber
     

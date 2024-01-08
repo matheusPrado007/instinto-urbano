@@ -4,7 +4,7 @@ import { useApi } from '../../services/context/ApiContext';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-import { CustomNextArrow, CustomPrevArrow } from '../../components/Btn';
+import { CustomNextArrow, CustomPrevArrow } from '../../components/BtnComponent';
 import '../../styles/Profile.css';
 import '../../styles/Galeria.css';
 import '../../styles/ProfileArtist.css';

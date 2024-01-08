@@ -4,8 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/inicialPages/Home';
 import Sobre from './pages/inicialPages/About';
 import ProfilePage from './components/ProfileComponent';
-import ArtList from './pages/inicialPages/Art';
-import ArtPage from './components/ArtPage';
+import ArtPage from './components/ArtPageComponent';
 import Login from './pages/inicialPages/Login';
 import AdmUser from './pages/admPages/AdmUser';
 import ProfileAdmin from './pages/admPages/ProfileAdmin';
@@ -20,6 +19,8 @@ import AdmArtist from './pages/artistPages/AdmArtist';
 import ProfileArtistEdit from './pages/artistPages/ProfileArtistEdit';
 import ProfileArtistPost from './pages/artistPages/ProfileArtistPost';
 import ProfileArtistArtEdit from './pages/artistPages/ProfileArtistArtEdit';
+import ArtList from './pages/inicialPages/Art';
+
 
 
 const AppRouter: React.FC = () => {

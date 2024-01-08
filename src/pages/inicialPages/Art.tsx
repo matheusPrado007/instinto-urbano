@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useApi } from '../../services/context/ApiContext';
-import { CustomNextArrowArtPage, CustomPrevArrowArtPage } from '../../components/Btn';
+import { CustomNextArrowArtPage, CustomPrevArrowArtPage } from '../../components/BtnComponent';
 import { useParams } from 'react-router-dom';
 import '../../styles/Art.css';
 import Slider from 'react-slick';
