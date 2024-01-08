@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useApi } from '../../services/context/ApiContext';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import Header from '../../components/HeaderComponent';
+import Footer from '../../components/FooterComponent';
 
 import { CustomNextArrow, CustomPrevArrow } from '../../components/BtnComponent';
 import '../../styles/Profile.css';

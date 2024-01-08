@@ -1,8 +1,8 @@
 import React, { useState} from 'react';
 import { useApi } from '../../services/context/ApiContext';
-import Footer from '../../components/Footer';
+import Footer from '../../components/FooterComponent';
 import HeaderAdmin from '../../components/HeaderAdmin';
-import Header from '../../components/Header';
+import Header from '../../components/HeaderComponent';
 import '../../styles/ArtAdmin.css'
 
 import ArtPostComponent from '../../components/ArtPostComponent';;

@@ -1,9 +1,9 @@
 // AdmUser.tsx
 import React, { useState, useEffect } from 'react';
 import { useApi } from '../../services/context/ApiContext';
-import Footer from '../../components/Footer';
-import Header from '../../components/Header';
-import Loading from '../../components/Loading';
+import Footer from '../../components/FooterComponent';
+import Header from '../../components/HeaderComponent';
+import Loading from '../../components/LoadingComponent';
 import HeaderArtist from '../../components/HeaderArtist';
 import ProfileArtistComponent from '../../components/ProfileArtistComponent';
 

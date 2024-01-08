@@ -1,9 +1,9 @@
 import React, { useState,  useEffect } from 'react';
 import { useApi } from '../services/context/ApiContext';
 
-import Loading from '../components/Loading';
+import Loading from './LoadingComponent';
 import '../styles/ArtAdmin.css'
-import Popup from '../components/PopUp'
+import Popup from './PopUpComponent'
 import { useParams } from 'react-router-dom';
 import arteFoto from '../assets/profile-not-found.jpg'
 import { useNavigate } from 'react-router-dom';

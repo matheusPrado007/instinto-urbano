@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useApi } from '../services/context/ApiContext';
 import '../styles/ArtPage.css';
-import Header from './Header';
-import Footer from './Footer';
-import Loading from './Loading';
+import Header from './HeaderComponent';
+import Footer from './FooterComponent';
+import Loading from './LoadingComponent';
 import iconFechar from '../assets/fechar.png'
 
 

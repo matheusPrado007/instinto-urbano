@@ -1,8 +1,8 @@
 
 import React from 'react';
 import '../../styles/Users.css';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import Header from '../../components/HeaderComponent';
+import Footer from '../../components/FooterComponent';
 import ArtistList from '../../components/ArtistListComponent';
 
 

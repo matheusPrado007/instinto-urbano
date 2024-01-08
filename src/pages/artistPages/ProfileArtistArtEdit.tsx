@@ -1,10 +1,10 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import { useApi } from '../../services/context/ApiContext';
-import Footer from '../../components/Footer';
-import Header from '../../components/Header';
-import Loading from '../../components/Loading';
+import Footer from '../../components/FooterComponent';
+import Header from '../../components/HeaderComponent';
+import Loading from '../../components/LoadingComponent';
 import '../../styles/ArtAdmin.css'
-import Popup from '../../components/PopUp'
+import Popup from '../../components/PopUpComponent'
 import { useParams } from 'react-router-dom';
 import { CustomNextArrow, CustomPrevArrow } from '../../components/BtnComponent';
 import Slider from "react-slick";

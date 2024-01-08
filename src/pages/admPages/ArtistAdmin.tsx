@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from 'react';
 
 import { useApi } from '../../services/context/ApiContext';
-import Footer from '../../components/Footer';
+import Footer from '../../components/FooterComponent';
 import HeaderAdmin from '../../components/HeaderAdmin';
-import Header from '../../components/Header';
-import Loading from '../../components/Loading';
+import Header from '../../components/HeaderComponent';
+import Loading from '../../components/LoadingComponent';
 
 const ArtistAdmin: React.FC = () => {
   const { fazerLogin, dadosArtes } = useApi();
