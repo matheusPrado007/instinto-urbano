@@ -40,8 +40,7 @@ const Home: React.FC = () => {
       <Header />
       {dadosArtes.length > 0 ? (
         <>
-          <div className="main-container">
-            
+          <div className="main-container">           
             <div className="container-home">
               <p>Sua comunidade de Arte de Rua.</p>
             </div>            
