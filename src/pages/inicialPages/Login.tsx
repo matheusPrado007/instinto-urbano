@@ -17,19 +17,8 @@ const Login: React.FC = () => {
 
     const [senhaVisivel, setSenhaVisivel] = useState('');
     const [mostrarSenha, setMostrarSenha] = useState(false);
-    const [isLoading, setIsLoading] = useState(true); 
 
-    useEffect(() => {
-      
-      const timeout = setTimeout(() => {
-        setIsLoading(false);
-      }, 1300);
-  
-      return () => {
-        clearTimeout(timeout);
-      };
-    }, []);
-  
+
 
     const { fazerLogin, dadosUsers } = useApi();
     const navigate = useNavigate();
@@ -81,7 +70,6 @@ const Login: React.FC = () => {
     return (
         <>
             <Header />
-            {isLoading && <Loading />}
             <div className='map-container'>
                 <MapsLogin />
             </div>
