@@ -88,31 +88,37 @@ const Galeria: React.FC = () => {
 
   useEffect(() => {
     const handleResize = async () => {
-      const numeroDeImgs = window.innerWidth / 160;
-     
-
-      const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length - 1
-      ;
-
-      const resulNumber = +numeroTotal === 0 ? 1 : +numeroTotal;
-      
-      const finalResult = +resulNumber.toFixed(0) > 6 ? 5 : +resulNumber
-
-      setLarguraTotal(+finalResult.toFixed(0));
+      const larguraOriginalDaImagem = 200;
+      const numeroMaximoDeImagens = 5; 
+      const larguraMinimaParaDuasImagens = 400; 
+  
+      const larguraDaTela = window.innerWidth;
+      let fatorDeEscala = 1;
+  
+      if (larguraDaTela < larguraMinimaParaDuasImagens) {
+        fatorDeEscala = larguraDaTela / larguraMinimaParaDuasImagens;
+      }
+  
+      const larguraAjustadaDaImagem = larguraOriginalDaImagem * fatorDeEscala;
+      const numeroDeImagens = Math.floor(larguraDaTela / larguraAjustadaDaImagem);
+      const numeroTotal = Math.min(numeroDeImagens, numeroMaximoDeImagens);
+  
+      setLarguraTotal(numeroTotal);
     };
-
+  
     window.addEventListener('resize', handleResize);
     handleResize();
-
+  
     const timeout = setTimeout(() => {
       setIsLoading(false);
     }, 1300);
-
+  
     return () => {
       window.removeEventListener('resize', handleResize);
       clearTimeout(timeout);
     };
-  }, [filteredArtes.length]);
+  }, []);
+  
 
 
   const settings = {
