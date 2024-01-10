@@ -92,11 +92,10 @@
 .logo {
   width: 100%;
   height: auto;
-  background-color: #00000098;
   border-radius: 100%;
   padding: 1px;
   margin-right: 15px;
-  max-width: 60px;
+  max-width: 75px;
 }
 
 /* Restante do CSS para diferentes tamanhos de tela */

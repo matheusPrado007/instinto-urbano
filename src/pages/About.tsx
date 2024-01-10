@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/About.css';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo02.png';
 import Galeria from '../components/Galeria';
 import UserList from '../components/Users';
 import { useApi } from '../services/context/ApiContext';

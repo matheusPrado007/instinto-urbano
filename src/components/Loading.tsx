@@ -2,7 +2,7 @@
 
 import React from 'react';
 import '../styles/Loading.css';  
-import logo from '../assets/logo.png';  
+import logo from '../assets/logo01.png';  
 
 const Loading: React.FC = () => {
   return (
