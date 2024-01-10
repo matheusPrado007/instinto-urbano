@@ -1,5 +1,6 @@
 import React from 'react';
 
+<<<<<<< HEAD:src/pages/inicialPages/About.tsx
 import Header from '../../components/HeaderComponent';
 import Footer from '../../components/FooterComponent';
 import '../../styles/About.css';
@@ -8,6 +9,16 @@ import Galeria from '../../components/GaleriaComponent';
 import UserList from '../../components/UsersComponent';
 import { useApi } from '../../services/context/ApiContext';
 import Loading from '../../components/LoadingComponent';
+=======
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import '../styles/About.css';
+import logo from '../assets/logo02.png';
+import Galeria from '../components/Galeria';
+import UserList from '../components/Users';
+import { useApi } from '../services/context/ApiContext';
+import Loading from '../components/Loading';
+>>>>>>> 26511956 (Altera imagens do logo e icone):src/pages/About.tsx
 
 
 

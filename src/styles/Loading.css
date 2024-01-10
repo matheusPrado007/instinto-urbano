@@ -24,7 +24,7 @@
     background-color: #00000098; /* Adiciona a cor de fundo padrão */
     margin-right: 1.2ex; /* Adiciona margem à direita */
     border-radius: 50%; /* Use 50% para um círculo, ajuste conforme necessário */
-    animation: spin 2s linear infinite, fadeInOut 4s ease-in-out infinite;
+    animation: spin 2s linear infinite, fadeInOut 1s ease-in-out infinite;
   }
   
   .loading-text {

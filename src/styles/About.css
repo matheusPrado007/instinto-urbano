@@ -41,7 +41,7 @@
   
 .logo-about {
     width: 80%;
-    background-color: #00000098;
+    /* background-color: #00000098; */
     border-radius: 100%;
     display: flex;
     margin: auto;
