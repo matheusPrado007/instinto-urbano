@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import { useApi } from '../../services/context/ApiContext';
-import Footer from '../../components/Footer';
-import Header from '../../components/Header';
+import Footer from '../../components/FooterComponent';
+import Header from '../../components/HeaderComponent';
 import '../../styles/ArtAdmin.css'
 
 import ArtPostComponent from '../../components/ArtPostComponent';import HeaderArtist from '../../components/HeaderArtist';

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useApi } from '../services/context/ApiContext';
-import Loading from '../components/Loading';
+import Loading from './LoadingComponent';
 import { useParams } from 'react-router-dom';
 import '../styles/ProfileAdm.css';
 import fotoCapa from '../assets/not-found.png';
 import fotoPerfil from '../assets/profile-not-found.jpg';
-import Popup from '../components/PopUp';
+import Popup from './PopUpComponent';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from 'react-router-dom';

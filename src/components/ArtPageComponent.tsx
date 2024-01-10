@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // Altere aqui
 import { useApi } from '../services/context/ApiContext';
 import '../styles/ArtPage.css';
-import Header from './Header';
-import Footer from './Footer';
-import Loading from './Loading';
-import iconFechar from '../assets/fechar.png'
-
+import Header from './HeaderComponent';
+import Footer from './FooterComponent';
+import Loading from './LoadingComponent';
+import iconFechar from '../assets/fechar.png';
 
 interface GaleriaItem {
   _id: string;
@@ -16,17 +15,17 @@ interface GaleriaItem {
   endereco: string;
   descricao: string;
   uf: string;
-  cidade: string
+  cidade: string;
 }
 
 const ArtPage: React.FC = () => {
+  const navigate = useNavigate(); // Altere aqui
   const { id } = useParams<{ id?: string }>();
   const [art, setArt] = useState<GaleriaItem | null>(null);
   const { dadosArtes } = useApi();
-  const [isLoading, setIsLoading] = useState(true); 
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    
     const timeout = setTimeout(() => {
       setIsLoading(false);
     }, 1300);
@@ -39,7 +38,6 @@ const ArtPage: React.FC = () => {
   useEffect(() => {
     if (id) {
       const foundArt = dadosArtes.find((u) => u._id === id);
-      console.log('art', foundArt);
 
       if (foundArt) {
         setArt(foundArt);
@@ -49,6 +47,10 @@ const ArtPage: React.FC = () => {
     }
   }, [id, dadosArtes]);
 
+  const handleBackButtonClick = () => {
+    navigate(-1); 
+  };
+
   return (
     <div>
       <Header />
@@ -57,8 +59,14 @@ const ArtPage: React.FC = () => {
         {art ? (
           <div>
             <div>
-              <a href={`/`} ><img src={iconFechar} alt="icon fechar" className='x-back-home' /></a>
-              <p className='description-p-art'>{art.nome}</p>
+              {/* Adicionando a função de clique no botão X */}
+              <img
+                src={iconFechar}
+                alt="icon fechar"
+                className="x-back-home"
+                onClick={handleBackButtonClick}
+              />
+              <p className="description-p-art">{art.nome}</p>
             </div>
             <img src={art.foto} alt={`Capa de ${art.nome}`} className="art-photo" />
             <div className="art-descript">

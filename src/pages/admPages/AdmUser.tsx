@@ -1,12 +1,12 @@
 // AdmUser.tsx
 import React, { useState, useEffect } from 'react';
 import { useApi } from '../../services/context/ApiContext';
-import Footer from '../../components/Footer';
+import Footer from '../../components/FooterComponent';
 import HeaderAdmin from '../../components/HeaderAdmin';
-import Header from '../../components/Header';
-import UserList from '../../components/Users';
-import Galeria from '../../components/Galeria';
-import Loading from '../../components/Loading';
+import Header from '../../components/HeaderComponent';
+import UserList from '../../components/UsersComponent';
+import Galeria from '../../components/GaleriaComponent';
+import Loading from '../../components/LoadingComponent';
 
 const AdmUser: React.FC = () => {
   const { fazerLogin } = useApi();

@@ -1,9 +1,9 @@
 
 import React from 'react';
 import '../../styles/Users.css';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
-import ArtistList from '../../components/ArtistList';
+import Header from '../../components/HeaderComponent';
+import Footer from '../../components/FooterComponent';
+import ArtistList from '../../components/ArtistListComponent';
 
 
 const Artist: React.FC = () => {

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useApi } from '../../services/context/ApiContext';
-import Footer from '../../components/Footer';
+import Footer from '../../components/FooterComponent';
 import HeaderAdmin from '../../components/HeaderAdmin';
-import Header from '../../components/Header';
-import Loading from '../../components/Loading';
+import Header from '../../components/HeaderComponent';
+import Loading from '../../components/LoadingComponent';
 import { useParams } from 'react-router-dom';
 import '../../styles/ProfileAdm.css';
 import fotoCapa from '../../assets/not-found.png';
 import fotoPerfil from '../../assets/profile-not-found.jpg';
-import Popup from '../../components/PopUp';
+import Popup from '../../components/PopUpComponent';
 
 interface User {
     _id: number;
@@ -227,7 +227,6 @@ const ProfileAdminPost: React.FC = () => {
     };
 
     useEffect(() => {
-        console.log(newPerfil);
 
         if (id) {
             const foundUser = dadosUsers.find((u) => u._id === id);

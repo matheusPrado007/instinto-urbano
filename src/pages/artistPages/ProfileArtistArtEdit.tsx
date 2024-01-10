@@ -1,12 +1,12 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import { useApi } from '../../services/context/ApiContext';
-import Footer from '../../components/Footer';
-import Header from '../../components/Header';
-import Loading from '../../components/Loading';
+import Footer from '../../components/FooterComponent';
+import Header from '../../components/HeaderComponent';
+import Loading from '../../components/LoadingComponent';
 import '../../styles/ArtAdmin.css'
-import Popup from '../../components/PopUp'
+import Popup from '../../components/PopUpComponent'
 import { useParams } from 'react-router-dom';
-import { CustomNextArrow, CustomPrevArrow } from '../../components/Btn';
+import { CustomNextArrow, CustomPrevArrow } from '../../components/BtnComponent';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -280,7 +280,6 @@ const updateArte = async () => {
   useEffect(() => {
     if (id) {
       const foundUser = dadosUsers.find((u) => u._id === id);
-      console.log(foundUser);
 
       if (foundUser) {
         const emailStorage: string = foundUser.email
@@ -316,13 +315,13 @@ const updateArte = async () => {
   useEffect(() => {
     const handleResize = async () => {
       const numeroDeImgs = window.innerWidth / 160;
-      console.log('numeroimgs',numeroDeImgs);
+      
 
       const numeroTotal = +numeroDeImgs < filteredArtes.length ? numeroDeImgs : filteredArtes.length - 1
-      console.log(numeroTotal.toFixed(1));
+     
 
       const resulNumber = +numeroTotal === 0 ? 1 : +numeroTotal;
-      console.log('result', resulNumber);
+      
       
       const finalResult = +resulNumber.toFixed(0) > 6 ? 5 : +resulNumber;
 

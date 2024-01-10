@@ -1,11 +1,11 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import { useApi } from '../services/context/ApiContext';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import Loading from '../components/Loading';
+import Footer from './FooterComponent';
+import Header from './HeaderComponent';
+import Loading from './LoadingComponent';
 import '../styles/ArtAdmin.css'
 import { useParams } from 'react-router-dom';
-import { CustomNextArrow, CustomPrevArrow } from '../components/Btn';
+import { CustomNextArrow, CustomPrevArrow } from './BtnComponent';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -88,32 +88,37 @@ const Galeria: React.FC = () => {
 
   useEffect(() => {
     const handleResize = async () => {
-      const numeroDeImgs = window.innerWidth / 160;
-      console.log(numeroDeImgs);
-
-      const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length - 1
-      console.log(numeroTotal.toFixed(1));
-
-      const resulNumber = +numeroTotal === 0 ? 1 : +numeroTotal;
-      console.log('result', resulNumber);
-      
-      const finalResult = +resulNumber.toFixed(0) > 6 ? 5 : +resulNumber
-
-      setLarguraTotal(+finalResult.toFixed(0));
+      const larguraOriginalDaImagem = 200;
+      const numeroMaximoDeImagens = 5; 
+      const larguraMinimaParaDuasImagens = 400; 
+  
+      const larguraDaTela = window.innerWidth;
+      let fatorDeEscala = 1;
+  
+      if (larguraDaTela < larguraMinimaParaDuasImagens) {
+        fatorDeEscala = larguraDaTela / larguraMinimaParaDuasImagens;
+      }
+  
+      const larguraAjustadaDaImagem = larguraOriginalDaImagem * fatorDeEscala;
+      const numeroDeImagens = Math.floor(larguraDaTela / larguraAjustadaDaImagem);
+      const numeroTotal = Math.min(numeroDeImagens, numeroMaximoDeImagens);
+  
+      setLarguraTotal(numeroTotal);
     };
-
+  
     window.addEventListener('resize', handleResize);
     handleResize();
-
+  
     const timeout = setTimeout(() => {
       setIsLoading(false);
     }, 1300);
-
+  
     return () => {
       window.removeEventListener('resize', handleResize);
       clearTimeout(timeout);
     };
-  }, [filteredArtes.length]);
+  }, []);
+  
 
 
   const settings = {

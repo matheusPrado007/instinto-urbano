@@ -24,14 +24,18 @@ const UserList: React.FC = () => {
     }
       navigate(`/profile/${userId}`);
   }
+  const adm = dadosUsers.filter((user) => user.administrador ===  true)
 
   useEffect(() => {
     setIdPrams(id);
-    const adm = dadosUsers.filter((user) => user.administrador === true)
-    if(dadosUsers) {
-      setUser(adm)
+  }, [id]);
+  
+  useEffect(() => {
+    if (adm) {
+      setUser(adm);
     }
-  }, [id])
+  }, [adm]);
+  
 
   return (
     <div className="user-list-container">

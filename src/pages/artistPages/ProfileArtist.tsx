@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useApi } from '../../services/context/ApiContext';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import Header from '../../components/HeaderComponent';
+import Footer from '../../components/FooterComponent';
 
-import { CustomNextArrow, CustomPrevArrow } from '../../components/Btn';
+import { CustomNextArrow, CustomPrevArrow } from '../../components/BtnComponent';
 import '../../styles/Profile.css';
 import '../../styles/Galeria.css';
 import '../../styles/ProfileArtist.css';
@@ -49,13 +49,12 @@ const ProfileArtist: React.FC = () => {
     useEffect(() => {
         const handleResize = async () => {
             const numeroDeImgs = window.innerWidth / 160;
-            console.log(numeroDeImgs);
+     
 
             const numeroTotal = +numeroDeImgs.toFixed(0) < filteredArtes.length ? numeroDeImgs : filteredArtes.length - 1
-            console.log(numeroTotal.toFixed(1));
+            
 
             const resulNumber = +numeroTotal === 0 ? 1 : +numeroTotal;
-            console.log('result', resulNumber);
 
             const finalResult = +resulNumber.toFixed(0) > 6 ? 5 : +resulNumber
 

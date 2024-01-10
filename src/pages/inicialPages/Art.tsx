@@ -2,16 +2,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { useApi } from '../../services/context/ApiContext';
-import { CustomNextArrowArtPage, CustomPrevArrowArtPage } from '../../components/Btn';
+import { CustomNextArrowArtPage, CustomPrevArrowArtPage } from '../../components/BtnComponent';
 import { useParams } from 'react-router-dom';
 import '../../styles/Art.css';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../../styles/Galeria.css';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
-import Loading from '../../components/Loading';
+import Header from '../../components/HeaderComponent';
+import Footer from '../../components/FooterComponent';
+import Loading from '../../components/LoadingComponent';
 import Maps from '../../services/Maps';
 
 interface GaleriaItem {
@@ -31,18 +31,8 @@ const ArtList: React.FC = () => {
   const [arte, setArte] = useState<GaleriaItem | null>(null);
   const { dadosUsers } = useApi();
   const [isClick, setIsClick] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); 
 
-  useEffect(() => {
-    
-    const timeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 1300);
 
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,7 +72,6 @@ const ArtList: React.FC = () => {
   return (
     <>
       <Header />
-      {isLoading && <Loading />}
       {dadosArtes.length <= 0 ? (
         <Loading />
       ) : (

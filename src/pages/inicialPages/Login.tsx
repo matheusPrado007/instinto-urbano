@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/Login.css';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import Header from '../../components/HeaderComponent';
+import Footer from '../../components/FooterComponent';
 import { useApi } from '../../services/context/ApiContext';
 import { useNavigate } from 'react-router-dom';
 import MapsLogin from '../../services/MapsLogin';
-import Loading from '../../components/Loading';
+import Loading from '../../components/LoadingComponent';
 import olhoAberto from '../../assets/olho-aberto.png'
 import olhoFechado from '../../assets/olho-fechado.png'
 
@@ -17,19 +17,8 @@ const Login: React.FC = () => {
 
     const [senhaVisivel, setSenhaVisivel] = useState('');
     const [mostrarSenha, setMostrarSenha] = useState(false);
-    const [isLoading, setIsLoading] = useState(true); 
 
-    useEffect(() => {
-      
-      const timeout = setTimeout(() => {
-        setIsLoading(false);
-      }, 1300);
-  
-      return () => {
-        clearTimeout(timeout);
-      };
-    }, []);
-  
+
 
     const { fazerLogin, dadosUsers } = useApi();
     const navigate = useNavigate();
@@ -81,7 +70,6 @@ const Login: React.FC = () => {
     return (
         <>
             <Header />
-            {isLoading && <Loading />}
             <div className='map-container'>
                 <MapsLogin />
             </div>

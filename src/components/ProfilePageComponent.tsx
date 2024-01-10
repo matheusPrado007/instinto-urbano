@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // Altere aqui
 import { useApi } from '../services/context/ApiContext';
 import '../styles/Profile.css';
-import Header from './Header';
-import Footer from './Footer';
-import Loading from './Loading';
+import Header from './HeaderComponent';
+import Footer from './FooterComponent';
+import Loading from './LoadingComponent';
 
 interface User {
   _id: number;
   username: string;
   foto_capa: string;
   foto_perfil: string;
-  descricao_perfil: string
+  descricao_perfil: string;
 }
 
 const ProfilePageEdit: React.FC = () => {
-  const { id, userId } = useParams<{ id?: string, userId?: string }>();
+  const navigate = useNavigate(); // Altere aqui
+  const { id, userId } = useParams<{ id?: string; userId?: string }>();
   const [user, setUser] = useState<User | null>(null);
   const { dadosUsers } = useApi();
-  const [isLoading, setIsLoading] = useState(true); 
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    
     const timeout = setTimeout(() => {
       setIsLoading(false);
     }, 1300);
@@ -43,12 +43,20 @@ const ProfilePageEdit: React.FC = () => {
     }
   }, [id, dadosUsers]);
 
+  const handleBackButtonClick = () => {
+    // Navegar de volta à página anterior
+    navigate(-1); // Altere aqui
+  };
+
   return (
     <div>
       <Header />
       {isLoading && <Loading />}
       <div className="profile-container">
-        <a href={`/admuser/${userId}`} className='profile-edit-finish'>Voltar</a>
+        {/* Adicionando o botão de voltar */}
+        <button onClick={handleBackButtonClick} className="profile-edit-finish">
+          Voltar
+        </button>
         {user ? (
           <div>
             <img src={user.foto_capa} alt={`Capa de ${user.username}`} className="cover-photo" />
