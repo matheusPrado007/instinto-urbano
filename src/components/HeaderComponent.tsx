@@ -42,9 +42,9 @@ const Header: React.FC = () => {
       </div>
       <section className="head-1">
         <h1 className="titulo-esquerda">
-          <img className="logo" src={logo} alt="Logo Rastro Urbano" />
+          <img className="logo" src={logo} alt="Logo Instinto Urbano" />
           <a href="/" className="link-sem-sublinhado">
-            Rastro Urbano
+            Instinto Urbano
           </a>
         </h1>
         <nav ref={menuRef} className={isMenuOpen ? 'open' : ''}>
