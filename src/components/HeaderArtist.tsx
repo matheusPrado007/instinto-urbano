@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/HeaderAdmin.css'; 
-import logo from '../assets/logo.png';
+import logo from '../assets/logo01.png';
 import { useParams } from 'react-router-dom';
 
 const HeaderArtist: React.FC = () => {
