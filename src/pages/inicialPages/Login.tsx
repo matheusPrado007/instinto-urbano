@@ -37,10 +37,8 @@ const Login: React.FC = () => {
   const handleLogin = async () => {
     try {
       const { accessToken, refreshToken, notOk, errorResponse } = await fazerLogin({ email, senha });
-      console.log(errorResponse);
-      console.log(notOk);
+
       if (notOk) {
-          console.log('caiu aqui no 1º');
         if (errorResponse && errorResponse.toLowerCase().includes('senha incorreta')) {
           
           setErrorInput('Senha incorreta. Verifique sua senha.');
