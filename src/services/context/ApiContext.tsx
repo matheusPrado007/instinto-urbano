@@ -276,7 +276,8 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
       });
   
       if (!respostaLogin.ok) {
-        return {notOk: true};
+        const errorResponse = await respostaLogin.json();
+        return {notOk: true, errorResponse: errorResponse.message};
       }
   
       const { accessToken, refreshToken } = await respostaLogin.json();
