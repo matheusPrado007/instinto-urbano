@@ -20,16 +20,7 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true); 
 
-  useEffect(() => {
-    
-    const timeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 1300);
 
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, []);
 
   const redirecionarParaSobre = () => {
     navigate('/sobre');
