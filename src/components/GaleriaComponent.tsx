@@ -170,7 +170,7 @@ const Galeria: React.FC = () => {
             <option value="cidade">Cidade</option>
           </select>
         </div>
-        {isLoading && <Loading />}
+        {/* {isLoading && <Loading />} */}
         {filteredArtes.length === 0 && <p className="galeria-item">Nenhuma arte encontada</p>}
         <Slider {...settings} className='galeria'>
           {filteredArtes.map((item: GaleriaItem) => (

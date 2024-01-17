@@ -63,9 +63,9 @@ const Home: React.FC = () => {
             <UserList />
           </section>
         </>
-      ) : (
-        <Loading />
-        )}
+      ) : ( 
+         <Loading /> 
+          )} 
         <Footer />
     </>
   );
