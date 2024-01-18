@@ -23,7 +23,7 @@ const About: React.FC = () => {
   return (
     <>
       <Header />
-      {dadosUsers.length > 0 ? (
+      {dadosUsers && dadosUsers.length > 0 ? (
         <div>
       <section className='about-section'>
         <p className='about-h2'> Instinto Urbano</p>
@@ -48,7 +48,7 @@ const About: React.FC = () => {
         </p>
       </section>
       <div className='container-logo'>
-        <img src={logo} alt="logo" className='logo-about' />
+        <img src={logo} alt="logo-about" className='logo-about' />
         <UserList />
         <p className='about-h2'>Artes pelo Brasil</p>
         <section>
