@@ -60,7 +60,7 @@ const Maps = () => {
         });
 
         const coordenadas: any = await Promise.all(coordenadasPromises);
-        setCentros(coordenadas.filter((coordenada: any) => coordenada !== null));
+        setCentros(coordenadas && coordenadas.filter((coordenada: any) => coordenada !== null));
         console.log(centros);
         
       } catch (error) {

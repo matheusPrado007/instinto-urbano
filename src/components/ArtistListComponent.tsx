@@ -25,7 +25,7 @@ const ArtistList: React.FC = () => {
       navigate(`/profileartist/${userId}`);
   }
 
-    const adm = dadosUsers.filter((user) => user.administrador === false)
+    const adm = dadosUsers && dadosUsers.filter((user) => user.administrador === false)
 
   useEffect(() => {
     setIdPrams(id);

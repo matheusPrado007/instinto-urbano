@@ -20,6 +20,10 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true); 
 
+  useEffect(() => {
+    console.log('dados do home', dadosArtes);
+    
+  }, [])
 
 
   const redirecionarParaSobre = () => {
@@ -29,7 +33,7 @@ const Home: React.FC = () => {
   return (
     <>
       <Header />
-      {dadosArtes.length > 0 ? (
+      {dadosArtes && dadosArtes.length > 0 ? (
         <>
           <div className="main-container">           
             <div className="container-home">

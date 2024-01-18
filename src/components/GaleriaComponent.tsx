@@ -71,7 +71,7 @@ const Galeria: React.FC = () => {
     navigate(`/arte/${arteId}`);
   };
 
-  const filteredArtes = dadosArtes.filter((arte) => {
+  const filteredArtes = dadosArtes && dadosArtes.filter((arte) => {
     const searchTermWithoutTilde = searchTerm.replace(/~/g, '');
     const fieldValueWithoutTilde = arte[searchField].toUpperCase().replace(/~/g, '');
 
@@ -170,8 +170,8 @@ const Galeria: React.FC = () => {
             <option value="cidade">Cidade</option>
           </select>
         </div>
-        {/* {isLoading && <Loading />} */}
-        {filteredArtes.length === 0 && <p className="galeria-item">Nenhuma arte encontada</p>}
+        {isLoading && <Loading />}
+        {filteredArtes && filteredArtes.length === 0 && <p className="galeria-item">Nenhuma arte encontada</p>}
         <Slider {...settings} className='galeria'>
           {filteredArtes.map((item: GaleriaItem) => (
             <div key={item._id} className="galeria-item" onClick={() => handleArteClick(item._id)}>
