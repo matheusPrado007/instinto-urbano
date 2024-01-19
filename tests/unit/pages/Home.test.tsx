@@ -148,6 +148,59 @@ describe('Home Page', () => {
     });
   }, 20000);
 
+  it('renderiza Galeria e imagem é clicavel. Ao clicar deve ir para rota arte/:id', async () => {
+    jest.mock('../../../src/services/context/ApiContext', () => ({
+      ...jest.requireActual('../../../src/services/context/ApiContext'),
+      useApi: jest.fn(() => ({
+        dadosArtes: [
+          {
+            _id: '657e476c2a7f773d7dcbeac9',
+            nome_artista: "Style, Lesma, Tadeo",
+            nome: "The Outlaw Ocean Mural",
+            foto: "https://storage.googleapis.com/rastro-urbano.appspot.com/f272e52c-93c1…",
+            descricao: "Arte referente ao projeto The Outlaw Ocean",
+            uf: "Minas Gerais",
+            cidade: "Estiva",
+            endereco: "Rua Cristóvão Chiaradia 86",
+            __v: 0
+          }
+        ],
+      })),
+    }));
+
+    jest.mock('../../../src/assets/logo01.png', () => 'logo01.png');
+    render(
+      <BrowserRouter>
+        <Home />
+      </BrowserRouter>
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByText(/Carregando.../i)).toBeNull();
+    }, { timeout: 10000 });
+
+    const textoNaTela1 = screen.getByText(/Sua comunidade de Arte de Rua/i);
+    expect(textoNaTela1).toBeInTheDocument();
+
+    const textoNaTela2 = screen.getByText(/Veja as artes mais próximas de você./i);
+    expect(textoNaTela2).toBeInTheDocument();
+
+    const imagensNaTela = screen.getAllByAltText(
+      (content: any, element: any) => element?.classList.contains('imagem-galeria')
+    );
+    await waitFor(() => {
+  
+      imagensNaTela.forEach((imagem) => {
+        expect(imagem).toBeInTheDocument();
+        expect(imagem).toHaveAttribute('src'); 
+        expect(imagem).toHaveClass('imagem-galeria'); 
+      });
+      
+    });
+    userEvent.click(imagensNaTela[0]);
+    expect(window.location.pathname).toBe('/arte/657e476c2a7f773d7dcbeac9');
+  }, 20000);
+
 
   it('renderiza Maps', async () => {
     jest.mock('../../../src/services/context/ApiContext', () => ({
