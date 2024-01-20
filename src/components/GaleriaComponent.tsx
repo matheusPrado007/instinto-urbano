@@ -83,27 +83,28 @@ const Galeria: React.FC = () => {
   });
 
 
-
-
-
   useEffect(() => {
-    const handleResize = async () => {
-      const larguraOriginalDaImagem = 200;
-      const numeroMaximoDeImagens = 5; 
-      const larguraMinimaParaDuasImagens = 400; 
+    const larguraDaTela = window.innerWidth;
+    const handleResize = () => {
+      const larguraOriginalDaImagem = 150;
+      const numeroMaximoDeImagens = 5;
+
+      const quantidadeDeImgsPorTela = larguraDaTela / larguraOriginalDaImagem;
+    
+      const numeroTotal = larguraDaTela / filteredArtes.length;
+      
+        const numeroDeImgsSemFiltro = Math.min(Math.floor(larguraDaTela / larguraOriginalDaImagem), numeroMaximoDeImagens);
+    
+
+      console.log('numeroTotal',+numeroTotal.toFixed(0));
+      const numero = Math.min(Math.floor(larguraDaTela / +numeroTotal.toFixed(0)), numeroMaximoDeImagens);
+      console.log('num',numero);
+      
+      const realNumero = filteredArtes.length < quantidadeDeImgsPorTela ? numero : numeroDeImgsSemFiltro;
+      console.log('realNumero', realNumero);
+      
   
-      const larguraDaTela = window.innerWidth;
-      let fatorDeEscala = 1;
-  
-      if (larguraDaTela < larguraMinimaParaDuasImagens) {
-        fatorDeEscala = larguraDaTela / larguraMinimaParaDuasImagens;
-      }
-  
-      const larguraAjustadaDaImagem = larguraOriginalDaImagem * fatorDeEscala;
-      const numeroDeImagens = Math.floor(larguraDaTela / larguraAjustadaDaImagem);
-      const numeroTotal = Math.min(numeroDeImagens, numeroMaximoDeImagens);
-  
-      setLarguraTotal(numeroTotal);
+      setLarguraTotal(realNumero);
     };
   
     window.addEventListener('resize', handleResize);
@@ -117,8 +118,7 @@ const Galeria: React.FC = () => {
       window.removeEventListener('resize', handleResize);
       clearTimeout(timeout);
     };
-  }, []);
-  
+  }, [filteredArtes.length, window.innerWidth]);
 
 
   const settings = {

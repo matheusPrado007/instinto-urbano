@@ -288,7 +288,7 @@ describe('Home Page', () => {
 
   }, 20000);
 
-  it('Btn Sobre nós funciona', async () => {
+  it('Btn "Sobre nós" funciona', async () => {
     jest.mock('../../../src/services/context/ApiContext', () => ({
       ...jest.requireActual('../../../src/services/context/ApiContext'),
       useApi: jest.fn(() => ({
