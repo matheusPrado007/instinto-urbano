@@ -2,15 +2,10 @@ import React from 'react';
 import { render, screen, waitFor, cleanup, fireEvent } from '@testing-library/react';
 import { BrowserRouter, MemoryRouter, Route } from 'react-router-dom';
 import Home from '../../../src/pages/inicialPages/Home';
-import Sobre from '../../../src/pages/inicialPages/About';
-import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
 
 import '@testing-library/jest-dom';
 
-afterEach(() => {
-  cleanup();
-});
 
 jest.mock('../../../src/services/context/ApiContext', () => ({
   ...jest.requireActual('../../../src/services/context/ApiContext'),
@@ -28,13 +23,26 @@ jest.mock('../../../src/services/context/ApiContext', () => ({
         __v: 0
       }
     ],
+    dadosUsers: [
+      { _id: '1', username: 'Usuario1', foto_perfil: 'url-da-imagem1', administrador: true },
+      { _id: '2', username: 'Usuario2', foto_perfil: 'url-da-imagem2', administrador: true },
+      { _id: '3', username: 'Usuario3', foto_perfil: 'url-da-imagem3', administrador: false },
+    ],
   })),
 }));
+
 
 jest.mock('../../../src/assets/logo01.png', () => 'logo01.png');
 
 describe('Home Page', () => {
+  
+  beforeEach(() => {
+    jest.resetModules();
+  });
 
+  afterEach(() => {
+    cleanup();
+  });
   it('não renderiza corretamente', async () => {
     jest.mock('../../../src/services/context/ApiContext', () => ({
       ...jest.requireActual('../../../src/services/context/ApiContext'),
@@ -389,5 +397,100 @@ describe('Home Page', () => {
   
     expect(window.location.pathname).toBe('/sobre');
   }, 20000);
+
+////////
   
+it('test se artistas e criadores aparecem na pagina', async () => {
+  render(
+    <BrowserRouter>
+      <Home />
+    </BrowserRouter>
+  );
+
+  jest.mock('../../../src/services/context/ApiContext', () => ({
+    useApi: jest.fn(() => ({
+      dadosUsers: jest.fn().mockReturnValue([
+        { _id: '1', username: 'Usuario1', foto_perfil: 'url-da-imagem1', administrador: true },
+        { _id: '2', username: 'Usuario2', foto_perfil: 'url-da-imagem2', administrador: true },
+      ]),
+    })),
+  }));
+
+  await waitFor(() => {
+    expect(screen.queryByText(/Carregando.../i)).toBeNull();
+  }, { timeout: 10000 });
+
+  const elementoComTexto = screen.getByText(/Equipe de Criação/i);
+  expect(elementoComTexto).toBeInTheDocument();
+
+  const elementoComTexto2 = screen.getByText(/Conheça os Artistas/i);
+  expect(elementoComTexto2).toBeInTheDocument();
+
+  // Ajuste para o valor correto do atributo alt
+  
+  const imagensNaTela = screen.getAllByAltText((content: any, element) => {
+    return element?.classList.contains('user-avatar') && content.includes('Usuario1');
+  });
+  
+  expect(imagensNaTela.length).toBeGreaterThan(0);
+  
+  await waitFor(() => {
+    imagensNaTela.forEach((imagem) => {
+      expect(imagem).toBeInTheDocument();
+      expect(imagem).toHaveAttribute('src'); 
+      expect(imagem).toHaveClass('user-avatar'); 
+    });
+  });
+  userEvent.click(imagensNaTela[0]);
+  expect(window.location.pathname).toBe('/profile/1');
+}, 20000);
+
+
+
+it('test se artistas aparecem na pagina', async () => {
+  render(
+    <BrowserRouter>
+      <Home />
+    </BrowserRouter>
+  );
+
+  jest.mock('../../../src/services/context/ApiContext', () => ({
+    useApi: jest.fn(() => ({
+      dadosUsers: jest.fn().mockReturnValue([
+        { _id: '1', username: 'Usuario1', foto_perfil: 'url-da-imagem1', administrador: true },
+        { _id: '2', username: 'Usuario2', foto_perfil: 'url-da-imagem2', administrador: true },
+        { _id: '3', username: 'Usuario3', foto_perfil: 'url-da-imagem3', administrador: false },
+      ]),
+    })),
+  }));
+
+  await waitFor(() => {
+    expect(screen.queryByText(/Carregando.../i)).toBeNull();
+  }, { timeout: 10000 });
+
+  const elementoComTexto = screen.getByText(/Equipe de Criação/i);
+  expect(elementoComTexto).toBeInTheDocument();
+
+  const elementoComTexto2 = screen.getByText(/Conheça os Artistas/i);
+  expect(elementoComTexto2).toBeInTheDocument();
+
+  // Ajuste para o valor correto do atributo alt
+  
+  const imagensNaTela = screen.getAllByAltText((content: any, element) => {
+    return element?.classList.contains('user-avatar-artist') && content.includes(`Usuario3`);
+  });
+  
+  expect(imagensNaTela.length).toBeGreaterThan(0);
+  
+  await waitFor(() => {
+    imagensNaTela.forEach((imagem) => {
+      expect(imagem).toBeInTheDocument();
+      expect(imagem).toHaveAttribute('src'); 
+      expect(imagem).toHaveClass('user-avatar-artist'); 
+    });
+  });
+  userEvent.click(imagensNaTela[0]);
+  expect(window.location.pathname).toBe('/profileartist/3');
+}, 20000);
+
 });

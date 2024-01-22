@@ -39,7 +39,7 @@ const ArtistList: React.FC = () => {
       <div className="user-grid-artist">
         {adm && adm.map((user: any) => (
           <div key={user._id} className="user-item-artist clicavel-artist" onClick={() => navigateToProfile(user._id)}>
-            <img src={user.foto_perfil} alt={user.nome} className="user-avatar-artist" />
+            <img src={user.foto_perfil} alt={user.username} className="user-avatar-artist" />
             <span className='nome-user-artist'>{user.username}</span>
             <span>
             {user.descricao_perfil}
