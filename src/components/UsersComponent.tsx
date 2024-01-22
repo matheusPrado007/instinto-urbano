@@ -61,7 +61,7 @@ const UserList: React.FC = () => {
             <img src={user.foto_perfil} alt={user.username} className="user-avatar"/>
             <span className='nome-user'>{user.username}</span>
             <span>
-              • Desenvolvedor Web Full Stack
+              {user.descricao_curta}
             </span>
             <span>
               • Co-fundador do Rastro Urbano
