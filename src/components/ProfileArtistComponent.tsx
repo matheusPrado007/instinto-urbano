@@ -108,7 +108,7 @@ const ProfileArtistComponent: React.FC = () => {
                 <img src={user.foto_capa} alt={`Capa de ${user.username}`} className="cover-photo" />
                 <div className="description-data">
                     <img src={user.foto_perfil} alt={`Foto de perfil de ${user.username}`} className="profile-photo" />
-                    <p className="responsibility-p">Co-fundador do Rastro Urbano</p>
+                    <p className="responsibility-p">{user.descricao_curta}</p>
                 </div>
                 <div className="user-info">
                     <div className="social-links">

@@ -42,7 +42,7 @@ const ArtistList: React.FC = () => {
             <img src={user.foto_perfil} alt={user.username} className="user-avatar-artist" />
             <span className='nome-user-artist'>{user.username}</span>
             <span>
-            {user.descricao_perfil}
+            {user.descricao_curta}
             </span>
           </div>
         ))}
