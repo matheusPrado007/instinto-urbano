@@ -4,6 +4,7 @@
   padding: 10px; /* Adiciona algum espaço interno entre as bordas e o conteúdo */
   box-sizing: border-box; /* Garante que o padding seja incluído nas dimensões totais */
   text-align: center; /* Centraliza o conteúdo */
+  cursor: pointer;
 }
 
 .user-list-container-artist {
