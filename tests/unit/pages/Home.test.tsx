@@ -290,18 +290,18 @@ describe('Home Page', () => {
     const textoNaTela2 = screen.getByText(/Veja as artes mais próximas de você./i);
     expect(textoNaTela2).toBeInTheDocument();
 
-    const imagensNaTela = screen.getAllByAltText(
+    const imagensNaTela = await screen.findAllByAltText(
       (content: any, element: any) => element?.classList.contains('leaflet-marker-icon')
     );
+
     await waitFor(() => {
-  
       imagensNaTela.forEach((imagem) => {
         expect(imagem).toBeInTheDocument();
         expect(imagem).toHaveAttribute('src'); 
         expect(imagem).toHaveClass('leaflet-marker-icon'); 
-      });
-      
+      }); 
     });
+
     userEvent.click(imagensNaTela[0]);
     expect(window.location.pathname).toBe('/arte/657e476c2a7f773d7dcbeac9');
   }, 20000);
