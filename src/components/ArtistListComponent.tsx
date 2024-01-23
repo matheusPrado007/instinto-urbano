@@ -112,25 +112,6 @@ const ArtistList: React.FC = () => {
       </div>
     </>
   );
-
-  // return (
-  //   <>
-  //   <div className="user-list-container-artist">
-  //     <p className="user-list-header-artist">Conheça os Artistas</p>
-  //     <div className="user-grid-artist">
-  //       {adm && adm.map((user: any) => (
-  //         <div key={user._id} className="user-item-artist clicavel-artist" onClick={() => navigateToProfile(user._id)}>
-  //           <img src={user.foto_perfil} alt={user.username} className="user-avatar-artist" />
-  //           <span className='nome-user-artist'>{user.username}</span>
-  //           <span>
-  //           {user.descricao_curta}
-  //           </span>
-  //         </div>
-  //       ))}
-  //     </div>
-  //   </div>
-  //   </>
-  // );
 };
 
 export default ArtistList;
