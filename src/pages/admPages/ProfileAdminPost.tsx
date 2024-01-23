@@ -52,7 +52,7 @@ const ProfileAdminPost: React.FC = () => {
 
     const [isEditingText, setIsEditingText] = useState(false);
     const [newTexto, setNewTexto] = useState('');
-    const [texto, setTexto] = useState('Co-fundador do Rastro Urbano');
+    const [texto, setTexto] = useState('');
 
 
     const [isEditingToken, setIsEditingToken] = useState(false);
@@ -152,7 +152,8 @@ const ProfileAdminPost: React.FC = () => {
                 newInstagram,
                 newLinkedin,
                 newAdm,
-                accessToken
+                accessToken,
+                texto,
             };
 
            const resultPost = await enviarDadosParaBackendPost(dados);
@@ -254,6 +255,8 @@ const ProfileAdminPost: React.FC = () => {
                 setNewInstagram(newInstagram);
                 setOriginalAdm(newAdm);
                 setNewAdm(newAdm);
+                setTexto(newTexto);
+                setNewTexto(newTexto);
             } else {
                 console.error('Usuário não encontrado');
             }
@@ -324,10 +327,12 @@ const ProfileAdminPost: React.FC = () => {
                                 isEditingText ? (
                                     <input
                                         type="text"
-                                        value={texto}
+                                        name="descricao_curta"
+                                        value={newTexto}
                                         onChange={(e) =>
-                                            setNewTexto(e.target.value)}
+                                        setNewTexto(e.target.value)}
                                         className="username-input"
+                                        maxLength={100}
                                     />
                                 ) : (
                                     <p className='responsibility-p-adm'>{texto}</p>
