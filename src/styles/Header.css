@@ -375,3 +375,8 @@
     margin-left: 3px;
   }
 }
+
+.header-list-hover:hover {
+  color: #1e9ba6c6;
+  cursor: pointer;
+}

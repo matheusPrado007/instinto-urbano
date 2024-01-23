@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/Header.css';
 import logo from '../assets/logo01.png';
+import { useNavigate } from 'react-router-dom';
+
 
 const Header: React.FC = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -35,6 +38,10 @@ const Header: React.FC = () => {
     };
   }, [isMenuOpen]);
 
+  const redirecionarParaSobre = (rota: string) => {
+    navigate(rota);
+  };
+
   return (
     <div className='header'>
       <div className="menu-button" ref={buttonRef} onClick={handleButtonClick}>
@@ -49,11 +56,11 @@ const Header: React.FC = () => {
         </h1>
         <nav ref={menuRef} className={isMenuOpen ? 'open' : ''}>
           <ul className="lista-direita">
-            <li><a href="/">Página Inicial</a></li>
-            <li><a href="/sobre">Sobre</a></li>
-            <li><a href="/artistas">Artistas</a></li>
-            <li><a href="/artes">Artes</a></li>
-            <li><a href="/login">Login</a></li>
+            <li onClick={() => redirecionarParaSobre('/')} className='header-list-hover'>Página Inicial</li>
+            <li onClick={() => redirecionarParaSobre('/sobre')} className='header-list-hover' >Sobre</li>
+            <li onClick={() => redirecionarParaSobre("/artistas")} className='header-list-hover' >Artistas</li>
+            <li onClick={() => redirecionarParaSobre("/artes")} className='header-list-hover' >Artes</li>
+            <li onClick={() => redirecionarParaSobre("/login")} className='header-list-hover' >Login</li>
           </ul>
         </nav>
       </section>

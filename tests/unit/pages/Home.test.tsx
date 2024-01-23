@@ -1,11 +1,22 @@
-import React from 'react';
-import { render, screen, waitFor, cleanup, fireEvent } from '@testing-library/react';
-import { BrowserRouter, MemoryRouter, Route } from 'react-router-dom';
+import React, { ReactElement } from 'react';
+import { render, screen, waitFor, cleanup, fireEvent, RenderOptions } from '@testing-library/react';
+import { BrowserRouter, MemoryRouter, Route, Router, Routes } from 'react-router-dom';
 import Home from '../../../src/pages/inicialPages/Home';
 import userEvent from '@testing-library/user-event';
 
-import '@testing-library/jest-dom';
 
+import '@testing-library/jest-dom';
+import { MemoryHistory } from 'history';
+import Header from '../../../src/components/HeaderComponent';
+
+const renderWithRouter = (
+  ui: ReactElement,
+  { route = '/', ...renderOptions }: { route?: string } & RenderOptions = {}
+) => {
+  window.history.pushState({}, 'Test page', route);
+
+  return render(<MemoryRouter initialEntries={[route]}>{ui}</MemoryRouter>, renderOptions);
+};
 
 jest.mock('../../../src/services/context/ApiContext', () => ({
   ...jest.requireActual('../../../src/services/context/ApiContext'),
@@ -34,6 +45,167 @@ jest.mock('../../../src/services/context/ApiContext', () => ({
 
 jest.mock('../../../src/assets/logo01.png', () => 'logo01.png');
 
+
+describe('Header Component', () => {
+  it('rederiza menu e logo', () => {
+    render(<BrowserRouter><Header /></BrowserRouter> );
+
+    // Verifica se o logo está presente
+    const logoElement = screen.getByAltText('Logo Instinto Urbano');
+    expect(logoElement).toBeInTheDocument();
+
+    // Verifica se o menu button está presente
+    const menuButton = screen.getByText(/☰/i);
+    expect(menuButton).toBeInTheDocument();
+  });
+
+  it('altera o menu quando o botão do menu é clicado', () => {
+    render(
+    <BrowserRouter>
+      <Header />
+    </BrowserRouter> 
+    );
+  
+    // Verifica se o menu está fechado inicialmente
+    const menu = screen.getByRole('navigation');
+    expect(menu).not.toHaveClass('open');
+  
+    // Clica no botão do menu para abrir
+    const menuButton = screen.getByText(/☰/i);
+    fireEvent.click(menuButton);
+  
+    // Verifica se o menu está aberto
+    expect(menu).toHaveClass('open');
+  
+    // Clica novamente para fechar
+    fireEvent.click(menuButton);
+  
+    // Verifica se o menu está fechado novamente
+    expect(menu).not.toHaveClass('open');
+  });
+  
+  it('fecha o menu ao clicar fora da área do menu', () => {
+    render(<BrowserRouter><Header /></BrowserRouter> );
+  
+    // Clica no botão do menu para abrir
+    const menuButton = screen.getByText(/☰/i);
+    fireEvent.click(menuButton);
+  
+    // Verifica se o menu está aberto
+    const menu = screen.getByRole('navigation');
+    expect(menu).toHaveClass('open');
+  
+    // Clica fora do menu para fechar
+    fireEvent.mouseDown(document.body);
+  
+    // Verifica se o menu está fechado novamente
+    expect(menu).not.toHaveClass('open');
+  });
+  
+  it('test se a rota / funciona', () => {
+    render(<BrowserRouter><Header /></BrowserRouter> );
+
+    const paginaInicialLink = screen.getByText(/Página Inicial/i);
+    fireEvent.click(paginaInicialLink);
+
+    expect(window.location.pathname).toBe('/');
+  });
+
+  it('test se a rota /sobre funciona', async () => {
+
+    render(
+      <BrowserRouter>
+        <Home />
+      </BrowserRouter>
+    );
+  
+    await waitFor(() => {
+      expect(screen.queryByText(/Carregando.../i)).toBeNull();
+    }, { timeout: 10000 });
+  
+      
+
+    const sobreLink = screen.getAllByText(/Sobre/i);
+    userEvent.click(sobreLink[0]);
+
+    await waitFor(() => {
+      expect(window.location.pathname).toBe('/sobre');
+    }, { timeout: 10000 });
+  
+  }, 20000);
+
+  it('test se a rota /artista funciona', async () => {
+
+    render(
+      <BrowserRouter>
+        <Home />
+      </BrowserRouter>
+    );
+  
+    await waitFor(() => {
+      expect(screen.queryByText(/Carregando.../i)).toBeNull();
+    }, { timeout: 10000 });
+  
+      
+
+    const sobreLink = screen.getAllByText(/artistas/i);
+    userEvent.click(sobreLink[0]);
+
+    await waitFor(() => {
+      expect(window.location.pathname).toBe('/artistas');
+    }, { timeout: 10000 });
+  
+  }, 20000);
+
+  it('test se a rota /Artes funciona', async () => {
+
+    render(
+      <BrowserRouter>
+        <Home />
+      </BrowserRouter>
+    );
+  
+    await waitFor(() => {
+      expect(screen.queryByText(/Carregando.../i)).toBeNull();
+    }, { timeout: 10000 });
+  
+      
+
+    const sobreLink = screen.getAllByText(/Artes/i);
+    userEvent.click(sobreLink[0]);
+
+    await waitFor(() => {
+      expect(window.location.pathname).toBe('/artes');
+    }, { timeout: 10000 });
+  
+  }, 20000);
+
+  it('test se a rota /Login funciona', async () => {
+
+    render(
+      <BrowserRouter>
+        <Home />
+      </BrowserRouter>
+    );
+  
+    await waitFor(() => {
+      expect(screen.queryByText(/Carregando.../i)).toBeNull();
+    }, { timeout: 10000 });
+  
+      
+
+    const sobreLink = screen.getByText(/Login/i);
+    userEvent.click(sobreLink);
+
+    await waitFor(() => {
+      expect(window.location.pathname).toBe('/login');
+    }, { timeout: 10000 });
+  
+  }, 20000);
+});
+
+
+
 describe('Home Page', () => {
   
   beforeEach(() => {
@@ -43,6 +215,7 @@ describe('Home Page', () => {
   afterEach(() => {
     cleanup();
   });
+
   it('não renderiza corretamente', async () => {
     jest.mock('../../../src/services/context/ApiContext', () => ({
       ...jest.requireActual('../../../src/services/context/ApiContext'),
@@ -448,6 +621,7 @@ it('test se artistas e criadores aparecem na pagina', async () => {
 
 
 it('test se artistas aparecem na pagina', async () => {
+
   render(
     <BrowserRouter>
       <Home />
@@ -491,6 +665,8 @@ it('test se artistas aparecem na pagina', async () => {
   });
   userEvent.click(imagensNaTela[0]);
   expect(window.location.pathname).toBe('/profileartist/3');
-}, 20000);
 
+}, 20000);
 });
+
+
