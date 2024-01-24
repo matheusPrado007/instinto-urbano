@@ -9,6 +9,7 @@ import '../../styles/ProfileAdm.css';
 import fotoCapa from '../../assets/not-found.png';
 import fotoPerfil from '../../assets/profile-not-found.jpg';
 import Popup from '../../components/PopUpComponent';
+import { confirmAlert } from 'react-confirm-alert';
 
 interface User {
     _id: number;
@@ -52,7 +53,7 @@ const ProfileAdminPost: React.FC = () => {
 
     const [isEditingText, setIsEditingText] = useState(false);
     const [newTexto, setNewTexto] = useState('');
-    const [texto, setTexto] = useState('Co-fundador do Rastro Urbano');
+    const [texto, setTexto] = useState('');
 
 
     const [isEditingToken, setIsEditingToken] = useState(false);
@@ -138,6 +139,7 @@ const ProfileAdminPost: React.FC = () => {
 
 
     const handleSaveChanges = async () => {
+
         try {
             const { accessToken, refreshToken } = await fazerLogin({ email, senha });
 
@@ -152,32 +154,68 @@ const ProfileAdminPost: React.FC = () => {
                 newInstagram,
                 newLinkedin,
                 newAdm,
-                accessToken
+                accessToken,
+                texto,
             };
 
            const resultPost = await enviarDadosParaBackendPost(dados);
             setNewResult(resultPost)
-           if (resultPost ==='Dados atualizados com sucesso:') {
-           return setShowPopup(true);
-           } else {
-            return setShowPopup(false);
-           }
         } catch (error) {
             console.error('Erro durante o login:', error);
         }
     };
 
+    const validateUser = () => {
+        const userIsTrue = dadosUsers.filter((user: any) => user.email === newEmail);
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      console.log(regexEmail.test(newEmail) );
+      
+        if (
+          userIsTrue.length > 0 ||
+          !regexEmail.test(newEmail) ||
+          newUsername === '' ||
+          newPassword === '' ||
+          newDescription === '' ||
+          texto === ''
+        ) {
+          return true;
+        }
+      
+        return false;
+      };
+
     const toggleEditModeToken = async () => {
         try {
-            setIsEditingToken(!isEditingToken)
-            await handleSaveChanges()
-            if (newResult ==='Dados atualizados com sucesso:') {
-                return setShowPopup(true);
-                } else {
-                 return setShowPopup(false);
-                }
+            const { accessToken, refreshToken, notOk } = await fazerLogin({ email, senha });
+
+            if (notOk || validateUser()) {
+                confirmAlert({
+                    title: 'Aviso',
+                    message: 'Por favor, forneça seu email e senha válidos para confirmar a exclusão da Arte.',
+                    customUI: ({ onClose }) => (
+                        <div className="custom-ui">
+                            <h1>{'Aviso'}</h1>
+                            <p>{!validateUser() ? 'Por favor, forneça seu email e senha válidos para confirmar a Atualização do perfil.': 'Atenção, preencha os campos!'}</p>
+                            <button className="custom-ui-btn" onClick={onClose}>OK</button>
+                        </div>
+                    ),
+                });
+                return;
+            }
+            confirmAlert({
+                title: 'Confirmação',
+                message: 'Criar um novo usuário?',
+                customUI: ({ onClose }) => (
+                    <div className="custom-ui">
+                        <h1>{'Confirmação'}</h1>
+                        <p>{'Criar um novo usuário?'}</p>
+                        <button className="custom-ui-btn" onClick={() => { handleSaveChanges(); onClose(); }}>Sim</button>
+                        <button className="custom-ui-btn" onClick={() => { onClose(); }}>Não</button>
+                    </div>
+                ),
+            });
         } catch (error) {
-            console.error('Erro:', error);
+            console.error('Erro durante o login:', error);
         }
     };
 
@@ -254,6 +292,8 @@ const ProfileAdminPost: React.FC = () => {
                 setNewInstagram(newInstagram);
                 setOriginalAdm(newAdm);
                 setNewAdm(newAdm);
+                setTexto(newTexto);
+                setNewTexto(newTexto);
             } else {
                 console.error('Usuário não encontrado');
             }
@@ -324,10 +364,12 @@ const ProfileAdminPost: React.FC = () => {
                                 isEditingText ? (
                                     <input
                                         type="text"
-                                        value={texto}
+                                        name="descricao_curta"
+                                        value={newTexto}
                                         onChange={(e) =>
-                                            setNewTexto(e.target.value)}
+                                        setNewTexto(e.target.value)}
                                         className="username-input"
+                                        maxLength={100}
                                     />
                                 ) : (
                                     <p className='responsibility-p-adm'>{texto}</p>

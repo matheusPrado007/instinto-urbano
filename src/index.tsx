@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { ApiProvider } from './services/context/ApiContext';
 
 
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

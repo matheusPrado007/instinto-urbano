@@ -40,9 +40,11 @@ const ProfileEditComponent: React.FC = () => {
     const [newPassword, setNewPassword] = useState<string>('');
     const [originalPassword, setOriginalPassword] = useState<string>('');
     const [isEditingPassword, setIsEditingPassword] = useState(false);
+
     const [isEditingText, setIsEditingText] = useState(false);
     const [newTexto, setNewTexto] = useState('');
-    const [texto, setTexto] = useState('Co-fundador do Rastro Urbano');
+    const [texto, setTexto] = useState('');
+
     const [isEditingToken, setIsEditingToken] = useState(false);
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
@@ -172,6 +174,8 @@ const ProfileEditComponent: React.FC = () => {
                 setNewInstagram(foundUser.instagram);
                 setOriginalAdm(foundUser.administrador);
                 setNewAdm(foundUser.administrador);
+                setTexto(foundUser.descricao_curta);
+                setNewTexto(foundUser.descricao_curta);
 
             } else {
                 console.error('Usuário não encontrado');
@@ -196,6 +200,7 @@ const ProfileEditComponent: React.FC = () => {
             newAdm,
             newInstagram,
             newLinkedin,
+            texto,
             id,
             accessToken,
         };
@@ -362,10 +367,12 @@ const ProfileEditComponent: React.FC = () => {
                                 isEditingText ? (
                                     <input
                                         type="text"
-                                        value={texto}
+                                        name="descricao_curta"
+                                        value={newTexto}
                                         onChange={(e) =>
-                                            setNewTexto(e.target.value)}
+                                        setNewTexto(e.target.value)}
                                         className="username-input"
+                                        maxLength={100}
                                     />
                                 ) : (
                                     <p className='responsibility-p-adm'>{texto}</p>

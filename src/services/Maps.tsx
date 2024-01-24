@@ -90,7 +90,7 @@ const Maps = () => {
       />
       {
       centros.map((centro: any) => (
-        <Marker key={centro.id} position={centro.position} icon={iconePadrao} >
+        <Marker key={centro.id} position={centro.position} icon={iconePadrao}>
           <Popup className='container-popup' >
             <div onClick={() => navigateToArt(centro.id)}>
             <img src={centro.foto} alt={centro.nome} className='foto-map' />

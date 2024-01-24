@@ -1,62 +1,68 @@
+.galeria-item-artist-list {
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.288);
+  padding: 10px; /* Adiciona algum espaço interno entre as bordas e o conteúdo */
+  box-sizing: border-box; /* Garante que o padding seja incluído nas dimensões totais */
+  text-align: center; /* Centraliza o conteúdo */
+  cursor: pointer;
+}
+
 .user-list-container-artist {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    border-radius: 16px;
-    margin-bottom: 1.5rem;
-  }
-  
-  .user-list-header-artist {
-    font-size: 1.7rem;
-    margin-bottom: 25px;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .user-grid-artist {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 20px;
-  }
-  
-  .user-item-artist {
-    list-style: none;
-    padding: 15px;
-    border: 10px seagreen;
-    border-radius: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  
-  .user-avatar-artist {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-    border: 2px solid rgb(117, 117, 116);
-  }
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+}
 
-  .nome-user-artist {
-    padding-bottom: 3px;
-  }
+.user-list-header-artist {
+  font-size: 1.7rem;
+  margin-bottom: 25px;
+  text-align: center; /* Centraliza o texto */
+}
 
-  .clicavel-artist {
-    border: 1px solid #909090; 
-    box-shadow: 0 0 5px #3333333e; 
-  }
-  
-  
+.user-grid-artist {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 20px;
+}
 
-  .clicavel-artist {
-    transition: transform 0.3s; 
-  }
-  
-  .clicavel-artist:hover, .clicavel-artist:active {
-    transform: scale(1.1); 
-  }
-  
+.user-item-artist {
+  list-style: none;
+  padding: 15px;
+  border: 10px seagreen;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.user-avatar-artist {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  border: 2px solid rgb(117, 117, 116);
+  display: flex;
+  margin: auto;
+}
+
+.nome-user-artist {
+  padding-bottom: 3px;
+  padding-top: 1px;
+  display: flex;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.clicavel-artist {
+  border: 1px solid #909090;
+  box-shadow: 0 0 5px #3333333e;
+  transition: transform 0.3s;
+}
+
+.clicavel-artist:hover, .clicavel-artist:active {
+  transform: scale(1.1);
+}

@@ -149,6 +149,7 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     formData.append('linkedin', dados.newLinkedin);
     formData.append('instagram', dados.newInstagram);
     formData.append('administrador', dados.newAdm);
+    formData.append('descricao_curta', dados.texto);
   
     // Adicione os arquivos
     formData.append('foto_capa', dados.newCapa);
@@ -229,6 +230,7 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
   formData.append('linkedin', dados.newLinkedin);
   formData.append('instagram', dados.newInstagram);
   formData.append('administrador', dados.newAdm);
+  formData.append('descricao_curta', dados.texto);
 
   if (dados.password) {
     formData.append('senha', dados.newPassword);

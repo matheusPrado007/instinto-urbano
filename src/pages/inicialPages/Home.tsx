@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Header from '../../components/HeaderComponent';
@@ -18,12 +18,6 @@ import ArtistList from '../../components/ArtistListComponent';
 const Home: React.FC = () => {
   const { dadosArtes } = useApi();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true); 
-
-  useEffect(() => {
-    console.log('dados do home', dadosArtes);
-    
-  }, [])
 
 
   const redirecionarParaSobre = () => {
@@ -47,7 +41,7 @@ const Home: React.FC = () => {
             <div className='about-sec'>
               <section className="sobre-section">
                 <div className='text-sobre'>
-                  <p className='titulo-sobre'>Descubra 'Rastro Urbano'</p>
+                  <p className='titulo-sobre'>Descubra 'Instinto Urbano'</p>
                   <p className="intro-text">
                     Onde a paixão pela arte urbana ganha vida. Em nosso santuário virtual, proporcionamos uma experiência envolvente, revelando emoções e visuais únicos de cada obra nas ruas brasileiras.
                   </p>
