@@ -46,6 +46,17 @@ jest.mock('../../../src/services/context/ApiContext', () => ({
 jest.mock('../../../src/assets/logo01.png', () => 'logo01.png');
 
 
+describe('Footer Component', () => {
+  it('rederiza footer', () => {
+    render(<BrowserRouter><Home /></BrowserRouter> );
+    const textFooter = screen.getByText('© Comunidade Brasileira de Arte de rua.')
+    expect(textFooter).toBeInTheDocument()
+
+  })
+})
+
+
+
 describe('Header Component', () => {
   it('rederiza menu e logo', () => {
     render(<BrowserRouter><Header /></BrowserRouter> );
