@@ -9,6 +9,7 @@ import '../../styles/ProfileAdm.css';
 import fotoCapa from '../../assets/not-found.png';
 import fotoPerfil from '../../assets/profile-not-found.jpg';
 import Popup from '../../components/PopUpComponent';
+import { confirmAlert } from 'react-confirm-alert';
 
 interface User {
     _id: number;
@@ -158,27 +159,50 @@ const ProfileAdminPost: React.FC = () => {
 
            const resultPost = await enviarDadosParaBackendPost(dados);
             setNewResult(resultPost)
-           if (resultPost ==='Dados atualizados com sucesso:') {
-           return setShowPopup(true);
-           } else {
-            return setShowPopup(false);
-           }
         } catch (error) {
             console.error('Erro durante o login:', error);
         }
     };
 
+    const validateUser = async () => {
+        const userIsTrue = await dadosUsers.filter((user: any) => user.email === newEmail);
+        
+        if(userIsTrue.length > 0) {
+            return true;
+        }
+    }
+
     const toggleEditModeToken = async () => {
         try {
-            setIsEditingToken(!isEditingToken)
-            await handleSaveChanges()
-            if (newResult ==='Dados atualizados com sucesso:') {
-                return setShowPopup(true);
-                } else {
-                 return setShowPopup(false);
-                }
+            const { accessToken, refreshToken, notOk } = await fazerLogin({ email, senha });
+            if (notOk || await validateUser()) {
+                confirmAlert({
+                    title: 'Aviso',
+                    message: 'Por favor, forneça seu email e senha válidos para confirmar a exclusão da Arte.',
+                    customUI: ({ onClose }) => (
+                        <div className="custom-ui">
+                            <h1>{'Aviso'}</h1>
+                            <p>{'Por favor, forneça seu email e senha válidos para confirmar a Atualização do perfil.'}</p>
+                            <button className="custom-ui-btn" onClick={onClose}>OK</button>
+                        </div>
+                    ),
+                });
+                return;
+            }
+            confirmAlert({
+                title: 'Confirmação',
+                message: 'Criar um novo usuário?',
+                customUI: ({ onClose }) => (
+                    <div className="custom-ui">
+                        <h1>{'Confirmação'}</h1>
+                        <p>{'Criar um novo usuário?'}</p>
+                        <button className="custom-ui-btn" onClick={() => { handleSaveChanges(); onClose(); }}>Sim</button>
+                        <button className="custom-ui-btn" onClick={() => { onClose(); }}>Não</button>
+                    </div>
+                ),
+            });
         } catch (error) {
-            console.error('Erro:', error);
+            console.error('Erro durante o login:', error);
         }
     };
 
