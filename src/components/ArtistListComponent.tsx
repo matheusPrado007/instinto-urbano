@@ -1,5 +1,5 @@
 
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, ChangeEvent} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApi } from '../services/context/ApiContext';
 import '../styles/ArtistList.css';
@@ -18,6 +18,7 @@ const ArtistList: React.FC = () => {
   const [idParams, setIdPrams] = useState<any>();
   const [larguraTotal, setLarguraTotal] = useState(100);
   const [isLoading, setIsLoading] = useState(true)
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const navigateToProfile = (userId: string) => {
 
@@ -34,8 +35,22 @@ const ArtistList: React.FC = () => {
 
   useEffect(() => {
     setIdPrams(id);
- 
   }, [id])
+
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+
+ const filteredArtist = adm && adm.filter((artist) => {
+    const searchTermWithoutTilde = searchTerm.replace(/~/g, '');
+    const fieldValueWithoutTilde = artist.username.toUpperCase().replace(/~/g, '');
+
+    return fieldValueWithoutTilde.includes(searchTermWithoutTilde.toUpperCase()) || (
+      searchTermWithoutTilde.startsWith('~') &&
+      fieldValueWithoutTilde.includes(searchTermWithoutTilde.substring(1).toUpperCase())
+    );
+  });
 
   useEffect(() => {
     const larguraDaTela = window.innerWidth;
@@ -45,7 +60,7 @@ const ArtistList: React.FC = () => {
 
       const quantidadeDeImgsPorTela = larguraDaTela / larguraOriginalDaImagem;
     
-      const numeroTotal = larguraDaTela / adm.length;
+      const numeroTotal = larguraDaTela / filteredArtist.length;
       
         const numeroDeImgsSemFiltro = Math.min(Math.floor(larguraDaTela / larguraOriginalDaImagem), numeroMaximoDeImagens);
     
@@ -54,7 +69,7 @@ const ArtistList: React.FC = () => {
       const numero = Math.min(Math.floor(larguraDaTela / +numeroTotal.toFixed(0)), numeroMaximoDeImagens);
       console.log('num',numero);
       
-      const realNumero = adm.length < quantidadeDeImgsPorTela ? numero : numeroDeImgsSemFiltro;
+      const realNumero = filteredArtist.length < quantidadeDeImgsPorTela ? numero : numeroDeImgsSemFiltro;
       console.log('realNumero', realNumero);
       
   
@@ -66,13 +81,13 @@ const ArtistList: React.FC = () => {
   
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 0.8);
+    }, 500);
   
     return () => {
       window.removeEventListener('resize', handleResize);
       clearTimeout(timeout);
     };
-  }, [adm.length, window.innerWidth]);
+  }, [filteredArtist.length, window.innerWidth]);
 
 
   const settings = {
@@ -90,16 +105,27 @@ const ArtistList: React.FC = () => {
 
   return (
     <>
+    <div className="input-container-adm">
+
+      <input
+        type="text"
+        className="inputField-adm-artist"
+        placeholder=" 🔍 Pesquisar por Artistas... "
+        value={searchTerm}
+        onChange={handleSearchChange}
+      />
+      
+      </div>
+      {!filteredArtist || filteredArtist.length === 0 && <p className="galeria-item">Nenhuma Artista encontrado</p>}
     <div className="user-list-container-artist">
       {isLoading ? (
         <Loading />
       ) : (
         <>
-          {adm && adm.length === 0 && <p className="galeria-item">Nenhuma arte encontrada</p>}
           <p className="user-list-header-artist">Conheça os Artistas</p>
           <div className='galeria-artist-list-container'>
             <Slider {...settings} className='galeria'>
-              {adm.map((item: any) => (
+              {filteredArtist.map((item: any) => (
                 <div key={item._id}  className="galeria-item"  onClick={() => navigateToProfile(item._id)}>
                   <img
                     src={item.foto_perfil}
