@@ -93,9 +93,9 @@ const ArtistList: React.FC = () => {
         {adm && adm.length === 0 && <p className="galeria-item">Nenhuma arte encontada</p>}
         <p className="user-list-header-artist">Conheça os Artistas</p>
         <div className='galeria-artist-list-container'>
-        <Slider {...settings} className='galeria-artist-list'>
+        <Slider {...settings} className='galeria'>
           {adm.map((item: any) => (
-            <div key={item._id}  className="galeria-item-artist-list"  onClick={() => navigateToProfile(item._id)}>
+            <div key={item._id}  className="galeria-item"  onClick={() => navigateToProfile(item._id)}>
               <img
                 src={item.foto_perfil}
                 className="user-avatar-artist"
