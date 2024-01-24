@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { CustomNextArrow, CustomPrevArrow } from './BtnComponent';
 import Slider from 'react-slick';
 import Loading from './LoadingComponent';
+import lupa from '../assets/lupa.png'
 
 
 
@@ -110,7 +111,7 @@ const ArtistList: React.FC = () => {
       <input
         type="text"
         className="inputField-adm-artist"
-        placeholder=" 🔍 Pesquisar por Artistas... "
+        placeholder={`🔍  Pesquisar por Artistas... `}
         value={searchTerm}
         onChange={handleSearchChange}
       />
