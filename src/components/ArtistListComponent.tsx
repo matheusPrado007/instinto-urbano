@@ -41,7 +41,7 @@ const ArtistList: React.FC = () => {
     const larguraDaTela = window.innerWidth;
     const handleResize = () => {
       const larguraOriginalDaImagem = 150;
-      const numeroMaximoDeImagens = 5;
+      const numeroMaximoDeImagens = 6;
 
       const quantidadeDeImgsPorTela = larguraDaTela / larguraOriginalDaImagem;
     
