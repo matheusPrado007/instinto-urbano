@@ -112,7 +112,7 @@ const Galeria: React.FC = () => {
   
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 1300);
+    }, 1);
   
     return () => {
       window.removeEventListener('resize', handleResize);

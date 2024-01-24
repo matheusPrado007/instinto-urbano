@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Header from '../../components/HeaderComponent';
@@ -18,12 +18,6 @@ import ArtistList from '../../components/ArtistListComponent';
 const Home: React.FC = () => {
   const { dadosArtes } = useApi();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true); 
-
-  useEffect(() => {
-    console.log('dados do home', dadosArtes);
-    
-  }, [])
 
 
   const redirecionarParaSobre = () => {

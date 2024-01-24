@@ -66,7 +66,7 @@ const ArtistList: React.FC = () => {
   
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 1300);
+    }, 0.8);
   
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -90,29 +90,35 @@ const ArtistList: React.FC = () => {
 
   return (
     <>
-      <div className="user-list-container-artist">
-        {isLoading && <Loading />}
-        {adm && adm.length === 0 && <p className="galeria-item">Nenhuma arte encontada</p>}
-        <p className="user-list-header-artist">Conheça os Artistas</p>
-        <div className='galeria-artist-list-container'>
-        <Slider {...settings} className='galeria'>
-          {adm.map((item: any) => (
-            <div key={item._id}  className="galeria-item"  onClick={() => navigateToProfile(item._id)}>
-              <img
-                src={item.foto_perfil}
-                className="user-avatar-artist"
-                alt={`Arte de ${item.username}`}
-              />
-              <p className='nome-user-artist'>{item.username}</p>
-              <span className='nome-user-artist'>
-             {item.descricao_curta}
-             </span>
-            </div>
-          ))}
-        </Slider>
-        </div>
-      </div>
-    </>
+    <div className="user-list-container-artist">
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          {adm && adm.length === 0 && <p className="galeria-item">Nenhuma arte encontrada</p>}
+          <p className="user-list-header-artist">Conheça os Artistas</p>
+          <div className='galeria-artist-list-container'>
+            <Slider {...settings} className='galeria'>
+              {adm.map((item: any) => (
+                <div key={item._id}  className="galeria-item"  onClick={() => navigateToProfile(item._id)}>
+                  <img
+                    src={item.foto_perfil}
+                    className="user-avatar-artist"
+                    alt={`Arte de ${item.username}`}
+                  />
+                  <p className='nome-user-artist'>{item.username}</p>
+                  <span className='nome-user-artist'>
+                    {item.descricao_curta}
+                  </span>
+                </div>
+              ))}
+            </Slider>
+          </div>
+        </>
+      )}
+    </div>
+  </>
+  
   );
 };
 
