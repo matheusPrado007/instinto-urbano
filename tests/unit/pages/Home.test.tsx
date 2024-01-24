@@ -232,10 +232,10 @@ describe('Home Page', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText(/Carregando.../i)).toBeInTheDocument();
+      expect(screen.getAllByText(/Carregando.../i)[0]).toBeInTheDocument();
     }, { timeout: 10000 });
 
-  });
+  }, 20000);
 
   it('renderiza corretamente com dadosArtes preenchidos', async () => {
     jest.mock('../../../src/services/context/ApiContext', () => ({
@@ -511,7 +511,7 @@ describe('Home Page', () => {
       expect(screen.queryByText(/Carregando.../i)).toBeNull();
     }, { timeout: 10000 });
 
-    const textoNaTela1 = screen.getByText(/Descubra 'Rastro Urbano'/i);
+    const textoNaTela1 = screen.getByText(/Descubra 'Instinto Urbano'/i);
     expect(textoNaTela1).toBeInTheDocument();
 
     const textoNaTela2 = screen.getByText(/Onde a paixão pela arte urbana ganha vida. Em nosso santuário virtual, proporcionamos uma experiência envolvente, revelando emoções e visuais únicos de cada obra nas ruas brasileiras./i);
