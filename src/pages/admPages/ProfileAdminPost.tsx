@@ -139,6 +139,7 @@ const ProfileAdminPost: React.FC = () => {
 
 
     const handleSaveChanges = async () => {
+
         try {
             const { accessToken, refreshToken } = await fazerLogin({ email, senha });
 
@@ -164,25 +165,37 @@ const ProfileAdminPost: React.FC = () => {
         }
     };
 
-    const validateUser = async () => {
-        const userIsTrue = await dadosUsers.filter((user: any) => user.email === newEmail);
-        
-        if(userIsTrue.length > 0) {
-            return true;
+    const validateUser = () => {
+        const userIsTrue = dadosUsers.filter((user: any) => user.email === newEmail);
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      console.log(regexEmail.test(newEmail) );
+      
+        if (
+          userIsTrue.length > 0 ||
+          !regexEmail.test(newEmail) ||
+          newUsername === '' ||
+          newPassword === '' ||
+          newDescription === '' ||
+          texto === ''
+        ) {
+          return true;
         }
-    }
+      
+        return false;
+      };
 
     const toggleEditModeToken = async () => {
         try {
             const { accessToken, refreshToken, notOk } = await fazerLogin({ email, senha });
-            if (notOk || await validateUser()) {
+
+            if (notOk || validateUser()) {
                 confirmAlert({
                     title: 'Aviso',
                     message: 'Por favor, forneça seu email e senha válidos para confirmar a exclusão da Arte.',
                     customUI: ({ onClose }) => (
                         <div className="custom-ui">
                             <h1>{'Aviso'}</h1>
-                            <p>{'Por favor, forneça seu email e senha válidos para confirmar a Atualização do perfil.'}</p>
+                            <p>{!validateUser() ? 'Por favor, forneça seu email e senha válidos para confirmar a Atualização do perfil.': 'Atenção, preencha os campos!'}</p>
                             <button className="custom-ui-btn" onClick={onClose}>OK</button>
                         </div>
                     ),

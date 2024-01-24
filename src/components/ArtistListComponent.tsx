@@ -6,6 +6,7 @@ import '../styles/ArtistList.css';
 import { useParams } from 'react-router-dom';
 import { CustomNextArrow, CustomPrevArrow } from './BtnComponent';
 import Slider from 'react-slick';
+import Loading from './LoadingComponent';
 
 
 
@@ -16,6 +17,7 @@ const ArtistList: React.FC = () => {
   const [user, setUser] = useState<any>();
   const [idParams, setIdPrams] = useState<any>();
   const [larguraTotal, setLarguraTotal] = useState(100);
+  const [isLoading, setIsLoading] = useState(true)
 
   const navigateToProfile = (userId: string) => {
 
@@ -62,13 +64,13 @@ const ArtistList: React.FC = () => {
     window.addEventListener('resize', handleResize);
     handleResize();
   
-    // const timeout = setTimeout(() => {
-    //   setIsLoading(false);
-    // }, 1300);
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1300);
   
     return () => {
       window.removeEventListener('resize', handleResize);
-      // clearTimeout(timeout);
+      clearTimeout(timeout);
     };
   }, [adm.length, window.innerWidth]);
 
@@ -89,7 +91,7 @@ const ArtistList: React.FC = () => {
   return (
     <>
       <div className="user-list-container-artist">
-        {/* {isLoading && <Loadin />} */}
+        {isLoading && <Loading />}
         {adm && adm.length === 0 && <p className="galeria-item">Nenhuma arte encontada</p>}
         <p className="user-list-header-artist">Conheça os Artistas</p>
         <div className='galeria-artist-list-container'>
