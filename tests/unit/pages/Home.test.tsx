@@ -32,6 +32,17 @@ jest.mock('../../../src/services/context/ApiContext', () => ({
         cidade: "Estiva",
         endereco: "Rua Cristóvão Chiaradia 86",
         __v: 0
+      },
+      {
+        _id: '657e476c2a7f773d7dcbeac8',
+        nome_artista: "ahoy",
+        nome: "nice",
+        foto: "https://storage.googleapis.com/rastro-urbano.appspot.com/f272e555593c1…",
+        descricao: "Hello world",
+        uf: "londres",
+        cidade: "londres",
+        endereco: "Rua 123456",
+        __v: 0
       }
     ],
     dadosUsers: [
@@ -44,6 +55,17 @@ jest.mock('../../../src/services/context/ApiContext', () => ({
 
 
 jest.mock('../../../src/assets/logo01.png', () => 'logo01.png');
+
+
+describe('Footer Component', () => {
+  it('rederiza footer', () => {
+    render(<BrowserRouter><Home /></BrowserRouter> );
+    const textFooter = screen.getByText('© Comunidade Brasileira de Arte de rua.')
+    expect(textFooter).toBeInTheDocument()
+
+  })
+})
+
 
 
 describe('Header Component', () => {
@@ -232,10 +254,10 @@ describe('Home Page', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText(/Carregando.../i)).toBeInTheDocument();
+      expect(screen.getAllByText(/Carregando.../i)[0]).toBeInTheDocument();
     }, { timeout: 10000 });
 
-  });
+  }, 20000);
 
   it('renderiza corretamente com dadosArtes preenchidos', async () => {
     jest.mock('../../../src/services/context/ApiContext', () => ({
@@ -383,6 +405,66 @@ describe('Home Page', () => {
   }, 20000);
 
 
+  it('renderiza input ele busca', async () => {
+    jest.mock('../../../src/services/context/ApiContext', () => ({
+      ...jest.requireActual('../../../src/services/context/ApiContext'),
+      useApi: jest.fn(() => ({
+        dadosArtes: [
+          {
+            _id: '657e476c2a7f773d7dcbeac9',
+            nome_artista: "Style, Lesma, Tadeo",
+            nome: "The Outlaw Ocean Mural",
+            foto: "https://storage.googleapis.com/rastro-urbano.appspot.com/f272e52c-93c1…",
+            descricao: "Arte referente ao projeto The Outlaw Ocean",
+            uf: "Minas Gerais",
+            cidade: "Estiva",
+            endereco: "Rua Cristóvão Chiaradia 86",
+            __v: 0
+          },
+          {
+            _id: '657e476c2a7f773d7dcbeac8',
+            nome_artista: "ahoy",
+            nome: "nice",
+            foto: "https://storage.googleapis.com/rastro-urbano.appspot.com/f272e555593c1…",
+            descricao: "Hello world",
+            uf: "londres",
+            cidade: "londres",
+            endereco: "Rua 123456",
+            __v: 0
+          }
+        ],
+      })),
+    }));
+
+    jest.mock('../../../src/assets/logo01.png', () => 'logo01.png');
+    render(
+      <BrowserRouter>
+        <Home />
+      </BrowserRouter>
+    );
+      
+    const imagensNaTela = screen.getAllByAltText(
+      (content: any, element: any) => element?.classList.contains('imagem-galeria')
+    );
+
+    await waitFor(() => {
+    expect(imagensNaTela.length).toBe(2);
+    });
+
+      fireEvent.change(screen.getByPlaceholderText('Pesquisar...'), { target: { value: 'The Outlaw Ocean Mural' } });
+  
+      
+      await waitFor(() => {
+        expect(screen.getByText('The Outlaw Ocean Mural')).toBeInTheDocument()
+      });
+      const imagensNaTelaDepois = await screen.findAllByAltText(
+        (content: any, element: any) => element?.classList.contains('imagem-galeria')
+      );
+      expect(imagensNaTelaDepois.length).toBe(1);
+  
+  });
+
+
   it('renderiza Maps', async () => {
     jest.mock('../../../src/services/context/ApiContext', () => ({
       ...jest.requireActual('../../../src/services/context/ApiContext'),
@@ -511,7 +593,7 @@ describe('Home Page', () => {
       expect(screen.queryByText(/Carregando.../i)).toBeNull();
     }, { timeout: 10000 });
 
-    const textoNaTela1 = screen.getByText(/Descubra 'Rastro Urbano'/i);
+    const textoNaTela1 = screen.getByText(/Descubra 'Instinto Urbano'/i);
     expect(textoNaTela1).toBeInTheDocument();
 
     const textoNaTela2 = screen.getByText(/Onde a paixão pela arte urbana ganha vida. Em nosso santuário virtual, proporcionamos uma experiência envolvente, revelando emoções e visuais únicos de cada obra nas ruas brasileiras./i);
