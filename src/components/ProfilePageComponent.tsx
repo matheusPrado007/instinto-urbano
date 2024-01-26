@@ -5,6 +5,7 @@ import '../styles/Profile.css';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Loading from './LoadingComponent';
+import HeaderAdmin from './HeaderAdmin';
 
 interface User {
   _id: number;
@@ -48,9 +49,16 @@ const ProfilePageEdit: React.FC = () => {
     navigate(-1); // Altere aqui
   };
 
+  const headerOrHeaderAdm = () => {
+    const urlAtual = window.location.href;
+    if (urlAtual.includes(`/admuser/${id}/perfil`)) {
+      return true;
+    }
+  }
+
   return (
     <div>
-      <Header />
+      {headerOrHeaderAdm() ? <HeaderAdmin /> : <Header />}
       {isLoading && <Loading />}
       <div className="profile-container">
         {/* Adicionando o botão de voltar */}
