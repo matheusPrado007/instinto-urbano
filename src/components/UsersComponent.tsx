@@ -64,7 +64,7 @@ const UserList: React.FC = () => {
               {user.descricao_curta}
             </span>
             <span>
-              • Co-fundador do Rastro Urbano
+              • Co-fundador do Instinto Urbano
             </span>
           </div>
         ))}
