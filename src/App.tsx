@@ -48,7 +48,7 @@ const AppRouter: React.FC = () => {
         <Route path="/admartist/:id/artepost" element={<ProfileArtistPost />} />
         <Route path="/admartist/:id/arteedit" element={<ProfileArtistArtEdit />} />
 
-        <Route path="/admuser/:id/artistas/admUser/:userId/perfilartistaedit" element={<ProfileAdmin />} />
+        <Route path="/admuser/:id/artistas/admuser/:userId/perfilartistaedit" element={<ProfileAdmin />} />
 
       </Routes>
     </Router>
