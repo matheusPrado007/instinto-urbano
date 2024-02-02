@@ -20,6 +20,7 @@ import ProfileArtistEdit from './pages/artistPages/ProfileArtistEdit';
 import ProfileArtistPost from './pages/artistPages/ProfileArtistPost';
 import ProfileArtistArtEdit from './pages/artistPages/ProfileArtistArtEdit';
 import ArtList from './pages/inicialPages/Art';
+import ArtistProfileComponent from './components/ArtistProfileComponent';
 // import ProfileArtistAdm from './components/ProfileArtistAdm';
 
 
@@ -40,7 +41,7 @@ const AppRouter: React.FC = () => {
         <Route path="/admuser/:id/artistas" element={<ArtistAdmin/>} />
         <Route path="/admuser/:id/artes" element={<ArtAdmin />} />
         <Route path="/admuser/:id/profilepost" element={<ProfileAdminPost />} />
-        <Route path="/admuser/:userId/admuser/:id/perfiladm" element={<ProfilePageEdit/>} />
+        <Route path="/admuser/:id/admuser/:userId/perfiladm" element={<ProfilePageEdit/>} />
         <Route path="/admuser/:id/artepost" element={<ArtPageEdit/>} />
         <Route path="/profileartist/:id" element={<ProfileArtist />} />
         <Route path="/admartist/:id" element={<AdmArtist />} />
@@ -49,6 +50,7 @@ const AppRouter: React.FC = () => {
         <Route path="/admartist/:id/arteedit" element={<ProfileArtistArtEdit />} />
 
         <Route path="/admuser/:id/artistas/admuser/:userId/perfilartistaedit" element={<ProfileAdmin />} />
+        <Route path="/admuser/:id/artistprofile/:userId" element={<ArtistProfileComponent />} />
 
       </Routes>
     </Router>
