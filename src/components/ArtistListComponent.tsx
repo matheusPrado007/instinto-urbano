@@ -1,4 +1,3 @@
-
 import React, {useState, useEffect, ChangeEvent} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApi } from '../services/context/ApiContext';
@@ -8,10 +7,11 @@ import { CustomNextArrow, CustomPrevArrow } from './BtnComponent';
 import Slider from 'react-slick';
 import Loading from './LoadingComponent';
 import lupa from '../assets/lupa.png'
+import HeaderAdmin from './HeaderAdmin';
+import Footer from './FooterComponent';
 
 
-
-const ArtistList: React.FC = () => {
+const Artist: React.FC = () => {
   const { dadosUsers } = useApi();
   const navigate = useNavigate();
   const { id } = useParams<{ id?: string }>();
@@ -22,16 +22,9 @@ const ArtistList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const navigateToProfile = (userId: string) => {
-
-    if(idParams) {
-      if (String(idParams) === String(userId)) {
-        return navigate(`/admuser/${userId}/perfil`);
-      }
-      return navigate(`admuser/${userId}/perfiladm`);
-    }
-      navigate(`/profileartist/${userId}`);
+    navigate(`/profile/${userId}`); 
   }
-
+  
     const adm = dadosUsers && dadosUsers.filter((user) => user.administrador === false)
 
   useEffect(() => {
@@ -106,6 +99,7 @@ const ArtistList: React.FC = () => {
 
   return (
     <>
+    {/* <HeaderAdmin /> */}
     <div className="input-container-adm">
 
       <input
@@ -144,9 +138,11 @@ const ArtistList: React.FC = () => {
         </>
       )}
     </div>
+    {/* <Footer /> */}
   </>
   
   );
 };
 
-export default ArtistList;
+
+export default Artist;

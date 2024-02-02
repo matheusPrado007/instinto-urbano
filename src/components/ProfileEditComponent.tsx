@@ -21,7 +21,7 @@ interface User {
 
 const ProfileEditComponent: React.FC = () => {
     const { fazerLogin, dadosUsers, enviarDadosParaBackend, deleteUsuario } = useApi();
-    const { id } = useParams<{ id?: string }>();
+    const { id, userId } = useParams<{ id?: string, userId?: string }>();
     const navigate = useNavigate();
 
     const [showPopup, setShowPopup] = useState(false);
@@ -154,8 +154,14 @@ const ProfileEditComponent: React.FC = () => {
     };
 
     useEffect(() => {
+        const urlAtual = window.location.href;
+        let foundUser;
         if (id) {
-            const foundUser = dadosUsers.find((u) => u._id === id);
+            if (urlAtual.includes(`perfilartistaedit`)) {
+                foundUser = dadosUsers.find((u) => u._id === userId);
+            } else {
+                foundUser = dadosUsers.find((u) => u._id === id);
+            }
 
             if (foundUser) {
                 const emailStorage: string = foundUser.email;
@@ -337,7 +343,7 @@ const ProfileEditComponent: React.FC = () => {
         <>
             {isLoading && <Loading />}
             <div className="profile-container-adm">
-                <a href={`/admuser/${id}/admuser/${id}/perfiladm`} className='profile-edit-finish'>Quer ver como ficou?</a>
+                <a href={`/admuser/${id}/admuser/${userId}/perfiladm`} className='profile-edit-finish'>Quer ver como ficou?</a>
                 {user ? (
                     <div className='form-adm-profile'>
                         <label className="label-cover">

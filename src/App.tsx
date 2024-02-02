@@ -20,6 +20,7 @@ import ProfileArtistEdit from './pages/artistPages/ProfileArtistEdit';
 import ProfileArtistPost from './pages/artistPages/ProfileArtistPost';
 import ProfileArtistArtEdit from './pages/artistPages/ProfileArtistArtEdit';
 import ArtList from './pages/inicialPages/Art';
+// import ProfileArtistAdm from './components/ProfileArtistAdm';
 
 
 
@@ -46,6 +47,8 @@ const AppRouter: React.FC = () => {
         <Route path="/admartist/:id/profile" element={<ProfileArtistEdit />} />
         <Route path="/admartist/:id/artepost" element={<ProfileArtistPost />} />
         <Route path="/admartist/:id/arteedit" element={<ProfileArtistArtEdit />} />
+
+        <Route path="/admuser/:id/artistas/admUser/:userId/perfilartistaedit" element={<ProfileAdmin />} />
 
       </Routes>
     </Router>
