@@ -80,7 +80,8 @@ const ProfileArtistComponent: React.FC = () => {
     const handleArteClick = (arteId: string) => {
         const clickedArte = dadosArtes.find((arte) => arte._id === arteId);
         setSelectedArte(clickedArte || null);
-        navigate(`/arte/${arteId}`);
+
+    navigate(`arte/${arteId}/admartist`);
     };
 
 

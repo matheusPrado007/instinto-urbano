@@ -32,9 +32,17 @@ const AppRouter: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/profile/:id" element={<ProfilePage />} />
+        <Route path="/profile/:id/artist" element={<ProfilePage />} />
+        <Route path="/profile/:id/adm" element={<ProfilePage />} />
+        <Route path="/profile/:id/adm/:userId/" element={<ProfilePage />} />
+
         <Route path="/artes" element={<ArtList />} />
         <Route path="/artistas" element={<Artist/>} />
-        <Route path="/arte/:id" element={<ArtPage />} />
+        <Route path="/arte/:arteId" element={<ArtPage />} />
+        <Route path="admuser/:id/arte/:arteId/admuser" element={<ArtPage />} />
+        <Route path="admartist/:id/arte/:arteId/admartist" element={<ArtPage />} />
+
+
         <Route path="/login" element={<Login />} />
         <Route path="/admuser/:id" element={<AdmUser />} />
         <Route path="/admuser/:id/perfil/" element={<ProfileAdmin />} />
@@ -44,13 +52,14 @@ const AppRouter: React.FC = () => {
         <Route path="/admuser/:id/admuser/:userId/perfiladm" element={<ProfilePageEdit/>} />
         <Route path="/admuser/:id/artepost" element={<ArtPageEdit/>} />
         <Route path="/profileartist/:id" element={<ProfileArtist />} />
+
         <Route path="/admartist/:id" element={<AdmArtist />} />
         <Route path="/admartist/:id/profile" element={<ProfileArtistEdit />} />
         <Route path="/admartist/:id/artepost" element={<ProfileArtistPost />} />
         <Route path="/admartist/:id/arteedit" element={<ProfileArtistArtEdit />} />
 
-        <Route path="/admuser/:id/artistas/admuser/:userId/perfilartistaedit" element={<ProfileAdmin />} />
-        <Route path="/admuser/:id/artistprofile/:userId" element={<ArtistProfileComponent />} />
+         <Route path="/admuser/:id/artistas/admuser/:userId/perfilartistaedit" element={<ProfileAdmin />} />
+        <Route path="/admuser/:id/artistprofile/:id" element={<ArtistProfileComponent />} /> 
 
       </Routes>
     </Router>

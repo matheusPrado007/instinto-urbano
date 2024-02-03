@@ -8,6 +8,8 @@ import Loading from './LoadingComponent';
 import InstagramLogo from '../assets/instagram.png'; 
 import LinkedInLogo from '../assets/linkedin.png'; 
 import EmailLogo from '../assets/email.png'; 
+import HeaderAdmin from './HeaderAdmin';
+import HeaderArtist from './HeaderArtist';
 
 interface User {
   _id: number;
@@ -21,15 +23,21 @@ interface User {
 }
 
 const ProfilePage: React.FC = () => {
-  const { id } = useParams<{ id?: string }>();
+  const { id, userId } = useParams<{ id?: string, userId?: string }>();
   const [user, setUser] = useState<User | null>(null);
 
 
   const { dadosUsers } = useApi();
 
   useEffect(() => {
+      let foundUser;
+    const urlAtual = window.location.href;
     if (id) {
-      const foundUser = dadosUsers.find((u) => u._id === id);
+      if (userId) {
+        foundUser = dadosUsers.find((u) => u._id === userId);
+      } else {
+        foundUser = dadosUsers.find((u) => u._id === id);
+      }
 
       if (foundUser) {
         setUser(foundUser);
@@ -39,9 +47,21 @@ const ProfilePage: React.FC = () => {
     }
   }, [id, dadosUsers]);
 
+  const headerOrHeaderAdm = () => {
+    const urlAtual = window.location.href;
+    if (urlAtual.includes(`artist`)) {
+      return <HeaderArtist />
+    }
+    if (urlAtual.includes(`adm`)) {
+      return <HeaderAdmin />
+    } else {
+      return <Header />
+    }
+  }
+
   return (
     <div>
-      <Header />
+      {headerOrHeaderAdm()}
 
       <div className="profile-container">
         {user && (

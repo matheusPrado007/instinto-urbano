@@ -6,6 +6,8 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Loading from './LoadingComponent';
 import iconFechar from '../assets/fechar.png';
+import HeaderAdmin from './HeaderAdmin';
+import HeaderArtist from './HeaderArtist';
 
 interface GaleriaItem {
   _id: string;
@@ -20,7 +22,7 @@ interface GaleriaItem {
 
 const ArtPage: React.FC = () => {
   const navigate = useNavigate(); // Altere aqui
-  const { id } = useParams<{ id?: string }>();
+  const { arteId } = useParams<{ arteId?: string }>();
   const [art, setArt] = useState<GaleriaItem | null>(null);
   const { dadosArtes } = useApi();
   const [isLoading, setIsLoading] = useState(true);
@@ -36,8 +38,8 @@ const ArtPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (id) {
-      const foundArt = dadosArtes.find((u) => u._id === id);
+    if (arteId) {
+      const foundArt = dadosArtes.find((u) => u._id === arteId);
 
       if (foundArt) {
         setArt(foundArt);
@@ -45,15 +47,28 @@ const ArtPage: React.FC = () => {
         console.error('Usuário não encontrado');
       }
     }
-  }, [id, dadosArtes]);
+  }, [arteId, dadosArtes]);
 
   const handleBackButtonClick = () => {
     navigate(-1); 
   };
 
+  const headerOrHeaderAdm = () => {
+    const urlAtual = window.location.href;
+    if (urlAtual.includes(`admuser`)) {
+      return <HeaderAdmin />
+    }
+    if (urlAtual.includes(`admartist`)) {
+      return <HeaderArtist />
+    } else {
+      return <Header />
+    }
+  }
+
+
   return (
     <div>
-      <Header />
+      {headerOrHeaderAdm()}
       {isLoading && <Loading />}
       <div className="art-container-page">
         {art ? (

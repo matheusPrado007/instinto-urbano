@@ -68,7 +68,12 @@ const Galeria: React.FC = () => {
     setNewId(arteId as any)
     const clickedArte = dadosArtes.find((arte) => arte._id === arteId);
     setSelectedArte(clickedArte || null);
-    navigate(`/arte/${arteId}`);
+    const urlAtual = window.location.href;
+    if (urlAtual.includes(`admuser`)) {
+      navigate(`/admuser/${id}/arte/${arteId}/admuser`);
+    } else {
+      navigate(`/arte/${arteId}`);
+    }
   };
 
   const filteredArtes = dadosArtes && dadosArtes.filter((arte) => {
