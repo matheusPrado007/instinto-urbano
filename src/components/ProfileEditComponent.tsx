@@ -339,11 +339,25 @@ const ProfileEditComponent: React.FC = () => {
         );
     }
 
+
+    const handlePushProfile= () => {
+        const urlAtual = window.location.href;
+        if (urlAtual.includes(`perfilartistaedit`)) {
+            return navigate(`/profile/${id}/adm/${userId}`);
+          }
+        if (urlAtual.includes(`admuser`)) {
+          return navigate(`/profile/${id}/adm`);
+        }
+        if (urlAtual.includes(`admartist`)) {
+          return navigate(`/profile/${id}/artist`);
+        }
+      }
+
     return (
         <>
             {isLoading && <Loading />}
             <div className="profile-container-adm">
-                <a href={`/admuser/${id}/artistprofile/${userId}`} className='profile-edit-finish'>Quer ver como ficou?</a>
+                <button onClick={handlePushProfile} className='profile-edit-finish'>Quer ver como ficou?</button>
                 {user ? (
                     <div className='form-adm-profile'>
                         <label className="label-cover">

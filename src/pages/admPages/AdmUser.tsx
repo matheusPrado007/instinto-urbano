@@ -7,8 +7,13 @@ import Header from '../../components/HeaderComponent';
 import UserList from '../../components/UsersComponent';
 import Galeria from '../../components/GaleriaComponent';
 import Loading from '../../components/LoadingComponent';
+import ProfilePage from '../../components/ProfileComponent';
+import { useParams } from 'react-router-dom';
+
 
 const AdmUser: React.FC = () => {
+  const { id, userId } = useParams<{ id?: string, userId?: string }>();
+
   const { fazerLogin } = useApi();
   const [isLoading, setIsLoading] = useState(true); 
 
@@ -49,12 +54,9 @@ const AdmUser: React.FC = () => {
 
   return (
     <>
-      <HeaderAdmin />
     <div className='art-admin-container'>
-      <UserList />
-      <Galeria />
+      <ProfilePage />
     </div>
-      <Footer />
     </>
   );
 };
