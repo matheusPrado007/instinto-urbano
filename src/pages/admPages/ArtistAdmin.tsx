@@ -5,9 +5,8 @@ import { useParams } from 'react-router-dom';
 import { useApi } from '../../services/context/ApiContext';
 import Footer from '../../components/FooterComponent';
 import HeaderAdmin from '../../components/HeaderAdmin';
-import Header from '../../components/HeaderComponent';
 import Loading from '../../components/LoadingComponent';
-import ArtistList from '../../components/ArtistListComponent';
+
 import { CustomNextArrow, CustomPrevArrow } from '../../components/BtnComponent';
 import Slider from 'react-slick';
 

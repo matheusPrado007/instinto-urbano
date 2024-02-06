@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useApi } from '../../services/context/ApiContext';
 import Footer from '../../components/FooterComponent';
 import HeaderAdmin from '../../components/HeaderAdmin';

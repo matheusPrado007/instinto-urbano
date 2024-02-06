@@ -3,9 +3,9 @@ import { useApi } from '../../services/context/ApiContext';
 import Footer from '../../components/FooterComponent';
 import Header from '../../components/HeaderComponent';
 import '../../styles/ArtAdmin.css'
+import ArtPostComponent from '../../components/ArtPostComponent';
+import HeaderArtist from '../../components/HeaderArtist';
 
-import ArtPostComponent from '../../components/ArtPostComponent';import HeaderArtist from '../../components/HeaderArtist';
-;
 
 
 
