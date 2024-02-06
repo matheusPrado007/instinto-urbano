@@ -2,10 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApi } from '../../services/context/ApiContext';
 import Footer from '../../components/FooterComponent';
-import HeaderAdmin from '../../components/HeaderAdmin';
 import Header from '../../components/HeaderComponent';
-import UserList from '../../components/UsersComponent';
-import Galeria from '../../components/GaleriaComponent';
 import Loading from '../../components/LoadingComponent';
 import ProfilePage from '../../components/ProfileComponent';
 import { useParams } from 'react-router-dom';
