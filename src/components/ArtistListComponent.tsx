@@ -6,9 +6,7 @@ import { useParams } from 'react-router-dom';
 import { CustomNextArrow, CustomPrevArrow } from './BtnComponent';
 import Slider from 'react-slick';
 import Loading from './LoadingComponent';
-import lupa from '../assets/lupa.png'
-import HeaderAdmin from './HeaderAdmin';
-import Footer from './FooterComponent';
+
 
 
 const Artist: React.FC = () => {
