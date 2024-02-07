@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import { useApi } from '../../services/context/ApiContext';
 import Footer from '../../components/FooterComponent';
-import HeaderAdmin from '../../components/HeaderAdmin';
+
 import Header from '../../components/HeaderComponent';
 import Loading from '../../components/LoadingComponent';
 import ArtistList from '../../components/ArtistListComponent';
