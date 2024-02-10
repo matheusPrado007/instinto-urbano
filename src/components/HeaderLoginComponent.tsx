@@ -67,9 +67,9 @@ const HeaderLoginComponent: React.FC = () => {
         <nav ref={menuRef} className={isMenuOpen ? 'open' : ''}>
           <ul className="lista-direita">
             <li onClick={() => redirecionarParaSobre(`/in/${id}`)} className='header-list-hover'>Página Inicial</li>
-            <li onClick={() => redirecionarParaSobre('/sobre/in')} className='header-list-hover' >Sobre</li>
-            <li onClick={() => redirecionarParaSobre("/artistas/in")} className='header-list-hover' >Artistas</li>
-            <li onClick={() => redirecionarParaSobre("/artes/in")} className='header-list-hover' >Artes</li>
+            <li onClick={() => redirecionarParaSobre(`/sobre/in/${id}`)} className='header-list-hover' >Sobre</li>
+            <li onClick={() => redirecionarParaSobre(`/artistas/in/${id}`)} className='header-list-hover' >Artistas</li>
+            <li onClick={() => redirecionarParaSobre(`/artes/in/${id}`)} className='header-list-hover' >Artes</li>
             <li className="header-list-hover" onClick={() => redirecionarParaSobre(`/admuser/${id}`)}><img className='header-login-icon' src={imgLogin} alt="imagem login" /></li>
           </ul>
         </nav>

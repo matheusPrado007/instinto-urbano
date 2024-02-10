@@ -7,6 +7,7 @@ import Footer from '../../components/FooterComponent';
 import Header from '../../components/HeaderComponent';
 import Loading from '../../components/LoadingComponent';
 import ArtistList from '../../components/ArtistListComponent';
+import HeaderLoginComponent from '../../components/HeaderLoginComponent';
 
 const ArtistAdmin: React.FC = () => {
   const { fazerLogin, dadosArtes } = useApi();
@@ -48,9 +49,18 @@ const ArtistAdmin: React.FC = () => {
     );
   }
 
+  const headerOrHeaderLogin = () => {
+    const urlAtual = window.location.href;
+    if (urlAtual.includes(`in`)) {
+      return <HeaderLoginComponent />
+    }
+      return <Header />
+  }
+
+
   return (
     <>
-      <Header />
+      {headerOrHeaderLogin()}
       {isLoading && <Loading />}
       {dadosArtes.length <= 0 && <Loading />} 
       <div className="content">

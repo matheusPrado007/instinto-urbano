@@ -13,6 +13,7 @@ import Header from '../../components/HeaderComponent';
 import Footer from '../../components/FooterComponent';
 import Loading from '../../components/LoadingComponent';
 import Maps from '../../services/Maps';
+import HeaderLoginComponent from '../../components/HeaderLoginComponent';
 
 interface GaleriaItem {
   _id: string;
@@ -69,9 +70,19 @@ const ArtList: React.FC = () => {
     !isClick ? setIsClick(true) : setIsClick(false)
   };
 
+  const headerOrHeaderLogin = () => {
+    const urlAtual = window.location.href;
+    if (urlAtual.includes(`in`)) {
+      return <HeaderLoginComponent />
+    }
+      return <Header />
+  }
+
+
+  
   return (
     <>
-      <Header />
+      {headerOrHeaderLogin()}
       {dadosArtes.length <= 0 ? (
         <Loading />
       ) : (
