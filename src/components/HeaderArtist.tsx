@@ -41,7 +41,7 @@ const HeaderArtist: React.FC = () => {
       <section className="head-1-admin">
         <h1 className="titulo-esquerda-admin">
           <img className="logo-admin" src={logo} alt="Logo Instinto Urbano" />
-          <a href="/" className="link-sem-sublinhado-admin">
+          <a href={`/in/${id}`} className="link-sem-sublinhado-admin">
             Instinto Urbano
           </a>
         </h1>

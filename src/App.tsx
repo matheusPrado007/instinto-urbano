@@ -44,6 +44,7 @@ const AppRouter: React.FC = () => {
         <Route path="/artes" element={<ArtList />} />
         <Route path="/artistas" element={<Artist/>} />
         <Route path="/arte/:arteId" element={<ArtPage />} />
+        
         <Route path="admuser/:id/arte/:arteId/admuser" element={<ArtPage />} />
         <Route path="admartist/:id/arte/:arteId/admartist" element={<ArtPage />} />
 

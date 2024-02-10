@@ -53,6 +53,7 @@ const HeaderAdmin: React.FC = () => {
             <li><a href={`/admuser/${id}/artes`}>Editar Artes</a></li>
             <li><a href={`/admuser/${id}/profilepost`}>Novo Administrador</a></li>
             <li><a href={`/admuser/${id}/artepost`}>Nova Arte</a></li>
+            <li><a href={`/`}>Sair</a></li>
           </ul>
         </nav>
       </section>
