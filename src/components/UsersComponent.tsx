@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useApi } from '../services/context/ApiContext';
 import '../styles/Users.css';
 import { useParams } from 'react-router-dom';
+import {encrypt} from '../utils/encrypt'
 
 const UserList: React.FC = () => {
   const { dadosUsers } = useApi();
@@ -57,7 +58,7 @@ const UserList: React.FC = () => {
       <p className="user-list-header">Equipe de Criação</p>
       <div className="user-grid">
         {user && user.map((user: any) => (
-          <div key={user._id} className="user-item clicavel" onClick={() => navigateToProfile(user._id)}>
+          <div key={user._id} className="user-item clicavel" onClick={() => navigateToProfile(encrypt(user._id))}>
             <img src={user.foto_perfil} alt={user.username} className="user-avatar"/>
             <span className='nome-user'>{user.username}</span>
             <span>
