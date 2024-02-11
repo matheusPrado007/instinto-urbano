@@ -132,7 +132,7 @@ const ProfilePage: React.FC = () => {
     const clickedArte = dadosArtes.find((arte) => arte._id === arteId);
     setSelectedArte(clickedArte || null);
 
-    navigate(`arte/${arteId}/admartist`);
+    navigate(`arte/${arteId}`);
   };
 
 
@@ -196,7 +196,7 @@ const ProfilePage: React.FC = () => {
           !admUser &&
           <Slider {...settings} className="galeria">
             {filteredArtes.map((item: GaleriaItem) => (
-              <div key={item._id} className="galeria-item" onClick={() => handleArteClick(item._id)}>
+              <div key={item._id} className="galeria-item" onClick={() => handleArteClick( item._id)}>
                 <img src={item.foto} className="imagem-galeria" alt={`Arte de ${item.nome_artista}`} />
                 <p className="nome-trabalho">{item.nome}</p>
                 <p className="nome-artista">{item.nome_artista}</p>
