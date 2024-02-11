@@ -12,7 +12,7 @@ import HeaderAdmin from './HeaderAdmin';
 import HeaderArtist from './HeaderArtist';
 import Slider from 'react-slick';
 import { CustomNextArrow, CustomPrevArrow } from './BtnComponent';
-import { decrypt } from '../utils/encrypt'
+import { decrypt, encrypt } from '../utils/encrypt'
 
 interface User {
   _id: number;
@@ -46,21 +46,38 @@ const ProfilePage: React.FC = () => {
 
   useEffect(() => {
     let foundUser;
-    const urlAtual = window.location.href;
-    if (decrypt(id)) {
+  
+    // Verifica se o ID não é nulo e não inclui ':'
+    if (id && !id.includes(':')) {
       if (userId) {
         foundUser = dadosUsers.find((u) => u._id === userId);
       } else {
-        foundUser = dadosUsers.find((u) => u._id === decrypt(id));
+        foundUser = dadosUsers.find((u) => u._id === id);
       }
-
+  
       if (foundUser) {
         setUser(foundUser);
       } else {
         console.error('Usuário não encontrado');
       }
     }
-  }, [decrypt(id), dadosUsers]);
+  
+    // Verifica se é possível decodificar o ID
+    const decryptedId = decrypt(id);
+    if (decryptedId) {
+      if (userId) {
+        foundUser = dadosUsers.find((u) => u._id === userId);
+      } else {
+        foundUser = dadosUsers.find((u) => u._id === decryptedId);
+      }
+  
+      if (foundUser) {
+        setUser(foundUser);
+      } else {
+        console.error('Usuário não encontrado');
+      }
+    }
+  }, [id, userId, dadosUsers]);
 
   const headerOrHeaderAdm = () => {
     const urlAtual = window.location.href;
