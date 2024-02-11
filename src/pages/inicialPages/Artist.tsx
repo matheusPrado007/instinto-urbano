@@ -3,10 +3,11 @@ import React, { useState, useEffect } from 'react';
 
 import { useApi } from '../../services/context/ApiContext';
 import Footer from '../../components/FooterComponent';
-import HeaderAdmin from '../../components/HeaderAdmin';
+
 import Header from '../../components/HeaderComponent';
 import Loading from '../../components/LoadingComponent';
 import ArtistList from '../../components/ArtistListComponent';
+import HeaderLoginComponent from '../../components/HeaderLoginComponent';
 
 const ArtistAdmin: React.FC = () => {
   const { fazerLogin, dadosArtes } = useApi();
@@ -48,9 +49,18 @@ const ArtistAdmin: React.FC = () => {
     );
   }
 
+  const headerOrHeaderLogin = () => {
+    const urlAtual = window.location.href;
+    if (urlAtual.includes(`in`)) {
+      return <HeaderLoginComponent />
+    }
+      return <Header />
+  }
+
+
   return (
     <>
-      <Header />
+      {headerOrHeaderLogin()}
       {isLoading && <Loading />}
       {dadosArtes.length <= 0 && <Loading />} 
       <div className="content">

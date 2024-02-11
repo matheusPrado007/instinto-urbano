@@ -10,6 +10,7 @@ import { useApi } from '../../services/context/ApiContext';
 import Loading from '../../components/LoadingComponent';
 
 import logo from '../../assets/logo02.png';
+import HeaderLoginComponent from '../../components/HeaderLoginComponent';
 
 
 
@@ -18,11 +19,18 @@ import logo from '../../assets/logo02.png';
 const About: React.FC = () => {
   const { dadosUsers } = useApi();
 
+  const headerOrHeaderLogin = () => {
+    const urlAtual = window.location.href;
+    if (urlAtual.includes(`in`)) {
+      return <HeaderLoginComponent />
+    }
+      return <Header />
+  }
 
 
   return (
     <>
-      <Header />
+      {headerOrHeaderLogin()}
       {dadosUsers && dadosUsers.length > 0 ? (
         <div>
       <section className='about-section'>

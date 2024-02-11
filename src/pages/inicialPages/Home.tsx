@@ -12,6 +12,7 @@ import Loading from '../../components/LoadingComponent';
 
 import '../../styles/Home.css';
 import ArtistList from '../../components/ArtistListComponent';
+import HeaderLoginComponent from '../../components/HeaderLoginComponent';
 
 
 
@@ -24,9 +25,18 @@ const Home: React.FC = () => {
     navigate('/sobre');
   };
 
+  const headerOrHeaderLogin = () => {
+    const urlAtual = window.location.href;
+    if (urlAtual.includes(`in`)) {
+      return <HeaderLoginComponent />
+    }
+      return <Header />
+  }
+
+
   return (
     <>
-      <Header />
+      {headerOrHeaderLogin()}
       {dadosArtes && dadosArtes.length > 0 ? (
         <>
           <div className="main-container">           

@@ -6,9 +6,8 @@ import { useParams } from 'react-router-dom';
 import { CustomNextArrow, CustomPrevArrow } from './BtnComponent';
 import Slider from 'react-slick';
 import Loading from './LoadingComponent';
-import lupa from '../assets/lupa.png'
-import HeaderAdmin from './HeaderAdmin';
-import Footer from './FooterComponent';
+
+import {encrypt} from '../utils/encrypt'
 
 
 const Artist: React.FC = () => {
@@ -121,7 +120,7 @@ const Artist: React.FC = () => {
           <div className='galeria-artist-list-container'>
             <Slider {...settings} className='galeria'>
               {filteredArtist.map((item: any) => (
-                <div key={item._id}  className="galeria-item"  onClick={() => navigateToProfile(item._id)}>
+                <div key={item._id}  className="galeria-item"  onClick={() => navigateToProfile(encrypt(item._id))}>
                   <img
                     src={item.foto_perfil}
                     className="user-avatar-artist"

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useApi } from '../services/context/ApiContext';
 import Slider from 'react-slick';
 
+
 import InstagramLogo from '../assets/instagram.png';
 import LinkedInLogo from '../assets/linkedin.png';
 import EmailLogo from '../assets/email.png';
@@ -43,7 +44,7 @@ const ProfileArtistComponent: React.FC = () => {
     const [selectedArte, setSelectedArte] = useState<Arte | null>(null);
 
     // Render
-    const user = dadosUsers.find((u) => u._id === id) || null;
+    const user = dadosUsers.find((u) => u._id ===  id) || null;
     const filteredArtes = dadosArtes.filter((arte) => arte.nome_artista.toLocaleUpperCase().includes(user?.username.toLocaleUpperCase()));
 
     // Effects

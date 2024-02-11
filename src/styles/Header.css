@@ -99,6 +99,13 @@
   max-width: 60px;
 }
 
+.header-login-icon {
+  width: 23px;
+  background-color: rgb(63, 253, 0);
+  border-radius: 50%;
+}
+
+
 /* Restante do CSS para diferentes tamanhos de tela */
 
 @media screen and (max-width: 750px) {
@@ -169,6 +176,8 @@
     margin-right: 7px;
     margin-left: 50px;
   }
+
+
 }
 
 @media screen and (max-width: 600px) {
@@ -228,7 +237,7 @@
     margin-right: 50px;
     text-decoration: none;
   }
-
+ 
   .logo {
     width: 100%;
     height: auto;
@@ -240,6 +249,7 @@
     margin-left: 3px;
   }
 }
+
 
 @media screen and (max-width: 350px) {
   .header {
@@ -374,9 +384,14 @@
     margin-right: 4px;
     margin-left: 3px;
   }
+
+
 }
+
 
 .header-list-hover:hover {
   color: #1e9ba6c6;
   cursor: pointer;
 }
+
+
