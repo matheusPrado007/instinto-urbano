@@ -4,6 +4,7 @@ import logo from '../assets/logo01.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import imgLogin from '../assets/user.png';
 import { useApi } from '../services/context/ApiContext';
+import {decrypt} from '../utils/encrypt'
 
 
 const HeaderLoginComponent: React.FC = () => {
@@ -49,18 +50,17 @@ const HeaderLoginComponent: React.FC = () => {
   }, [isMenuOpen]);
 
   const redirecionarParaadm = () => {
-    const userAdm = dadosUsers.find((user) => user._id === id);
+    const userAdm = dadosUsers.find((user) => user._id === decrypt(id));
     const isAdm = userAdm.administrador
     console.log('usuarioadm', isAdm);
     if(isAdm) {
-      navigate(`/admuser/${id}`);
+      navigate(`/admuser/${decrypt(id)}`);
     }else {
-      navigate(`/admartist/${id}`);
+      navigate(`/admartist/${decrypt(id)}`);
     }
   };
 
   const redirecionarParaSobre = (rota: string) => {
-    
     navigate(rota);
   };
 
