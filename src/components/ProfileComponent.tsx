@@ -12,6 +12,7 @@ import HeaderAdmin from './HeaderAdmin';
 import HeaderArtist from './HeaderArtist';
 import Slider from 'react-slick';
 import { CustomNextArrow, CustomPrevArrow } from './BtnComponent';
+import {decrypt} from '../utils/encrypt'
 
 interface User {
   _id: number;
@@ -46,11 +47,11 @@ const ProfilePage: React.FC = () => {
   useEffect(() => {
       let foundUser;
     const urlAtual = window.location.href;
-    if (id) {
+    if (decrypt(id)) {
       if (userId) {
         foundUser = dadosUsers.find((u) => u._id === userId);
       } else {
-        foundUser = dadosUsers.find((u) => u._id === id);
+        foundUser = dadosUsers.find((u) => u._id === decrypt(id));
       }
 
       if (foundUser) {
@@ -59,7 +60,7 @@ const ProfilePage: React.FC = () => {
         console.error('Usuário não encontrado');
       }
     }
-  }, [id, dadosUsers]);
+  }, [decrypt(id), dadosUsers]);
 
   const headerOrHeaderAdm = () => {
     const urlAtual = window.location.href;
@@ -73,7 +74,7 @@ const ProfilePage: React.FC = () => {
     }
   }
       // Render
-      const userData = dadosUsers.find((u) => u._id === id) || null;
+      const userData = dadosUsers.find((u) => u._id === decrypt(id)) || null;
       const filteredArtes = dadosArtes.filter((arte) => arte.nome_artista.toLocaleUpperCase().includes(userData?.username.toLocaleUpperCase()));
       console.log(filteredArtes);
   
