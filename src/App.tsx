@@ -33,6 +33,9 @@ const AppRouter: React.FC = () => {
         <Route path="/sobre/in/:id" element={<Sobre />} />
         <Route path="/artes/in/:id" element={<ArtList />} />
         <Route path="/artistas/in/:id" element={<Artist/>} />
+        <Route path="/profile/in/:id" element={<ProfilePage />} />
+
+        <Route path="/profile/in/:id/:artistId" element={<ProfilePage />} />
 
         <Route path="/" element={<Home />} />
         <Route path="/sobre" element={<Sobre />} />

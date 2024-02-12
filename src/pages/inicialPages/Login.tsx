@@ -9,6 +9,7 @@ import Loading from '../../components/LoadingComponent';
 import olhoAberto from '../../assets/olho-aberto.png';
 import olhoFechado from '../../assets/olho-fechado.png';
 
+
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -30,7 +31,7 @@ const Login: React.FC = () => {
   }, []);
 
   const navigateToProfile = (userId: string, isAdmin: boolean) => {
-    const route = isAdmin ? `/admuser/${userId}` : `/admartist/${userId}`;
+    const route = isAdmin ? `/admuser/${(userId)}` : `/admartist/${(userId)}`;
     navigate(route);
   };
 

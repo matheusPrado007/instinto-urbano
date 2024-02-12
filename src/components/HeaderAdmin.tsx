@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../styles/HeaderAdmin.css'; 
 import logo from '../assets/logo01.png';
 import { useParams } from 'react-router-dom';
-import {encrypt} from '../utils/encrypt'
 
 
 const HeaderAdmin: React.FC = () => {
@@ -43,7 +42,7 @@ const HeaderAdmin: React.FC = () => {
       <section className="head-1-admin">
         <h1 className="titulo-esquerda-admin">
           <img className="logo-admin" src={logo} alt="Logo Instinto Urbano" />
-          <a href={`/in/${encrypt(id)}`} className="link-sem-sublinhado-admin">
+          <a href={`/in/${id}`} className="link-sem-sublinhado-admin">
             Instinto Urbano
           </a>
         </h1>
