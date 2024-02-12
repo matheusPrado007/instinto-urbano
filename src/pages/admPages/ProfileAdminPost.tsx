@@ -10,6 +10,7 @@ import fotoCapa from '../../assets/not-found.png';
 import fotoPerfil from '../../assets/profile-not-found.jpg';
 import Popup from '../../components/PopUpComponent';
 import { confirmAlert } from 'react-confirm-alert';
+import { decrypt } from '../../utils/Crypto';
 
 interface User {
     _id: number;
@@ -266,8 +267,8 @@ const ProfileAdminPost: React.FC = () => {
 
     useEffect(() => {
 
-        if (id) {
-            const foundUser = dadosUsers.find((u) => u._id === id);
+        if (decrypt(id as string)) {
+            const foundUser = dadosUsers.find((u) => u._id === decrypt(id as string));
             const newUserPost = dadosUsers.find((u) => u.username === newUsername)
 
             if (newUserPost) {
