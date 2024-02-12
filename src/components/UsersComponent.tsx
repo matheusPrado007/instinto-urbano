@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useApi } from '../services/context/ApiContext';
 import '../styles/Users.css';
 import { useParams } from 'react-router-dom';
+import { encrypt } from '../utils/Crypto';
 
 
 const UserList: React.FC = () => {
@@ -17,11 +18,11 @@ const UserList: React.FC = () => {
     console.log('007',findUser);
 
     if(findUser && findUser.administrador) {
-      navigate(`/profile/in/${userId}/${id}`);
+      navigate(`/profile/in/${encrypt(userId)}/${id}`);
     } else if(findUser && !findUser.administrador) {
-      navigate(`/profile/in/${userId}/${id}`);
+      navigate(`/profile/in/${encrypt(userId)}/${id}`);
     } else {
-      return navigate(`/profile/${userId}`);
+      return navigate(`/profile/${encrypt(userId)}`);
     }
 
     // else if (idParams) {

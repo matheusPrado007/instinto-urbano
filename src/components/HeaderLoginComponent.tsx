@@ -4,6 +4,7 @@ import logo from '../assets/logo01.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import imgLogin from '../assets/user.png';
 import { useApi } from '../services/context/ApiContext';
+import { encrypt } from '../utils/Crypto';
 
 
 
@@ -64,18 +65,18 @@ const returnId = () => {
     const isAdm = userAdm && userAdm.administrador;
     const user = dadosUsers.find((user) => user._id === artistId);
     if(!user && isAdm) {
-      navigate(`/admuser/${id}`);
+      navigate(`/admuser/${encrypt(id as string)}`);
     } else {
-      navigate(`/admartist/${id}`);
+      navigate(`/admartist/${encrypt(id as string)}`);
     }
   }
 
   const redirecionaParaAdmOuArtistRotaArtist = () => {
     const user = dadosUsers.find((user) => user._id === artistId);
     if(user.administrador === true) {
-      navigate(`/admuser/${artistId}`);
+      navigate(`/admuser/${encrypt(artistId as string)}`); //possivel mudança
     } else {
-      navigate(`/admartist/${artistId}`);
+      navigate(`/admartist/${encrypt(artistId as string)}`); //possivel mudança
     }
   }
 

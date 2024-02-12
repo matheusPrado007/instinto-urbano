@@ -9,6 +9,7 @@ import Popup from './PopUpComponent';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from 'react-router-dom';
+import { decrypt } from '../utils/Crypto';
 
 interface User {
     _id: number;
@@ -156,11 +157,11 @@ const ProfileEditComponent: React.FC = () => {
     useEffect(() => {
         const urlAtual = window.location.href;
         let foundUser;
-        if (id) {
+        if (decrypt(id as string)) {
             if (urlAtual.includes(`perfilartistaedit`)) {
                 foundUser = dadosUsers.find((u) => u._id === userId);
             } else {
-                foundUser = dadosUsers.find((u) => u._id === id);
+                foundUser = dadosUsers.find((u) => u._id === decrypt(id as string));
             }
 
             if (foundUser) {

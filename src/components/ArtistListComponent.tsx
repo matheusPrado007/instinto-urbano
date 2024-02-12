@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { CustomNextArrow, CustomPrevArrow } from './BtnComponent';
 import Slider from 'react-slick';
 import Loading from './LoadingComponent';
+import { encrypt } from '../utils/Crypto';
 
 
 
@@ -21,15 +22,14 @@ const Artist: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
 
-
   const navigateToProfile = (userId: string) => {
     const urlAtual = window.location.href;
     console.log(urlAtual);
 
     if (urlAtual.includes('in')) {
-      navigate(`/profile/in/${userId}/${id}`);
+      navigate(`/profile/in/${encrypt(userId)}/${id}`);
     } else {
-      navigate(`/profile/${userId}`); 
+      navigate(`/profile/${encrypt(userId)}`); 
     }
   }
   

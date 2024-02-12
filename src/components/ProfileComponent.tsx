@@ -13,6 +13,7 @@ import HeaderArtist from './HeaderArtist';
 import Slider from 'react-slick';
 import { CustomNextArrow, CustomPrevArrow } from './BtnComponent';
 import HeaderLoginComponent from './HeaderLoginComponent';
+import { decrypt } from '../utils/Crypto';
 
 interface User {
   _id: number;
@@ -46,7 +47,7 @@ const ProfilePage: React.FC = () => {
 
 
   useEffect(() => {
-    console.log('006', artistId);
+    console.log('006', decrypt(id as any));
     let foundUser;
   
     // Verifica se o ID não é nulo e não inclui ':'
@@ -64,12 +65,12 @@ const ProfilePage: React.FC = () => {
       }
     }
   
-    const edId = (id);
+    const edId = id;
     if (edId) {
       if (userId) {
         foundUser = dadosUsers.find((u) => u._id === userId);
       } else {
-        foundUser = dadosUsers.find((u) => u._id === edId);
+        foundUser =  dadosUsers.find((u) => u._id === decrypt(edId));
       }
   
       if (foundUser) {
@@ -81,7 +82,7 @@ const ProfilePage: React.FC = () => {
   }, [id, userId, dadosUsers]);
 
 
-  const userArtist = dadosUsers.find((user) => user._id === (id))
+  const userArtist = dadosUsers.find((user) => user._id === decrypt(id as any))
 
   const headerOrHeaderAdm = () => {
     const urlAtual = window.location.href;
@@ -103,7 +104,7 @@ const ProfilePage: React.FC = () => {
     }
   }
   // Render
-  const userData = dadosUsers.find((u) => u._id === (id)) || null;
+  const userData = dadosUsers.find((u) => u._id === decrypt(id as string)) || null;
   const filteredArtes = dadosArtes.filter((arte) => arte.nome_artista.toLocaleUpperCase().includes(userData?.username.toLocaleUpperCase()));
   console.log(filteredArtes);
 
