@@ -464,7 +464,7 @@ const updateArte = async () => {
           </select>
         </div>
 
-
+        <p className="title-maps">Clique na Arte para Editar</p>
         <Slider {...settings} className='galeria'>
           {filteredArtes.map((item: GaleriaItem) => (
             <div key={item._id} className="galeria-item" onClick={() => handleArteClick(item._id)}>
