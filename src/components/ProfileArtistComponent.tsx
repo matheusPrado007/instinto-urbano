@@ -11,6 +11,7 @@ import { CustomNextArrow, CustomPrevArrow } from './BtnComponent';
 import '../styles/Profile.css';
 import '../styles/Galeria.css';
 import '../styles/ProfileArtist.css';
+import { decrypt } from '../utils/Crypto';
 
 interface User {
     _id: number;
@@ -44,7 +45,7 @@ const ProfileArtistComponent: React.FC = () => {
     const [selectedArte, setSelectedArte] = useState<Arte | null>(null);
 
     // Render
-    const user = dadosUsers.find((u) => u._id ===  id) || null;
+    const user = dadosUsers.find((u) => u._id === decrypt(id as string)) || null;
     const filteredArtes = dadosArtes.filter((arte) => arte.nome_artista.toLocaleUpperCase().includes(user?.username.toLocaleUpperCase()));
 
     // Effects

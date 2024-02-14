@@ -3,23 +3,34 @@ import { useNavigate } from 'react-router-dom';
 import { useApi } from '../services/context/ApiContext';
 import '../styles/Users.css';
 import { useParams } from 'react-router-dom';
-import {encrypt} from '../utils/encrypt'
+import { encrypt } from '../utils/Crypto';
+
 
 const UserList: React.FC = () => {
   const { dadosUsers } = useApi();
   const navigate = useNavigate();
-  const { id } = useParams<{ id?: string }>();
+  const { id, artistId } = useParams<{ id?: string, artistId?: string }>();
   const [user, setUser] = useState<any>([]);
   const [idParams, setIdParams] = useState<string | undefined>(id);
 
   const navigateToProfile = (userId: string) => {
-    if (idParams) {
-      if (idParams === userId) {
-        return navigate(`/admuser/${userId}/perfil`);
-      }
-      return navigate(`admuser/${userId}/perfiladm`);
+    const findUser = dadosUsers.find((user) => user._id === idParams);
+    console.log('007',findUser);
+
+    if(findUser && findUser.administrador) {
+      navigate(`/profile/in/${encrypt(userId)}/${id}`);
+    } else if(findUser && !findUser.administrador) {
+      navigate(`/profile/in/${encrypt(userId)}/${id}`);
+    } else {
+      return navigate(`/profile/${encrypt(userId)}`);
     }
-    navigate(`/profile/${userId}`);
+
+    // else if (idParams) {
+    //   if (idParams === userId) {
+    //     return navigate(`/admuser/${userId}/perfil`);
+    //   }
+    //   return navigate(`admuser/${userId}/perfiladm`);
+    // }
   };
 
   useEffect(() => {
@@ -58,7 +69,7 @@ const UserList: React.FC = () => {
       <p className="user-list-header">Equipe de Criação</p>
       <div className="user-grid">
         {user && user.map((user: any) => (
-          <div key={user._id} className="user-item clicavel" onClick={() => navigateToProfile(encrypt(user._id))}>
+          <div key={user._id} className="user-item clicavel" onClick={() => navigateToProfile((user._id))}>
             <img src={user.foto_perfil} alt={user.username} className="user-avatar"/>
             <span className='nome-user'>{user.username}</span>
             <span>

@@ -8,6 +8,8 @@ import MapsLogin from '../../services/MapsLogin';
 import Loading from '../../components/LoadingComponent';
 import olhoAberto from '../../assets/olho-aberto.png';
 import olhoFechado from '../../assets/olho-fechado.png';
+import { encrypt } from '../../utils/Crypto';
+
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -30,7 +32,7 @@ const Login: React.FC = () => {
   }, []);
 
   const navigateToProfile = (userId: string, isAdmin: boolean) => {
-    const route = isAdmin ? `/admuser/${userId}` : `/admartist/${userId}`;
+    const route = isAdmin ? `/admuser/${encrypt(userId)}` : `/admartist/${encrypt(userId)}`;
     navigate(route);
   };
 

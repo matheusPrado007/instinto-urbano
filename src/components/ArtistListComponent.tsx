@@ -6,8 +6,9 @@ import { useParams } from 'react-router-dom';
 import { CustomNextArrow, CustomPrevArrow } from './BtnComponent';
 import Slider from 'react-slick';
 import Loading from './LoadingComponent';
+import { encrypt } from '../utils/Crypto';
 
-import {encrypt} from '../utils/encrypt'
+
 
 
 const Artist: React.FC = () => {
@@ -20,8 +21,16 @@ const Artist: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState<string>('');
 
+
   const navigateToProfile = (userId: string) => {
-    navigate(`/profile/${userId}`); 
+    const urlAtual = window.location.href;
+    console.log(urlAtual);
+
+    if (urlAtual.includes('in')) {
+      navigate(`/profile/in/${encrypt(userId)}/${id}`);
+    } else {
+      navigate(`/profile/${encrypt(userId)}`); 
+    }
   }
   
     const adm = dadosUsers && dadosUsers.filter((user) => user.administrador === false)
@@ -97,7 +106,7 @@ const Artist: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="profile-container">
     {/* <HeaderAdmin /> */}
     <div className="input-container-adm">
 
@@ -120,7 +129,7 @@ const Artist: React.FC = () => {
           <div className='galeria-artist-list-container'>
             <Slider {...settings} className='galeria'>
               {filteredArtist.map((item: any) => (
-                <div key={item._id}  className="galeria-item"  onClick={() => navigateToProfile(encrypt(item._id))}>
+                <div key={item._id}  className="galeria-item"  onClick={() => navigateToProfile((item._id))}>
                   <img
                     src={item.foto_perfil}
                     className="user-avatar-artist"
@@ -138,7 +147,7 @@ const Artist: React.FC = () => {
       )}
     </div>
     {/* <Footer /> */}
-  </>
+  </div>
   
   );
 };

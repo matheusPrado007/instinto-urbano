@@ -12,7 +12,8 @@ import HeaderAdmin from './HeaderAdmin';
 import HeaderArtist from './HeaderArtist';
 import Slider from 'react-slick';
 import { CustomNextArrow, CustomPrevArrow } from './BtnComponent';
-import { decrypt, encrypt } from '../utils/encrypt'
+import HeaderLoginComponent from './HeaderLoginComponent';
+import { decrypt } from '../utils/Crypto';
 
 interface User {
   _id: number;
@@ -35,7 +36,7 @@ interface Arte {
 interface GaleriaItem extends Arte { }
 
 const ProfilePage: React.FC = () => {
-  const { id, userId } = useParams<{ id?: string, userId?: string }>();
+  const { id, userId, artistId } = useParams<{ id?: string, userId?: string, artistId?: string }>();
   const [user, setUser] = useState<User | null>(null);
   const [larguraTotal, setLarguraTotal] = useState(100);
   const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +45,9 @@ const ProfilePage: React.FC = () => {
 
   const { dadosUsers, dadosArtes } = useApi();
 
+
   useEffect(() => {
+    console.log('006', decrypt(id as any));
     let foundUser;
   
     // Verifica se o ID não é nulo e não inclui ':'
@@ -62,13 +65,12 @@ const ProfilePage: React.FC = () => {
       }
     }
   
-    // Verifica se é possível decodificar o ID
-    const decryptedId = decrypt(id);
-    if (decryptedId) {
+    const edId = id;
+    if (edId) {
       if (userId) {
         foundUser = dadosUsers.find((u) => u._id === userId);
       } else {
-        foundUser = dadosUsers.find((u) => u._id === decryptedId);
+        foundUser =  dadosUsers.find((u) => u._id === decrypt(edId));
       }
   
       if (foundUser) {
@@ -79,8 +81,19 @@ const ProfilePage: React.FC = () => {
     }
   }, [id, userId, dadosUsers]);
 
+
+  const userArtist = dadosUsers.find((user) => user._id === decrypt(id as any))
+
   const headerOrHeaderAdm = () => {
     const urlAtual = window.location.href;
+    console.log('006', artistId);
+    if(!userArtist.administrador && urlAtual.includes('in')) {
+      return <HeaderLoginComponent />
+    }
+    if(userArtist.administrador && urlAtual.includes('in')) {
+      return <HeaderLoginComponent />
+    }
+
     if (urlAtual.includes(`artist`)) {
       return <HeaderArtist />
     }
@@ -91,7 +104,7 @@ const ProfilePage: React.FC = () => {
     }
   }
   // Render
-  const userData = dadosUsers.find((u) => u._id === decrypt(id)) || null;
+  const userData = dadosUsers.find((u) => u._id === decrypt(id as string)) || null;
   const filteredArtes = dadosArtes.filter((arte) => arte.nome_artista.toLocaleUpperCase().includes(userData?.username.toLocaleUpperCase()));
   console.log(filteredArtes);
 

@@ -15,6 +15,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from 'react-router-dom';
 import HeaderArtist from '../../components/HeaderArtist';
+import { decrypt } from '../../utils/Crypto';
 
 
 
@@ -254,7 +255,7 @@ const updateArte = async () => {
     }
     return false;
   };
-  const user = dadosUsers.find((u) => u._id === id) || null;
+  const user = dadosUsers.find((u) => u._id === decrypt(id as string)) || null;
 
   const filteredArtesByArtist = dadosArtes.filter((arte) => arte.nome_artista.toLocaleUpperCase().includes(user?.username.toLocaleUpperCase()));
   
@@ -278,8 +279,8 @@ const updateArte = async () => {
 
 
   useEffect(() => {
-    if (id) {
-      const foundUser = dadosUsers.find((u) => u._id === id);
+    if (decrypt(id as string)) {
+      const foundUser = dadosUsers.find((u) => u._id === decrypt(id as string));
 
       if (foundUser) {
         const emailStorage: string = foundUser.email
@@ -463,7 +464,7 @@ const updateArte = async () => {
           </select>
         </div>
 
-
+        <p className="title-maps">Clique na Arte para Editar</p>
         <Slider {...settings} className='galeria'>
           {filteredArtes.map((item: GaleriaItem) => (
             <div key={item._id} className="galeria-item" onClick={() => handleArteClick(item._id)}>
