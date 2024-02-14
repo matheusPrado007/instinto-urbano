@@ -106,7 +106,8 @@ const Artist: React.FC = () => {
   };
 
   return (
-    <div className="profile-container">
+    // className="profile-container"
+    <div >
     {/* <HeaderAdmin /> */}
     <div className="input-container-adm">
 

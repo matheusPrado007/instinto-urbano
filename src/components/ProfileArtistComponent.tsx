@@ -46,7 +46,7 @@ const ProfileArtistComponent: React.FC = () => {
 
     // Render
     const user = dadosUsers.find((u) => u._id === decrypt(id as string)) || null;
-    const filteredArtes = dadosArtes.filter((arte) => arte.nome_artista.toLocaleUpperCase().includes(user?.username.toLocaleUpperCase()));
+    const filteredArtes = dadosArtes.filter((arte) => arte.username?.toLocaleUpperCase().includes(user?.username.toLocaleUpperCase()));
 
     // Effects
     useEffect(() => {

@@ -24,6 +24,7 @@ interface User {
   email: string;
   linkedin: string;
   instagram: string;
+  name: string;
 }
 interface Arte {
   _id: string;
@@ -105,7 +106,7 @@ const ProfilePage: React.FC = () => {
   }
   // Render
   const userData = dadosUsers.find((u) => u._id === decrypt(id as string)) || null;
-  const filteredArtes = dadosArtes.filter((arte) => arte.nome_artista.toLocaleUpperCase().includes(userData?.username.toLocaleUpperCase()));
+  const filteredArtes = dadosArtes.filter((arte) => arte.username?.toLocaleUpperCase().includes(userData?.username.toLocaleUpperCase()));
   console.log(filteredArtes);
 
   const admUser = userData && userData.administrador === true
@@ -174,9 +175,9 @@ const ProfilePage: React.FC = () => {
       <div className="profile-container">
         {user && (
           <div>
-            <img src={user.foto_capa} alt={`Capa de ${user.username}`} className="cover-photo" />
+            <img src={user.foto_capa} alt={`Capa de ${user.name}`} className="cover-photo" />
             <div className='description-data'>
-              <img src={user.foto_perfil} alt={`Foto de perfil de ${user.username}`} className="profile-photo" />
+              <img src={user.foto_perfil} alt={`Foto de perfil de ${user.name}`} className="profile-photo" />
               <p className='responsibility-p'>Co-fundador do Rastro Urbano</p>
             </div>
             <div className="user-info">
@@ -191,7 +192,7 @@ const ProfilePage: React.FC = () => {
                   <img src={InstagramLogo} alt="Instagram" className="social-logo-profile" />
                 </a>
               </div>
-              <p>{user.username}</p>
+              <p>{user.name}</p>
             </div>
             <div className='description-p'>
               <p>{user.descricao_perfil}</p>

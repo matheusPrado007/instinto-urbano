@@ -1,4 +1,4 @@
-import React, { useState,  useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApi } from '../services/context/ApiContext';
 
 import Loading from './LoadingComponent';
@@ -7,6 +7,7 @@ import Popup from './PopUpComponent'
 import { useParams } from 'react-router-dom';
 import arteFoto from '../assets/profile-not-found.jpg'
 import { useNavigate } from 'react-router-dom';
+import { decrypt } from '../utils/Crypto';
 
 
 
@@ -29,13 +30,13 @@ interface GaleriaItem {
 }
 
 const ArtPostComponent: React.FC = () => {
-  const { fazerLogin, dadosArtes, enviarDadosParaBackendArtPost, dadosUsers} = useApi();
+  const { fazerLogin, dadosArtes, enviarDadosParaBackendArtPost, dadosUsers } = useApi();
   const { id } = useParams<{ id?: string }>();
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [searchField, setSearchField] = useState<string>('nome'); 
+  const [searchField, setSearchField] = useState<string>('nome');
 
   const [newArt, setNewArt] = useState<File | null>(null);
-  
+
   const [showPopup, setShowPopup] = useState<any>();
 
   const [newName, setNewName] = useState<string>('');
@@ -45,32 +46,40 @@ const ArtPostComponent: React.FC = () => {
   const [newDescription, setNewDescription] = useState<string>('');
   const [originalDescription, setOriginalDescription] = useState<string>('');
   const [isEditing, setIsEditing] = useState(false);
-  
+
   const [newArtist, setNewArtist] = useState<string>('');
   const [originalArtist, setOriginalArtist] = useState<string>('');
   const [isEditingArtist, setIsEditingArtist] = useState(false);
-  
+
   const [newState, setNewState] = useState<string>('');
   const [originalState, setOriginalState] = useState<string>('');
   const [isEditingState, setIsEditingState] = useState(false);
-  
+
   const [newCity, setNewCity] = useState<string>('');
   const [originalCity, setOriginalCity] = useState<string>('');
   const [isEditingCity, setIsEditingCity] = useState(false);
-  
+
   const [newAdress, setNewAdress] = useState<string>('');
   const [originalAdress, setOriginalAdress] = useState<string>('');
   const [isEditingAdress, setIsEditingAdress] = useState(false);
-  
+
   const [isEditingToken, setIsEditingToken] = useState(false);
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+
+  const [newUsername, setNewUsername] = useState<string>('');
+  const [originalUsername, setOriginalUsername] = useState<string>('');
+  const [isEditingUsername, setIsEditingUsername] = useState(false);
   
   const [newId, setNewId] = useState();
-  const [isLoading, setIsLoading] = useState(true); 
+  const [isLoading, setIsLoading] = useState(true);
+  
+  const idDecrypt = decrypt(id as string)
+  const foundUser = dadosUsers.find((u) => u._id === idDecrypt);
+  const usernameNew = foundUser && foundUser.username;
 
   useEffect(() => {
-    
+
     const timeout = setTimeout(() => {
       setIsLoading(false);
     }, 1300);
@@ -84,22 +93,23 @@ const ArtPostComponent: React.FC = () => {
 
   const navigateToArt = () => {
     if (newId) {
-        navigate(`/arte/${newId}`);
+      navigate(`/arte/${newId}`);
     }
   }
 
-  
+
   const [selectedArte, setSelectedArte] = useState<any>({
     foto: arteFoto,
     nome_artista: newArtist,
     nome: newName,
-    endereco:newAdress,
+    endereco: newAdress,
     descricao: newDescription,
     estado: newState,
-    cidade: newCity
+    cidade: newCity,
+    username: newUsername
   });
   const closePopup = () => {
-      setShowPopup(undefined);
+    setShowPopup(undefined);
   };
 
   const handleSaveChanges = async () => {
@@ -113,30 +123,43 @@ const ArtPostComponent: React.FC = () => {
         newArtist,
         newCity,
         newState,
-        accessToken
+        accessToken,
+        username: usernameNew
       };
 
       const idArt = await enviarDadosParaBackendArtPost(dados);
-        setNewId(idArt)
-        if(idArt) {
-          return setShowPopup(true);
-        } else {
-         return setShowPopup(false);
-        }
-      } catch (error) {
+      setNewId(idArt)
+      if (idArt) {
+        return setShowPopup(true);
+      } else {
+        return setShowPopup(false);
+      }
+    } catch (error) {
       setShowPopup(false);
       console.error('Erro durante o login:', error);
     }
   };
 
+  const toggleEditModeUsername = () => {
+    if (isEditingUsername) {
+      setOriginalUsername(newUsername)
+    } else {
+      setNewUsername(originalUsername)
+    }
+    setIsEditingUsername(!isEditingUsername)
+  };
+
+
+
+
   const toggleEditModeToken = async () => {
     try {
       setIsEditingToken(!isEditingToken)
       await handleSaveChanges()
-      if(newId) {
+      if (newId) {
         return setShowPopup(true);
       } else {
-       return setShowPopup(false);
+        return setShowPopup(false);
       }
     } catch (error) {
       console.error('Erro:', error);
@@ -222,40 +245,53 @@ const ArtPostComponent: React.FC = () => {
     navigateToArt()
   }, [newId]);
 
+  const username = async () => {
+    const foundUser = await dadosUsers.find((u) => u._id === idDecrypt);
+    console.log('007', foundUser.username);
+    if (idDecrypt) {
+      if (foundUser) {
+        setOriginalUsername(foundUser.username);
+        return foundUser.username
+      } else {
+        console.error('Usuário não encontrado');
+      }
+    }
+  }
 
-
+  
   useEffect(() => {
 
-    if (id) {
-      const foundUser = dadosUsers.find((u) => u._id === id);
-    
-      
+    console.log('007', foundUser && foundUser.username);
+    if (idDecrypt) {
       if (foundUser) {
-          const emailStorage: string = foundUser.email
-          setEmail(emailStorage)
+        const emailStorage: string = foundUser.email
+        setEmail(emailStorage)
+        setOriginalUsername(foundUser.username);
+        console.log(foundUser.username);
       } else {
-          console.error('Usuário não encontrado');
+        console.error('Usuário não encontrado');
       }
-  }
-  if (selectedArte) {
-    setOriginalName(selectedArte.nome);
-    setNewName(selectedArte.nome);
+    }
+    if (selectedArte) {
+      setOriginalName(selectedArte.nome);
+      setNewName(selectedArte.nome);
 
-    setOriginalDescription(selectedArte.descricao);
-    setNewDescription(selectedArte.descricao);
+      setOriginalDescription(selectedArte.descricao);
+      setNewDescription(selectedArte.descricao);
 
-    setOriginalArtist(selectedArte.nome_artista);
-    setNewArtist(selectedArte.nome_artista);
+      setOriginalArtist(selectedArte.nome_artista);
+      setNewArtist(selectedArte.nome_artista);
 
-    setOriginalState(selectedArte.uf);
-    setNewState(selectedArte.uf);
+      setOriginalState(selectedArte.uf);
+      setNewState(selectedArte.uf);
 
-    setOriginalCity(selectedArte.cidade);
-    setNewCity(selectedArte.cidade);
+      setOriginalCity(selectedArte.cidade);
+      setNewCity(selectedArte.cidade);
 
-    setOriginalAdress(selectedArte.endereco);
-    setNewAdress(selectedArte.endereco);
-  } else {
+      setOriginalAdress(selectedArte.endereco);
+      setNewAdress(selectedArte.endereco);
+
+    } else {
       console.error('Arte não encontrada ');
     }
 
@@ -277,175 +313,196 @@ const ArtPostComponent: React.FC = () => {
 
   return (
     <>
-    <div className='art-admin-container'>
-          {isLoading && <Loading />}
-      {dadosArtes.length <= 0 && <Loading />}
-      <div className="container-home-admin">
-  
-        <div className="art-container-page">
-          {selectedArte && (
-            <div>
-              <div className="user-info-adm">
-                {isEditingName ? (
-                  <input
-                    type="text"
-                    name="nome"
-                    value={newName}
-                    onChange={(e) => setNewName(e.target.value)}
-                    className="username-input"
-                    placeholder='Nome da Arte'
-                  />
-                ) : (
-                    <p>{originalName}</p>          
-                )}
-                <button onClick={toggleEditModeName} className="email-edit-button">
-                  {isEditingName ? 'Salvar' : 'Adicione um Nome para Arte'}
-                </button>
-              </div>
-              <label className="label-cover">
-                <input
-                  type="file"
-                  name='imagem'
-                  accept='image/*'
-                  onChange={(e) => setNewArt(e.target.files?.[0] || null)}
-                  className='cover-input'
-                />
-                <img src={selectedArte.foto} alt={`Capa de ${selectedArte.nome}`} className="art-photo" />
-              </label>
-              {isEditing ? (
-                <div>
-                  Descrição
-                  <textarea
-                    rows={1}
-                    name="descricao"
-                    value={newDescription}
-                    onChange={(e) => setNewDescription(e.target.value)}
-                    className="username-input"
-                  />
+      <div className='art-admin-container'>
+        {isLoading && <Loading />}
+        {dadosArtes.length <= 0 && <Loading />}
+        <div className="container-home-admin">
+
+
+          <div className="art-container-page">
+            {selectedArte && (
+              <div>
+
+                <div className="user-info-adm">
+                  {isEditingUsername ? (
+                    <input
+                      type="text"
+                      name="username"
+                      value={foundUser && foundUser.username}
+                      onChange={(e) => setNewName(e.target.value)}
+                      className="username-input"
+                      placeholder='Nome da Arte'
+                    />
+                  ) : (
+                    <p style={{ color: 'green', }} >{foundUser && foundUser.username}</p>
+                  )}
+                  {/* <button onClick={toggleEditModeUsername} className="email-edit-button">
+                  {originalUsername}
+                </button> */}
                 </div>
-              ) : (
+
+                <div className="user-info-adm">
+                  {isEditingName ? (
+                    <input
+                      type="text"
+                      name="nome"
+                      value={newName}
+                      onChange={(e) => setNewName(e.target.value)}
+                      className="username-input"
+                      placeholder='Nome da Arte'
+                    />
+                  ) : (
+                    <p>{originalName}</p>
+                  )}
+                  <button onClick={toggleEditModeName} className="email-edit-button">
+                    {isEditingName ? 'Salvar' : 'Adicione um Nome para Arte'}
+                  </button>
+                </div>
+                <label className="label-cover">
+                  <input
+                    type="file"
+                    name='imagem'
+                    accept='image/*'
+                    onChange={(e) => setNewArt(e.target.files?.[0] || null)}
+                    className='cover-input'
+                  />
+                  <img src={selectedArte.foto} alt={`Capa de ${selectedArte.nome}`} className="art-photo" />
+                </label>
+                {isEditing ? (
+                  <div>
+                    Descrição
+                    <textarea
+                      rows={1}
+                      name="descricao"
+                      value={newDescription}
+                      onChange={(e) => setNewDescription(e.target.value)}
+                      className="username-input"
+                    />
+                  </div>
+                ) : (
                   <p>{originalDescription}</p>
-              )}
-              <button onClick={toggleEditMode} className="edit-button">
-                {isEditing ? 'Salvar' : 'Adicione uma Descrição'}
-              </button>
-              <div className="user-info-adm">
-                {isEditingArtist ? (
-                  <div>
+                )}
+                <button onClick={toggleEditMode} className="edit-button">
+                  {isEditing ? 'Salvar' : 'Adicione uma Descrição'}
+                </button>
 
-                    <input
-                      type='text'
-                      name="nome_artista"
-                      value={newArtist}
-                      onChange={(e) => setNewArtist(e.target.value)}
-                      className="username-input"
-                    />
-                  </div>
-                ) : (
+                <div className="user-info-adm">
+                  {isEditingArtist ? (
+                    <div>
+
+                      <input
+                        type='text'
+                        name="nome_artista"
+                        value={newArtist}
+                        onChange={(e) => setNewArtist(e.target.value)}
+                        className="username-input"
+                      />
+                    </div>
+                  ) : (
                     <p> Artista(s): {originalArtist}</p>
-                )}
-                <button onClick={toggleEditModeArtist} className="email-edit-button">
-                  {isEditingArtist ? 'Salvar' : 'Adicione nome(s) Artista'}
-                </button>
-              </div>
+                  )}
+                  <button onClick={toggleEditModeArtist} className="email-edit-button">
+                    {isEditingArtist ? 'Salvar' : 'Adicione nome(s) Artistaaaa'}
+                  </button>
+                </div>
 
-              <div className="user-info-adm">
-                {isEditingState ? (
-                  <div>
+                <div className="user-info-adm">
+                  {isEditingState ? (
+                    <div>
 
-                    <input
-                      type='text'
-                      name="uf"
-                      value={newState}
-                      onChange={(e) => setNewState(e.target.value)}
-                      className="username-input"
-                    />
-                  </div>
-                ) : (
+                      <input
+                        type='text'
+                        name="uf"
+                        value={newState}
+                        onChange={(e) => setNewState(e.target.value)}
+                        className="username-input"
+                      />
+                    </div>
+                  ) : (
                     <p> Estado: {originalState}</p>
-                )}
-                <button onClick={toggleEditModeState} className="email-edit-button">
-                  {isEditingState ? 'Salvar' : 'Adicione um Estado'}
-                </button>
-              </div>
+                  )}
+                  <button onClick={toggleEditModeState} className="email-edit-button">
+                    {isEditingState ? 'Salvar' : 'Adicione um Estado'}
+                  </button>
+                </div>
 
 
-              <div className="user-info-adm">
-                {isEditingCity ? (
-                  <div>
+                <div className="user-info-adm">
+                  {isEditingCity ? (
+                    <div>
 
-                    <input
-                      type='text'
-                      name="cidade"
-                      value={newCity}
-                      onChange={(e) => setNewCity(e.target.value)}
-                      className="username-input"
-                    />
-                  </div>
-                ) : (
+                      <input
+                        type='text'
+                        name="cidade"
+                        value={newCity}
+                        onChange={(e) => setNewCity(e.target.value)}
+                        className="username-input"
+                      />
+                    </div>
+                  ) : (
                     <p> Cidade: {originalCity} </p>
-                )}
-                <button onClick={toggleEditModeCity} className="email-edit-button">
-                  {isEditingCity ? 'Salvar' : 'Adicione uma Cidade'}
-                </button>
-              </div>
-              
+                  )}
+                  <button onClick={toggleEditModeCity} className="email-edit-button">
+                    {isEditingCity ? 'Salvar' : 'Adicione uma Cidade'}
+                  </button>
+                </div>
 
-              <div className="user-info-adm">
-                {isEditingAdress ? (
-                  <div>
-                    <input
-                      type='text'
-                      name="endereco"
-                      value={newAdress}
-                      onChange={(e) => setNewAdress(e.target.value)}
-                      className="username-input"
-                    />
-                  </div>
-                ) : (
+
+                <div className="user-info-adm">
+                  {isEditingAdress ? (
+                    <div>
+                      <input
+                        type='text'
+                        name="endereco"
+                        value={newAdress}
+                        onChange={(e) => setNewAdress(e.target.value)}
+                        className="username-input"
+                      />
+                    </div>
+                  ) : (
                     <p> Endereço: {originalAdress}</p>
-                )}
-                <button onClick={toggleEditModeAdress} className="email-edit-button">
-                  {isEditingAdress ? 'Salvar' : 'Adicione um Endereço'}
-                </button>
+                  )}
+                  <button onClick={toggleEditModeAdress} className="email-edit-button">
+                    {isEditingAdress ? 'Salvar' : 'Adicione um Endereço'}
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-        <div className='form-update-post'>
-          <p className='form-update'>Digite sua Senha para continuar...</p>
+            )}
+          </div>
+          <div className='form-update-post'>
+            <p className='form-update'>Digite sua Senha para continuar...</p>
 
-          <p className='email-input'>Email:</p>
-          <input
-            type="email"
-            name="email-TOKEN"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="username-input"
-            placeholder='email'
-          />
+            <p className='email-input'>Email:</p>
+            <input
+              type="email"
+              name="email-TOKEN"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="username-input"
+              placeholder='email'
+            />
 
 
-          <p>Senha:</p>
-          <input
-            type="password"
-            name="senha-TOKEN"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            className="username-input"
-            placeholder='senha'
-          />
+            <p>Senha:</p>
+            <input
+              type="password"
+              name="senha-TOKEN"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              className="username-input"
+              placeholder='senha'
+            />
 
-          <button onClick={toggleEditModeToken} className="edit-button-finish">
-            Adiciona nova Arte
-          </button>
+            <button onClick={toggleEditModeToken} className="edit-button-finish">
+              Adiciona nova Arte
+            </button>
 
-          {showPopup !== undefined && (
-            <Popup message={showPopup ? "Dados Adicionados com Sucesso" : "Erro ao Adicionar Dados"} onClose={closePopup} />
-          )}
+            {showPopup !== undefined && (
+              <Popup message={showPopup ? "Dados Adicionados com Sucesso" : "Erro ao Adicionar Dados"} onClose={closePopup} />
+            )}
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

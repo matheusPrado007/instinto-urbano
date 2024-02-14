@@ -257,7 +257,7 @@ const updateArte = async () => {
   };
   const user = dadosUsers.find((u) => u._id === decrypt(id as string)) || null;
 
-  const filteredArtesByArtist = dadosArtes.filter((arte) => arte.nome_artista.toLocaleUpperCase().includes(user?.username.toLocaleUpperCase()));
+  const filteredArtesByArtist = dadosArtes.filter((arte) => arte.username?.toLocaleUpperCase().includes(user?.username.toLocaleUpperCase()));
   
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);

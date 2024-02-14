@@ -98,7 +98,7 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     };
   
     const formData = new FormData();
-  
+    formData.append('username', dados.username);
     formData.append('nome_artista', dados.newArtist);
     formData.append('nome', dados.newName);
     formData.append('endereco', dados.newAdress);
