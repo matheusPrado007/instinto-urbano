@@ -106,7 +106,7 @@ const Artist: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="profile-container">
     {/* <HeaderAdmin /> */}
     <div className="input-container-adm">
 
@@ -147,7 +147,7 @@ const Artist: React.FC = () => {
       )}
     </div>
     {/* <Footer /> */}
-  </>
+  </div>
   
   );
 };
