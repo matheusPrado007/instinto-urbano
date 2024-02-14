@@ -217,6 +217,7 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
 
  async function enviarDadosParaBackend(dados: any) {    
   const url = `https://api-rastro-urbano.onrender.com/upload/updateuser/${dados.id}`;
+console.log(dados.id);
 
   const headers = {
     'Authorization': `Bearer ${dados.accessToken}`,
@@ -224,6 +225,7 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
 
   const formData = new FormData();
 
+  formData.append('name', dados.newName);
   formData.append('username', dados.newUsername);
   formData.append('descricao_perfil', dados.newDescription);
   formData.append('email', dados.newEmail);

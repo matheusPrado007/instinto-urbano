@@ -42,6 +42,7 @@ const ProfileEditComponent: React.FC = () => {
     const [originalPassword, setOriginalPassword] = useState<string>('');
     const [isEditingPassword, setIsEditingPassword] = useState(false);
 
+    
     const [isEditingText, setIsEditingText] = useState(false);
     const [newTexto, setNewTexto] = useState('');
     const [texto, setTexto] = useState('');
@@ -53,7 +54,7 @@ const ProfileEditComponent: React.FC = () => {
     const [newLinkedin, setNewLinkedin] = useState<string>('');
     const [originalLinkedin, setOriginalLinkedin] = useState<string>('');
     const [isEditingLinkedin, setIsEditingLinkedin] = useState(false);
-
+    
     const [newInstagram, setNewInstagram] = useState<string>('');
     const [originalInstagram, setOriginalInstagram] = useState<string>('');
     const [isEditingInstagram, setIsEditingInstagram] = useState(false);
@@ -62,8 +63,15 @@ const ProfileEditComponent: React.FC = () => {
     const [originalAdm, setOriginalAdm] = useState<boolean>(true);
     const [isEditingAdm, setIsEditingAdm] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    
+    const [newName, setNewName] = useState<string>('');
+    const [originalName, setOriginalName] = useState<string>('');
+    const [isEditingName, setIsEditingName] = useState(false);
+
+    const idDecrypt = decrypt(id as string)
 
     useEffect(() => {
+    console.log(idDecrypt);
 
         const timeout = setTimeout(() => {
             setIsLoading(false);
@@ -74,6 +82,14 @@ const ProfileEditComponent: React.FC = () => {
         };
     }, []);
 
+    const toggleEditModeName = () => {
+        if (isEditingName) {
+            setOriginalName(newName);
+        } else {
+            setNewName(originalName);
+        }
+        setIsEditingName(!isEditingName);
+    };
 
 
     const toggleEditModeAdm = () => {
@@ -183,6 +199,8 @@ const ProfileEditComponent: React.FC = () => {
                 setNewAdm(foundUser.administrador);
                 setTexto(foundUser.descricao_curta);
                 setNewTexto(foundUser.descricao_curta);
+                setNewName(foundUser.name);
+                setOriginalName(foundUser.name);
 
             } else {
                 console.error('Usuário não encontrado');
@@ -197,6 +215,7 @@ const ProfileEditComponent: React.FC = () => {
 
     const updateDados = async () => {
         const { accessToken, refreshToken } = await fazerLogin({ email, senha });
+        
         const dados = {
             newUsername,
             newDescription,
@@ -208,8 +227,9 @@ const ProfileEditComponent: React.FC = () => {
             newInstagram,
             newLinkedin,
             texto,
-            id,
+            id: idDecrypt,
             accessToken,
+            newName,
         };
 
         await enviarDadosParaBackend(dados);
@@ -304,10 +324,10 @@ const ProfileEditComponent: React.FC = () => {
                             try {
                                 const dados = {
                                     token: accessToken,
-                                    id: id,
+                                    id: idDecrypt,
                                 };
                                 deleteUsuario(dados);
-                                navigate(`/admuser/${id}`);
+                                navigate(`/admuser/${idDecrypt}`);
                             } catch (error) {
                                 console.error('Error during user deletion:', error);
                             }
@@ -455,6 +475,31 @@ const ProfileEditComponent: React.FC = () => {
 
                             <button onClick={toggleEditModeEmail} className="email-edit-button ">
                                 {isEditingEmail ? 'Salvar' : 'Editar Email'}
+                            </button>
+                        </div>
+
+                        <div className="user-info-adm">
+                            {isEditingName ? (
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={newName}
+                                    onChange={(e) => setNewName(e.target.value)}
+                                    className="username-input"
+                                    placeholder='Nome'
+                                />
+                            ) : (
+
+                                <div className='p-instagram'>
+                                    <p className='email-input'>Nome: </p>
+
+                                    <p >{originalName}</p>
+                                </div>
+
+                            )}
+
+                            <button onClick={toggleEditModeName} className="email-edit-button ">
+                                {isEditingName ? 'Salvar' : 'Editar Email'}
                             </button>
                         </div>
 
