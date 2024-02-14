@@ -69,6 +69,16 @@ const ProfileEditComponent: React.FC = () => {
     const [isEditingName, setIsEditingName] = useState(false);
 
     const idDecrypt = decrypt(id as string)
+    const userIdDecrypt = userId && userId;
+
+    const userEdit = () => {
+        const urlAtual = window.location.href;
+        if (userIdDecrypt && urlAtual.includes(`perfilartistaedit`)) {
+            return userIdDecrypt;
+          } else {
+            return idDecrypt
+          }
+    }
 
     useEffect(() => {
     console.log(idDecrypt);
@@ -227,7 +237,7 @@ const ProfileEditComponent: React.FC = () => {
             newInstagram,
             newLinkedin,
             texto,
-            id: idDecrypt,
+            id: userEdit(),
             accessToken,
             newName,
         };

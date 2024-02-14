@@ -73,6 +73,11 @@ const ProfileAdminPost: React.FC = () => {
     const [originalAdm, setOriginalAdm] = useState<boolean>(true);
     const [isEditingAdm, setIsEditingAdm] = useState(false);
     const [isLoading, setIsLoading] = useState(true); 
+    const [newName, setNewName] = useState<string>('');
+    const [originalName, setOriginalName] = useState<string>('');
+    const [isEditingName, setIsEditingName] = useState(false);
+
+    const idDecrypt = decrypt(id as string)
 
     useEffect(() => {
       
@@ -97,8 +102,19 @@ const ProfileAdminPost: React.FC = () => {
         descricao_perfil: originalDescription,
         linkedin: newLinkedin,
         instagram: newInstagram,
-        adminstrador: newAdm
+        adminstrador: newAdm,
+        name: newName
     });
+
+    const toggleEditModeName = () => {
+        if (isEditingName) {
+            setOriginalName(newName);
+        } else {
+            setNewName(originalName);
+        }
+        setIsEditingName(!isEditingName);
+    };
+
 
     const toggleEditModeAdm = () => {
         if (isEditingAdm) {
@@ -157,6 +173,7 @@ const ProfileAdminPost: React.FC = () => {
                 newAdm,
                 accessToken,
                 texto,
+                newName
             };
 
            const resultPost = await enviarDadosParaBackendPost(dados);
@@ -295,6 +312,8 @@ const ProfileAdminPost: React.FC = () => {
                 setNewAdm(newAdm);
                 setTexto(newTexto);
                 setNewTexto(newTexto);
+                setOriginalName(newName);
+                setNewName(newName);
             } else {
                 console.error('Usuário não encontrado');
             }
@@ -425,6 +444,31 @@ const ProfileAdminPost: React.FC = () => {
 
                             <button onClick={toggleEditModeEmail} className="email-edit-button ">
                                 {isEditingEmail ? 'Salvar' : 'Editar Email'}
+                            </button>
+                        </div>
+
+                        <div className="user-info-adm">
+                            {isEditingName ? (
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={newName}
+                                    onChange={(e) => setNewName(e.target.value)}
+                                    className="username-input"
+                                    placeholder='Nome'
+                                />
+                            ) : (
+
+                                <div className='p-instagram'>
+                                    <p className='email-input'>Nome: </p>
+
+                                    <p >{originalName}</p>
+                                </div>
+
+                            )}
+
+                            <button onClick={toggleEditModeName} className="email-edit-button ">
+                                {isEditingName ? 'Salvar' : 'Editar Email'}
                             </button>
                         </div>
 
