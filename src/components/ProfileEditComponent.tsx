@@ -328,8 +328,8 @@ const ProfileEditComponent: React.FC = () => {
                 return (
                     <div className="custom-ui">
                         <h1>{'Confirmação'}</h1>
-                        <p>{'Tem certeza que deseja deletar essa Arte?'}</p>
-                        <button className="custom-ui-btn" onClick={() => {
+                        <p className='p-delete-user'>{'Tem certeza que deseja deletar esse usuário?'}</p>
+                        <button className="custom-ui-btn-delete" onClick={() => {
                             onClose();
                             try {
                                 const dados = {

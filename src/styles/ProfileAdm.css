@@ -260,6 +260,19 @@
   border-radius: 4px;
 }
 
+.p-delete-user{
+  color: red;
+  font-size: 27px;
+}
+
+.custom-ui-btn-delete {
+  width: 55px;
+  padding: 5px;
+  margin-left: 3px;
+  border-radius: 4px;
+  background-color: red;
+}
+
 .custom-ui-btn:hover {
   width: 60px;
   padding: 8px;
