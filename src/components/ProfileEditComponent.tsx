@@ -81,7 +81,7 @@ const ProfileEditComponent: React.FC = () => {
     }
 
     useEffect(() => {
-    console.log(idDecrypt);
+    console.log('decript',idDecrypt);
 
         const timeout = setTimeout(() => {
             setIsLoading(false);
@@ -334,7 +334,7 @@ const ProfileEditComponent: React.FC = () => {
                             try {
                                 const dados = {
                                     token: accessToken,
-                                    id: idDecrypt,
+                                    id: userEdit(),
                                 };
                                 deleteUsuario(dados);
                                 navigate(`/admuser/${idDecrypt}`);
