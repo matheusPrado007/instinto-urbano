@@ -14,7 +14,7 @@ import Slider from 'react-slick';
 import { CustomNextArrow, CustomPrevArrow } from './BtnComponent';
 import HeaderLoginComponent from './HeaderLoginComponent';
 import { decrypt } from '../utils/Crypto';
-
+import imgLogin from '../assets/logo01.png';
 interface User {
   _id: number;
   username: string;
@@ -145,8 +145,8 @@ const ProfilePage: React.FC = () => {
   const handleArteClick = (arteId: string) => {
     const clickedArte = dadosArtes.find((arte) => arte._id === arteId);
     setSelectedArte(clickedArte || null);
-
-    navigate(`arte/${arteId}`);
+   
+    navigate(`/admartist/${artistId}/arte/${arteId}/login`);
   };
 
 
@@ -195,7 +195,8 @@ const ProfilePage: React.FC = () => {
               <p>{user.name}</p>
             </div>
             <div className='description-p'>
-              <p>{user.descricao_perfil}</p>
+              <p>{user.descricao_perfil}  </p>
+              <img className='logo-profile' src={imgLogin} alt="" />
             </div>
 
           </div>

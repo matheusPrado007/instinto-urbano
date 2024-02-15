@@ -93,7 +93,7 @@ const ArtPostComponent: React.FC = () => {
 
   const navigateToArt = () => {
     if (newId) {
-      navigate(`/arte/${newId}`);
+      navigate(`admartist/${decrypt(id as string)}/arte/${newId}/admartist`);
     }
   }
 

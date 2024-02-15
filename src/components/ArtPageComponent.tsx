@@ -8,6 +8,7 @@ import Loading from './LoadingComponent';
 import iconFechar from '../assets/fechar.png';
 import HeaderAdmin from './HeaderAdmin';
 import HeaderArtist from './HeaderArtist';
+import HeaderLoginComponent from './HeaderLoginComponent';
 
 interface GaleriaItem {
   _id: string;
@@ -55,6 +56,9 @@ const ArtPage: React.FC = () => {
 
   const headerOrHeaderAdm = () => {
     const urlAtual = window.location.href;
+    if (urlAtual.includes(`login`)) {
+      return <HeaderLoginComponent />
+    }
     if (urlAtual.includes(`admuser`)) {
       return <HeaderAdmin />
     }
