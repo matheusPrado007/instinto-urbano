@@ -537,7 +537,7 @@ const ProfileEditComponent: React.FC = () => {
                                 <input
                                     type="text"
                                     name="username"
-                                    value={newUsername}
+                                    value={originalUsername}
                                     onChange={(e) => setNewUsername(e.target.value)}
                                     className="username-input"
                                     placeholder='username'
@@ -549,9 +549,9 @@ const ProfileEditComponent: React.FC = () => {
                                 </div>
 
                             )}
-                            <button onClick={toggleEditModeUsername} className="email-edit-button ">
+                            {/* <button onClick={toggleEditModeUsername} className="email-edit-button ">
                                 {isEditingUsername ? 'Salvar' : 'Editar username'}
-                            </button>
+                            </button> */}
                         </div>
                         {isEditing ? (
                             <div>
