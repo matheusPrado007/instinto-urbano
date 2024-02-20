@@ -93,11 +93,11 @@ const ArtPostComponent: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const navigateToArt = () => {
-    if (newId) {
-      navigate(`admartist/${decrypt(id as string)}/arte/${newId}/admartist`);
-    }
-  }
+  // const navigateToArt = () => {
+  //   if (newId) {
+  //     navigate(`admartist/${decrypt(id as string)}/arte/${newId}/admartist`);
+  //   }
+  // }
 
 
   const [selectedArte, setSelectedArte] = useState<any>({
@@ -243,9 +243,9 @@ const ArtPostComponent: React.FC = () => {
     return false;
   };
 
-  useEffect(() => {
-    navigateToArt()
-  }, [newId]);
+  // useEffect(() => {
+    // navigateToArt()
+  // }, [newId]);
 
   const username = async () => {
     const foundUser = await dadosUsers.find((u) => u._id === idDecrypt);
