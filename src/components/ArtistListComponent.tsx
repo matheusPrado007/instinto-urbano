@@ -24,7 +24,7 @@ const Artist: React.FC = () => {
 
   const navigateToProfile = (userId: string) => {
     const urlAtual = window.location.href;
-    console.log(urlAtual);
+
 
     if (urlAtual.includes('in')) {
       navigate(`/profile/in/${encrypt(userId)}/${id}`);

@@ -25,6 +25,8 @@ interface User {
   linkedin: string;
   instagram: string;
   name: string;
+  adminstrador: string;
+  descricao_curta: string
 }
 interface Arte {
   _id: string;
@@ -178,7 +180,7 @@ const ProfilePage: React.FC = () => {
             <img src={user.foto_capa} alt={`Capa de ${user.name}`} className="cover-photo" />
             <div className='description-data'>
               <img src={user.foto_perfil} alt={`Foto de perfil de ${user.name}`} className="profile-photo" />
-              <p className='responsibility-p'>Co-fundador do Rastro Urbano</p>
+              <p className='responsibility-p'>{user.adminstrador ? 'Co-fundador do Rastro Urbano': user.descricao_curta}</p>
             </div>
             <div className="user-info">
               <div className="social-links">
