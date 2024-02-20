@@ -35,6 +35,8 @@ const ArtPostComponent: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchField, setSearchField] = useState<string>('nome');
 
+  const [previewArt, setPreviewArt] = useState<any>();
+
   const [newArt, setNewArt] = useState<File | null>(null);
 
   const [showPopup, setShowPopup] = useState<any>();
@@ -298,7 +300,18 @@ const ArtPostComponent: React.FC = () => {
   }, [newId, id, selectedArte]);
 
 
+  const renderizaImgNoFrontArte = (e : any) => {
+    const file = e.target.files?.[0];
+    if (file) {
+        setNewArt(file);
 
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setPreviewArt(reader.result as any);
+        };
+        reader.readAsDataURL(file);
+    }
+}
 
 
   if (!isAdmin) {
@@ -363,10 +376,10 @@ const ArtPostComponent: React.FC = () => {
                     type="file"
                     name='imagem'
                     accept='image/*'
-                    onChange={(e) => setNewArt(e.target.files?.[0] || null)}
+                    onChange={(e) => renderizaImgNoFrontArte(e)}
                     className='cover-input'
                   />
-                  <img src={selectedArte.foto} alt={`Capa de ${selectedArte.nome}`} className="art-photo" />
+                  <img src={!previewArt ? selectedArte.foto : previewArt.toString()} alt={`Capa de ${selectedArte.nome}`} className="art-photo" />
                 </label>
                 {isEditing ? (
                   <div>
