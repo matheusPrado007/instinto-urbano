@@ -26,6 +26,11 @@ const ProfileAdminPost: React.FC = () => {
 
     const [showPopup, setShowPopup] = useState<any>();
 
+    const [previewCapa, setPreviewCapa] = useState<any>();
+    const [previewPerfil, setPreviewPerfil] = useState<any>();
+
+
+
 
     const [user, setUser] = useState<User | null>(null);
     const [newCapa, setNewCapa] = useState<File | null>(null);
@@ -346,6 +351,33 @@ const ProfileAdminPost: React.FC = () => {
     };
 
 
+    const renderizaImgNoFront = (e : any) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setNewCapa(file);
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewCapa(reader.result as any);
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    const renderizaImgNoFrontPerfil = (e : any) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setNewPerfil(file);
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewPerfil(reader.result as any);
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+
     if (!isAdmin) {
         return (
             <>
@@ -371,11 +403,11 @@ const ProfileAdminPost: React.FC = () => {
                                 type="file"
                                 name='foto_capa'
                                 accept='image/*'
-                                onChange={(e) => setNewCapa(e.target.files?.[0] || null)}
+                                onChange={(e) => renderizaImgNoFront(e)}
                                 className='cover-input'
                                 required
                             />
-                            <img src={!newUser.foto_capa ? fotoCapa : newUser.foto_capa} alt={`Capa de ${user.username}`} className={`cover-photo-adm ${newCapa ? 'selected' : ''} `}/>
+                            <img src={!previewCapa ? fotoCapa : previewCapa.toString()} alt={`Capa de ${user.username}`} className={`cover-photo-adm ${newCapa?.toString() ? 'selected' : ''} `}/>
                         </label>
 
                         <label className={`label-profile ${newPerfil ? 'selected' : ''}`}>
@@ -383,10 +415,10 @@ const ProfileAdminPost: React.FC = () => {
                                 type="file"
                                 name='foto_perfil'
                                 accept='image/*'
-                                onChange={(e) => setNewPerfil(e.target.files?.[0] || null)}
+                                onChange={(e) => renderizaImgNoFrontPerfil(e)}
                                 className='profile-input'
                             />
-                            <img src={!newUser.foto_perfil ? fotoPerfil : newUser.foto_perfil} alt={`Foto de perfil de ${user.username}`} className={`profile-photo-adm ${newPerfil ? 'selected' : ''} `} />
+                            <img src={!previewPerfil ? fotoPerfil : previewPerfil.toString()} alt={`Foto de perfil de ${user.username}`} className={`profile-photo-adm ${newPerfil ? 'selected' : ''} `} />
                         </label>
                         <div className="user-info-adm">
                             {

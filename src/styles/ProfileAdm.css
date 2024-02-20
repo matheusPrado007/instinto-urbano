@@ -362,5 +362,6 @@
 .email-edit-button.selected,
 .edit-button.selected,
 .edit-button-finish.selected {
-    border: 2px solid rgb(0, 255, 0);
+    border: 1px solid rgb(0, 255, 0);
+    background-color: greenyellow;
 }
