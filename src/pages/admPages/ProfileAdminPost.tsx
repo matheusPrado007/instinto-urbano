@@ -72,7 +72,7 @@ const ProfileAdminPost: React.FC = () => {
     const [newAdm, setNewAdm] = useState<boolean>(false);
     const [originalAdm, setOriginalAdm] = useState<boolean>(true);
     const [isEditingAdm, setIsEditingAdm] = useState(false);
-    const [isLoading, setIsLoading] = useState(true); 
+    const [isLoading, setIsLoading] = useState(true);
     const [newName, setNewName] = useState<string>('');
     const [originalName, setOriginalName] = useState<string>('');
     const [isEditingName, setIsEditingName] = useState(false);
@@ -80,16 +80,16 @@ const ProfileAdminPost: React.FC = () => {
     const idDecrypt = decrypt(id as string)
 
     useEffect(() => {
-      
-      const timeout = setTimeout(() => {
-        setIsLoading(false);
-      }, 1300);
-  
-      return () => {
-        clearTimeout(timeout);
-      };
+
+        const timeout = setTimeout(() => {
+            setIsLoading(false);
+        }, 1300);
+
+        return () => {
+            clearTimeout(timeout);
+        };
     }, []);
-  
+
 
 
 
@@ -176,31 +176,39 @@ const ProfileAdminPost: React.FC = () => {
                 newName
             };
 
-           const resultPost = await enviarDadosParaBackendPost(dados);
+            const resultPost = await enviarDadosParaBackendPost(dados);
             setNewResult(resultPost)
         } catch (error) {
             console.error('Erro durante o login:', error);
         }
     };
 
+    const emailRegex = () => {
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if(regexEmail.test(newEmail)) return true
+    }
+
     const validateUser = () => {
         const userIsTrue = dadosUsers.filter((user: any) => user.email === newEmail);
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      console.log(regexEmail.test(newEmail) );
-      
+        console.log(regexEmail.test(newEmail));
+
         if (
-          userIsTrue.length > 0 ||
-          !regexEmail.test(newEmail) ||
-          newUsername === '' ||
-          newPassword === '' ||
-          newDescription === '' ||
-          texto === ''
+            userIsTrue.length > 0 ||
+            !regexEmail.test(newEmail) ||
+            newUsername === '' ||
+            newPassword === '' ||
+            newDescription === '' ||
+            texto === '' ||
+            !newCapa ||
+            !newPerfil
         ) {
-          return true;
+            return true;
         }
-      
+
         return false;
-      };
+    };
 
     const toggleEditModeToken = async () => {
         try {
@@ -213,7 +221,7 @@ const ProfileAdminPost: React.FC = () => {
                     customUI: ({ onClose }) => (
                         <div className="custom-ui">
                             <h1>{'Aviso'}</h1>
-                            <p>{!validateUser() ? 'Por favor, forneça seu email e senha válidos para confirmar a Atualização do perfil.': 'Atenção, preencha os campos!'}</p>
+                            <p>{!validateUser() ? 'Por favor, forneça seu email e senha válidos para confirmar a Atualização do perfil.' : 'Atenção, preencha os campos!'}</p>
                             <button className="custom-ui-btn" onClick={onClose}>OK</button>
                         </div>
                     ),
@@ -358,18 +366,19 @@ const ProfileAdminPost: React.FC = () => {
                 <a href={`/profile/${id}`} className='profile-edit-finish'>Quer ver como ficou?</a>
                 {user ? (
                     <div className='form-adm-profile'>
-                        <label className="label-cover">
+                        <label className={`label-cover ${newCapa ? 'selected' : ''}`}>
                             <input
                                 type="file"
                                 name='foto_capa'
                                 accept='image/*'
                                 onChange={(e) => setNewCapa(e.target.files?.[0] || null)}
                                 className='cover-input'
+                                required
                             />
-                            <img src={!newUser.foto_capa ? fotoCapa : newUser.foto_capa} alt={`Capa de ${user.username}`} className="cover-photo-adm" />
+                            <img src={!newUser.foto_capa ? fotoCapa : newUser.foto_capa} alt={`Capa de ${user.username}`} className={`cover-photo-adm ${newCapa ? 'selected' : ''} `}/>
                         </label>
 
-                        <label className='label-profile'>
+                        <label className={`label-profile ${newPerfil ? 'selected' : ''}`}>
                             <input
                                 type="file"
                                 name='foto_perfil'
@@ -377,7 +386,7 @@ const ProfileAdminPost: React.FC = () => {
                                 onChange={(e) => setNewPerfil(e.target.files?.[0] || null)}
                                 className='profile-input'
                             />
-                            <img src={!newUser.foto_perfil ? fotoPerfil : newUser.foto_perfil} alt={`Foto de perfil de ${user.username}`} className="profile-photo-adm" />
+                            <img src={!newUser.foto_perfil ? fotoPerfil : newUser.foto_perfil} alt={`Foto de perfil de ${user.username}`} className={`profile-photo-adm ${newPerfil ? 'selected' : ''} `} />
                         </label>
                         <div className="user-info-adm">
                             {
@@ -387,7 +396,7 @@ const ProfileAdminPost: React.FC = () => {
                                         name="descricao_curta"
                                         value={newTexto}
                                         onChange={(e) =>
-                                        setNewTexto(e.target.value)}
+                                            setNewTexto(e.target.value)}
                                         className="username-input"
                                         maxLength={100}
                                     />
@@ -396,7 +405,7 @@ const ProfileAdminPost: React.FC = () => {
                                 )
                             }
 
-                            <button onClick={handleClick} className="email-edit-button ">
+                            <button onClick={handleClick} className={`email-edit-button ${newTexto !== '' ? 'selected' : ''}`}>
                                 {isEditingText ? 'Salvar' : 'Editar Texto'}
                             </button>
                         </div>
@@ -416,7 +425,7 @@ const ProfileAdminPost: React.FC = () => {
                                 </label>
                             ) : (
                                 <div>
-                                    
+
                                     <p>Admin: {originalAdm ? 'Sim' : 'Não'}</p>
                                 </div>
                             )}
@@ -442,7 +451,7 @@ const ProfileAdminPost: React.FC = () => {
 
                             )}
 
-                            <button onClick={toggleEditModeEmail} className="email-edit-button ">
+                            <button onClick={toggleEditModeEmail} className={`email-edit-button ${emailRegex() ? 'selected' : ''}`}>
                                 {isEditingEmail ? 'Salvar' : 'Editar Email'}
                             </button>
                         </div>
@@ -467,7 +476,7 @@ const ProfileAdminPost: React.FC = () => {
 
                             )}
 
-                            <button onClick={toggleEditModeName} className="email-edit-button ">
+                            <button onClick={toggleEditModeName} className={`email-edit-button ${newName !== '' ? 'selected' : ''}`}>
                                 {isEditingName ? 'Salvar' : 'Editar Email'}
                             </button>
                         </div>
@@ -486,7 +495,7 @@ const ProfileAdminPost: React.FC = () => {
                                 <p>Senha:</p>
                             )}
 
-                            <button onClick={toggleEditModePassword} className="email-edit-button ">
+                            <button onClick={toggleEditModePassword} className={`email-edit-button ${newPassword.length > 5 ? 'selected' : ''}`}>
                                 {isEditingPassword ? 'Salvar' : 'Editar Senha'}
                             </button>
                         </div>
@@ -504,7 +513,7 @@ const ProfileAdminPost: React.FC = () => {
                             ) : (
                                 <p>username:</p>
                             )}
-                            <button onClick={toggleEditModeUsername} className="email-edit-button ">
+                            <button onClick={toggleEditModeUsername} className={`email-edit-button ${newUsername !== '' ? 'selected' : ''}`}>
                                 {isEditingUsername ? 'Salvar' : 'Editar username'}
                             </button>
                         </div>
@@ -528,7 +537,7 @@ const ProfileAdminPost: React.FC = () => {
                             </div>
                         )}
 
-                        <button onClick={toggleEditMode} className="edit-button">
+                        <button onClick={toggleEditMode} className={`edit-button ${newDescription.length > 10 ? 'selected' : ''}`}>
                             {isEditing ? 'Salvar' : 'Editar Descrição'}
                         </button>
                         <div className="user-info-adm">
@@ -550,7 +559,7 @@ const ProfileAdminPost: React.FC = () => {
                                 </div>
                             )}
 
-                            <button onClick={toggleEditModeLinkedin} className="email-edit-button ">
+                            <button onClick={toggleEditModeLinkedin} className={`email-edit-button ${newLinkedin !== '' ? 'selected' : ''}`}>
                                 {isEditingLinkedin ? 'Salvar' : 'Editar Linkedin'}
                             </button>
                         </div>
@@ -573,7 +582,7 @@ const ProfileAdminPost: React.FC = () => {
                                 </div>
                             )}
 
-                            <button onClick={toggleEditModeInstagram} className="email-edit-button ">
+                            <button onClick={toggleEditModeInstagram} className={`email-edit-button ${newInstagram!== '' ? 'selected' : ''}`}>
                                 {isEditingInstagram ? 'Salvar' : 'Editar Linkedin'}
                             </button>
                         </div>
@@ -601,7 +610,7 @@ const ProfileAdminPost: React.FC = () => {
                                 placeholder='senha'
                             />
 
-                            <button onClick={toggleEditModeToken} className="edit-button-finish">
+                            <button onClick={toggleEditModeToken} className={`edit-button-finish ${!validateUser() ? 'selected' : ''}`}>
                                 Adicionar novo administrador
                             </button>
 

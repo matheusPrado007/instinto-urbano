@@ -356,3 +356,11 @@
   word-wrap: break-word;
   word-break: break-all;
 }
+
+.cover-photo-adm.selected,
+.profile-photo-adm.selected,
+.email-edit-button.selected,
+.edit-button.selected,
+.edit-button-finish.selected {
+    border: 2px solid rgb(0, 255, 0);
+}
