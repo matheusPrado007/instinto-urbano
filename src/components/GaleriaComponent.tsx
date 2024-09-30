@@ -78,14 +78,20 @@ const Galeria: React.FC = () => {
 
   const filteredArtes = dadosArtes && dadosArtes.filter((arte) => {
     const searchTermWithoutTilde = searchTerm.replace(/~/g, '');
-    const fieldValueWithoutTilde = arte[searchField].toUpperCase().replace(/~/g, '');
-
-    // Verifica se o termo de busca está presente no campo, considerando o ~
-    return fieldValueWithoutTilde.includes(searchTermWithoutTilde.toUpperCase()) || (
-      searchTermWithoutTilde.startsWith('~') &&
-      fieldValueWithoutTilde.includes(searchTermWithoutTilde.substring(1).toUpperCase())
-    );
+    const fieldValue = arte[searchField];
+  
+    // Verifica se o campo existe e é uma string antes de aplicar o método includes
+    if (typeof fieldValue === 'string') {
+      const fieldValueWithoutTilde = fieldValue.toUpperCase().replace(/~/g, '');
+      return fieldValueWithoutTilde.includes(searchTermWithoutTilde.toUpperCase()) || (
+        searchTermWithoutTilde.startsWith('~') &&
+        fieldValueWithoutTilde.includes(searchTermWithoutTilde.substring(1).toUpperCase())
+      );
+    }
+    
+    return false; // Caso o campo não seja uma string ou esteja indefinido, a arte é filtrada
   });
+  
 
 
   useEffect(() => {
